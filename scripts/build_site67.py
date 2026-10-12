@@ -366,10 +366,11 @@ hand-entered. Negative results are deliverables.</footer>
 <header><div class="wrap"><h1>How to make a submission, step by step</h1>
 <p>Written for a reader who has never opened the competition before.</p></div></header>
 <main>
-<div class="banner amber"><h2>Read this first</h2>
-<p>Lane&nbsp;67's gate was <strong>not met</strong>, so the lane's own raster is
-<strong>not recommended for submission</strong>. The steps below are the general procedure; use them
-with a file you trust.</p></div>
+<div class="banner red"><h2>Do not submit this lane's file</h2>
+<p>Lane&nbsp;67's gate was <strong>not met</strong>: the mechanism did not beat the shared template's
+control on either holdout instrument. The raster is published because the brief requires a
+downloadable, format-valid, unique GeoTIFF — it is <strong>for inspection, not for a submission
+slot</strong>. The steps below are the general procedure; use them with a file you trust.</p></div>
 
 <div class="card">
 <h2>The two-minute version</h2>
@@ -418,8 +419,10 @@ test target.</li>
 <dt>sha256</dt><dd><code>{esc(card['raster']['sha256'])}</code></dd>
 <dt>Name to use</dt><dd><code>{esc(name)}</code></dd>
 <dt>Note to paste</dt><dd><code>{esc(note)}</code></dd>
-<dt>Should you submit it?</dt><dd><strong>No.</strong> The gate was not met
-(see <a href="index.html">the executive summary</a>).</dd>
+<dt>Should you download it?</dt><dd>Yes — it is a valid GeoTIFF and it is yours to inspect.</dd>
+<dt>Should you submit it?</dt><dd><strong>No.</strong> The gate was not met, so there is no measured
+reason to expect it to beat a plain submission (see <a href="index.html">the executive
+summary</a>). It becomes worth a slot only after a better instrument shows the mechanism gaining.</dd>
 </dl>
 </div>
 
