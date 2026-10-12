@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Build the deliverable GeoTIFFs, their receipts and the registry agreement check.
 
-Rule (frozen before the numbers were read; see docs/research/run-card.json):
+Rule (frozen before the numbers were read; see docs/run-card.json):
 
   q_ml  = gradient-boosted head on the evidence channels, trained on the *full* visible
           catalogue (positives = catalogue pixels, negatives = pixels >= 5 px from any

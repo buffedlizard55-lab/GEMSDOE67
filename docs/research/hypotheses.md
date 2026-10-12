@@ -42,6 +42,39 @@ result that argues against the idea.
   emitted px/fold) versus 0.0014 for the incumbent "dots on the dilated visible catalogue"
   family. **Promoted; this is what the shipped file emits.**
 
+## H67-A2 — Credit-weighted greedy emission with a calibrated stopping rule — rank 1b, derived, not yet measured
+
+**Layer / instrument.** No new data: the same 23-channel head as H67-A, used as a *distribution*
+rather than a threshold. **Physical signature transform.** The metric's own algebra,
+`DTI = c / (0.8 + 0.2c + 0.2w)`: instead of covering the binary set `{q ≥ tau}` at 3 px spacing
+(what ships today), add dots one at a time at the pixel that maximises *expected marginal credit*
+under the model's calibrated probability, `Σ_u q(u)·max(0, k(d(u,x)) − credit(u))`, and stop when
+that expected credit per unit mass falls to the marginal bar `0.2·DTI_hat`. This is weighted
+maximum coverage — submodular, so lazy greedy is exact and needs no full-grid rescan.
+
+**Why it should catch catalogue-missing faults.** It does not change *where* the model believes
+faults are; it changes how the same belief is converted into mass. Today the tail of the field
+(`0.3 ≤ q < 0.5`) consumes a large share of the emission and carries almost no credit (`T/S = 0.139`
+at τ = 0.3 versus 0.209 at τ = 0.5, `evidence/ceiling.json`). A credit-weighted rule with a proper
+stopping rule keeps the τ = 0.5-like efficiency while still pushing into the ridges that τ = 0.3
+reaches — i.e. it walks along the ridge instead of up and down it.
+
+**How it differs from prior work here and in the sibling repositories.** Those sweep a *threshold*
+over a probability field or thin a *binary* mask; both treat every candidate pixel as equally
+valuable and stop by fiat. This is the first rule in the family whose stopping condition is the
+metric's own marginal condition, and the first that spends mass by expected credit rather than by
+membership.
+
+**Expected gain.** The shipped arm's own zero-waste ceiling is **0.4217** at its measured coverage
+(0.3684); moving `w` from 2.48 to ≈1.0 at fixed coverage projects to ≈0.34 under the identity above
+(MODEL projection — not a score). Realistically less, because a miscalibrated tail moves the real
+`w` less than the belief-based rule assumes.
+
+**Cost.** Low: one new emission function in `src/gems67/emit.py` (lazy-greedy heap, ~25 lookups per
+accepted dot), plus one holdout run through `scripts/run_holdout_ml.py` to place it on the same
+Pareto table. **Gate:** it must beat 0.2691 pooled *at equal or lower emitted mass*; otherwise it
+is logged as a negative result.
+
 ## H67-B — Public USGS-derived LiDAR scarp composite and radiometric ratios — rank 2, implemented
 
 * **Layers:** 12-band `lidar_scarp_features_u8.tif` (bands `ex_max`, `ex_mean`, `step_max`,
@@ -123,6 +156,7 @@ result that argues against the idea.
 | rank | candidate | expected DTI gain | implementation cost | status |
 | --- | --- | --- | --- | --- |
 | 1 | H67-A multi-physics evidence + context head + greedy cover | large (measured +0.15 over the lane's own geometry gate) | low (minutes, CPU only) | **shipped** |
+| 1b | H67-A2 credit-weighted greedy emission + marginal-bar stopping rule | 0.2691 → ≈0.34 projected (MODEL); ceiling at our coverage is 0.4217 | low (one emission function + one holdout run) | **next session's first experiment** |
 | 2 | H67-B public USGS-derived LiDAR/radiometric families | small on top of A; helps tip zones by construction | low | implemented, in `evidence/holdout_ml_ext.json` |
 | 3 | H67-C 1 m DEM scarplet chains | potentially large (targets the missing tip zones) | high (data + compute) | BLOCKED here |
 | 4 | H67-D raw ComCat seismicity lineaments | medium, unmeasurable here | medium | BLOCKED here |

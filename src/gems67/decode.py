@@ -168,7 +168,7 @@ def decode(ev: np.ndarray, cos2t: np.ndarray, sin2t: np.ndarray, high_q: float, 
     if relay_votes:
         # the acceptance test uses the *raw* evidence field (the thin field is zero off-ridge,
         # so testing against it would make the relay a no-op — that bug is recorded in
-        # docs/research/run-card.json as IR-67-02)
+        # docs/run-card.json as IR-67-02)
         relayed = tip_relay(skel, ev, cos2t, sin2t, lo, max_steps=relay_steps)
         candidates = relayed & np.isfinite(ev)
     else:

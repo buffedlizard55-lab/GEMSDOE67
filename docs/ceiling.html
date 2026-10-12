@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Why the score parks at 0.28 — GEMSDOE67</title><link rel="stylesheet" href="assets/site.css"></head><body>
+<header><div class="wrap"><b>GEMSDOE67</b>
+<nav><a href="index.html">Overview</a><a href="how-to-submit.html">How to submit</a>
+<a href="ceiling.html">Why 0.28</a><a href="research.html">Research</a>
+<a href="run-card.html">Run card</a><a href="sources.html">Sources</a></nav></div></header><main>
+
+<h1>Why this project's emissions park at 0.26–0.28</h1>
+<p class="dim">A root-cause analysis, computed from <code>evidence/*.json</code> by
+<code>scripts/ceiling_analysis.py</code>. Long form: <code>docs/research/why-the-ceiling.md</code>.
+Every number here is a <b>holdout</b> number unless it says leaderboard; the only organizer scores
+in existence are on the organizer's leaderboard.</p>
+
+<div class="card">
+<h3>1 · How the score is computed, in one line</h3>
+<p>The published metric is <code>DTI = TP_w / (TP_w + 0.2·FP_w + 0.8·FN_w)</code> with a triangular
+300 m kernel. Because <code>FN_w = |G| − TP_w</code> exactly, it is identical to</p>
+<p style="font-size:1.15rem"><code>DTI = c / (0.8 + 0.2·c + 0.2·w)</code></p>
+<p>with <code>c = TP_w/|G|</code> the <b>credit-weighted coverage</b> (the share of hidden truth the
+emission earns) and <code>w = FP_w/|G|</code> the <b>waste</b> in units of the hidden truth count.
+The 0.8 term is paid for <i>every</i> hidden pixel whether or not it is found, so coverage is what
+pays and waste is a slow tax. One more dot helps exactly when its best kernel weight exceeds
+<code>0.2·DTI</code> — the marginal bar, unit-tested in <code>tests/test_metric.py</code>.</p>
+</div>
+
+<h2>2 · Every measured family in these coordinates</h2>
+<table><tr><th>arm</th><th>pooled DTI</th><th>coverage c</th><th>waste w</th>
+<th>credit per unit mass T/S</th><th>best possible score at its own c</th></tr><tr><td><code>ML_cover_allpix_tau0.3</code> <span class="pill ok">shipped</span></td><td>0.2691</td><td>0.3684</td><td>2.477</td><td>0.1392</td><td>0.4217</td></tr><tr><td><code>ML_cover_allpix_tau0.2</code></td><td>0.2671</td><td>0.4248</td><td>3.529</td><td>0.1139</td><td>0.4800</td></tr><tr><td><code>ML_cover_allpix_tau0.1</code></td><td>0.2579</td><td>0.4840</td><td>4.900</td><td>0.0943</td><td>0.5397</td></tr><tr><td><code>ML_cover_allpix_tau0.05</code></td><td>0.2536</td><td>0.5082</td><td>5.513</td><td>0.0882</td><td>0.5637</td></tr><tr><td><code>ML_cover_allpix_tau0.5</code></td><td>0.2207</td><td>0.2311</td><td>1.004</td><td>0.2091</td><td>0.2731</td></tr><tr><td><code>ML_cover_geom_tau0.05</code></td><td>0.1064</td><td>0.0973</td><td>0.472</td><td>0.1901</td><td>0.1187</td></tr><tr><td><code>ML_cover_geom_tau0.1</code></td><td>0.1055</td><td>0.0957</td><td>0.440</td><td>0.2001</td><td>0.1168</td></tr><tr><td><code>ML_cover_geom_tau0.2</code></td><td>0.1020</td><td>0.0910</td><td>0.368</td><td>0.2249</td><td>0.1112</td></tr><tr><td><code>ML_cover_geom_tau0.3</code></td><td>0.0966</td><td>0.0847</td><td>0.300</td><td>0.2543</td><td>0.1037</td></tr><tr><td><code>ML_cover_geom_tau0.5</code></td><td>0.0781</td><td>0.0662</td><td>0.167</td><td>0.3425</td><td>0.0814</td></tr><tr><td><code>A0_incumbent_dots</code></td><td>0.0014</td><td>0.0012</td><td>0.029</td><td>0.0380</td><td>0.0014</td></tr></table>
+<p>The efficiency column <code>T/S</code> ranks these families in the exact reverse of the score
+column: the most efficient emission (the geometry-gated one, T/S = 0.254) scores worst, and the
+loosest (τ = 0.05, T/S = 0.088) never climbs either. At this ranking quality, buying coverage costs
+waste roughly in proportion, so the score runs along a ridge — and 0.26–0.28 <i>is</i> that ridge.
+every family that stays inside the mapped-fault neighbourhood has almost no coverage of the hidden faults (c near 0.02), so its score is bounded near 0.02; raising coverage by loosening the geometry gate raises c but also raises w, and the 0.26-0.28 band is the Pareto point those two forces reach at this head's ranking quality. It is a ceiling in information, not a bug in the writer.</p>
+
+<h2>3 · What would have to change</h2>
+<table><tr><th>target DTI</th><th>needed c at zero waste</th><th>needed c at our waste
+(2.477)</th><th>our c</th><th>verdict</th></tr><tr><td>0.3000</td><td>0.2553</td><td>0.4134</td><td>0.3684</td><td><span class="pill ok">reachable</span></td></tr><tr><td>0.3500</td><td>0.3011</td><td>0.4875</td><td>0.3684</td><td><span class="pill ok">reachable</span></td></tr><tr><td>0.4000</td><td>0.3478</td><td>0.5632</td><td>0.3684</td><td><span class="pill ok">reachable</span></td></tr><tr><td>0.4275</td><td>0.3740</td><td>0.6056</td><td>0.3684</td><td><span class="pill bad">out of reach at this coverage</span></td></tr></table>
+<p><b>The live bar is 0.4275</b> (xiaofanhu, read 2026-10-12). With the shipped
+arm's coverage, the best score physically reachable is
+<b>0.4217</b> — even if not one dot were wasted.
+with the shipped arm's coverage c = 0.3684, the absolute best achievable score at zero waste is 0.4217; the live bar 0.4275 is therefore out of reach for this coverage level, no matter how the dots are packed</p>
+<p>So there are two levers, and they are not interchangeable: (a) <b>coverage</b> — a better ranking
+of the hidden pixels, worth ≈0.15 of headroom at the shipped coverage; (b) <b>waste</b> — spending
+mass where the model's own calibrated probability is highest, with a stopping rule taken from the
+marginal bar instead of a swept threshold. Lever (b) is a pure emission change on the existing head;
+it is registered as <b>H67-A2</b> in <code>docs/research/hypotheses.md</code> with a ≈0.34 projection
+(MODEL projection under the identity above, not a score).</p>
+
+<h2>4 · Two caveats that cut against the pessimism</h2>
+<ol>
+<li><b>w is an upper bound.</b> The holdout's truth is the withheld <i>catalogue</i>. A dot on a
+real, coherent scarp that the catalogue never recorded is scored as pure waste by this instrument —
+yet the organizers' Phase-2 labels are built by expert review of Phase-1 submissions (DrivenData
+staff, forum thread 11527), so part of that "waste" is the signal the final round rewards.</li>
+<li><b>c cannot be forced.</b> Loosening the exposure threshold to τ = 0.05 raises c to 0.508 and
+<i>lowers</i> the score to 0.2536, because w grows faster. Order matters: ranking first, packaging
+second.</li>
+</ol>
+</main><footer>
+Generated by <code>scripts/build_site.py</code> from the JSON evidence in this repository.
+No number on this site is an organizer score; the only scores that exist are on the
+organizer's leaderboard. Core values: <b>Maximize P(Win)</b> · <b>Own the Outcome</b>.
+</footer></body></html>

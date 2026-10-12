@@ -59,10 +59,13 @@ primary, exactly like the organizers' own `sample_submission.tif`.
 | `src/gems67/decode.py` | axial non-maximum suppression, hysteresis, tip/junction head, tip relay along the predicted orientation |
 | `src/gems67/emit.py` | calibrated greedy marginal-DTI selection and greedy kernel-cover — the two emission rules the holdout compares |
 | `src/gems67/holdout.py` | hide-and-recover folds: whole catalogue components withheld with a buffer, visible faults masked pixel-exactly when scoring |
-| `scripts/` | data preparation, feature builds, the holdout funnel, the submission builder, the registry agreement check |
+| `scripts/` | data preparation, feature builds, the holdout funnel, the submission builder, the registry agreement check, the ceiling analysis, the artifact verifier, the site builder, the preview renderer |
 | `docs/` | the GitHub Pages site: executive summary, how to submit, research register, sources, run card |
 | `data/registry.json` | every sha256, shape, CRS and measured count used anywhere in this repository |
-| `tests/` | metric, grid, IO and provenance tests (`pytest -q`) |
+| `tests/` | metric, grid, IO, provenance and shipped-artifact tests (`pytest -q`) |
+| `evidence/ceiling.json` | the metric's algebra applied to every measured arm: coverage `c`, waste `w`, the reachable ceiling, and the coverage each target score would need — computed by `scripts/ceiling_analysis.py` |
+| `evidence/verify_*.json` | 22 format checks re-run on the published bytes by a *different* GDAL build than the writer used (`scripts/verify_artifact.py`) |
+| `docs/assets/preview-*.png` | rendered previews of the shipped emission over a shaded relief of the provided residual-elevation band (a human-eye receipt only) |
 
 ---
 
@@ -131,7 +134,7 @@ primary, exactly like the organizers' own `sample_submission.tif`.
 The brief's own protocol is implemented literally: the lane is the method paragraph above, the
 holdout is the hide-and-recover instrument in `src/gems67/holdout.py`, every number below is
 labelled, the leakage canary runs before any emission decision, and the run card is
-`docs/research/run-card.json`.
+`docs/run-card.json`.
 
 ---
 
@@ -176,7 +179,7 @@ Both facts are in the run card; the tip-relay bug is irregularity IR-67-02.)*
 ## Honest limitations
 
 * **No organizer score exists for anything here.** All numbers are holdout numbers from this
-  repository's own instrument. `docs/research/run-card.json` labels each one.
+  repository's own instrument. `docs/run-card.json` labels each one.
 * **The instrument's truth is the old catalogue**, so it structurally cannot reward a genuinely
   new fault; a holdout pass licenses *packaging*, never a score claim.
 * **The detector is trained on the catalogue**, so its strongest predictions are catalogue-like
@@ -190,6 +193,25 @@ Both facts are in the run card; the tip-relay bug is irregularity IR-67-02.)*
   defensible* new traces is worth more than a file that only maximises Phase 1 density. Both
   properties are arguments for the shipped rule, and neither is measurable here.
 
+## Why 0.28 and not 0.43 — the root cause, with the algebra
+
+The published metric reduces exactly (`FN_w = |G| − TP_w`) to
+
+```
+DTI = c / (0.8 + 0.2·c + 0.2·w)        c = TP_w/|G|  (coverage),  w = FP_w/|G|  (waste)
+```
+
+`scripts/ceiling_analysis.py` recovers `c` and `w` for every arm from the holdout evidence alone
+(`evidence/ceiling.json`). The shipped arm sits at `c = 0.3684`, `w = 2.477`, and its **own
+zero-waste ceiling is 0.4217** — i.e. the live bar (0.4275 on 2026-10-12) is unreachable for this
+coverage *no matter how the dots are packed*, while 0.15 of headroom is still sitting in the waste
+term. Efficiency (`T/S`) ranks the families in the exact reverse of the score, which is the
+signature of a coverage-limited regime: the 0.26–0.28 band is a Pareto ridge, not a bug. Loosening
+exposure to buy coverage makes it worse (τ = 0.05: `c = 0.508`, score 0.2536). Full write-up:
+[`docs/research/why-the-ceiling.md`](docs/research/why-the-ceiling.md), rendered at
+[`docs/ceiling.html`](docs/ceiling.html). The cheapest next gain is the emission, not the data:
+**H67-A2**, credit-weighted greedy with the marginal-bar stopping rule.
+
 ## Reproduce
 
 ```bash
@@ -198,8 +220,14 @@ python scripts/build_features.py        # 19-band evidence + axial orientation +
 python scripts/add_external_channels.py # public USGS-derived lidar/radiometric evidence
 python scripts/run_holdout.py           # arms A0..A3   -> evidence/holdout.json
 python scripts/run_holdout_ml.py        # supervised head + cover sweep -> evidence/holdout_ml.json
-python scripts/build_submission.py --name <name> --tau 0.25
-python scripts/registry_check.py        # rank correlation / 3 px overlap vs every prior raster
+python scripts/run_holdout_ml.py        # 23-channel extension   -> evidence/holdout_ml_ext.json
+python scripts/build_submission.py --name gemsdoe67-ovtr-ml-cover-tau3p0-20261012 \
+    --tau 0.30 --radius 3.0              # -> docs/downloads/*.tif, *.zip, checks-*.json
+python scripts/registry_check.py --ours docs/downloads/gemsdoe67-ovtr-ml-cover-tau3p0-20261012-nan.tif
+python scripts/verify_artifact.py        # 22 format checks with a second GDAL build
+python scripts/ceiling_analysis.py       # coverage/waste/ceiling per arm -> evidence/ceiling.json
+python scripts/make_preview.py           # site previews
+python scripts/build_site.py             # regenerate the Pages site from the JSON evidence
 pytest -q
 ```
 

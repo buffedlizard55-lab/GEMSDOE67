@@ -46,3 +46,12 @@ footer { border-top: 1px solid var(--line); color: var(--dim); font-size: 13px;
 details { background: var(--panel2); border: 1px solid var(--line); border-radius: 8px;
   padding: 10px 14px; margin: 10px 0; }
 summary { cursor: pointer; color: var(--accent2); }
+
+/* previews */
+figure { margin: 0 0 1.2rem; }
+figure img { width: 100%; height: auto; border-radius: 10px; border: 1px solid #26303c; display: block; }
+figcaption { color: #8fa0b4; font-size: .86rem; margin-top: .4rem; }
+.swatch { display: inline-block; width: .8rem; height: .8rem; border-radius: 3px; vertical-align: -1px; margin: 0 .15rem 0 .5rem; }
+.swatch.red { background: #ff3c28; }
+.swatch.cyan { background: #28dcff; }
+.swatch.yellow { background: #ffff00; }
