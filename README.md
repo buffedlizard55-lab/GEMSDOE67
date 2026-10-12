@@ -1,4 +1,4 @@
-# GEMSDOE67 · two lanes: orientation/tip decoding (`main`) and orientation-voted evidence (OVTR)
+# GEMSDOE67 · three lanes: orientation/tip decoding (`main`), orientation-voted evidence (OVTR) and an independent orientation/tip re-implementation (lane `ef0d41a0`)
 
 ## Submission status — read this table first
 
@@ -6,8 +6,13 @@
 | --- | --- | --- | --- |
 | **OVTR** — orientation-voted evidence, calibrated greedy kernel-cover | `arena/c331a9d8` (PR #2) | **DOWNLOAD READY** — verified artifact offered below | **0.2691** pooled (4 folds, 60 594 withheld px); 22/22 format checks pass with a second GDAL build; registry check *distinct lane* |
 | **ORIENT/TIP** — axial + tip heads, geometry-aware decoding | `arena/cfeaa9d4` (PR #1, already on `main`) | **NEGATIVE · DOWNLOAD BLOCKED** — do not submit a file from that run | 0.0344 (joint) / 0.0404 (segmentation control) |
+| **ORIENT/TIP 2** — the same brief re-implemented independently | `arena/ef0d41a0` (PR #5) | **NEGATIVE · NO DOWNLOAD OFFERED** — repository policy forbids a download button for a negative lane; record raster kept at `docs/downloads/gems67-axial-field-ranked-37654-20261012T020908Z-zeros.tif` | **0.01368** pooled (instrument A, 11 318 withheld px) / **0.00792** [0.00181, 0.01519] (instrument B, `gems57-pooled-hide-v2`, 11 321 withheld px) |
 
-The two statements do not conflict: they are different lanes with different measured numbers. The
+The three statements do not conflict: they are different lanes with different measured numbers. **Two
+independent implementations of the same orientation/tip brief (lanes `cfeaa9d4` and `ef0d41a0`) both
+came out negative** — that agreement is the useful part of lane `ef0d41a0`; its status page is
+[`docs/status-ef0d41a0.html`](docs/status-ef0d41a0.html) and its run card
+[`docs/run-card-ef0d41a0.json`](docs/run-card-ef0d41a0.json). The
 blocked status belongs to the orientation/tip lane and is preserved verbatim on its own page —
 [`docs/status-cfeaa9d4.html`](docs/status-cfeaa9d4.html) — with its run card still at
 [`docs/run-card.json`](docs/run-card.json). The OVTR lane's card is
@@ -324,3 +329,79 @@ distinct lane. No organizer score exists for this file; the live bar read on 202
 
 **Standing rules unchanged.** No competition slot is spent here; promotion is a separate selector
 step inside the weekly cap. Every number stays labelled HOLDOUT-DTI / ORGANIZER-CONFIRMED / MODEL.
+
+---
+
+## Lane `ef0d41a0` — an independent re-implementation of the orientation/tip brief (2026-10-12)
+
+**Verdict: negative, with four irregularities flagged.** This lane was built from the same brief as
+`cfeaa9d4` without reading that lane's code first, so the two results are an independent replication
+rather than a re-run.
+
+| what | where |
+| --- | --- |
+| package | `src/lane_ef0d41a0/{fields,heads,decode,arms}.py` |
+| runner | `scripts/run_lane_ef0d41a0.py e1\|e2\|e3\|unique` |
+| supporting | `scripts/{build_prior_index,build_run_card,build_site}_ef0d41a0.py`, `scripts/fetch_data_ef0d41a0.sh`, `scripts/validate_submission.py` (shared) |
+| evidence | `evidence/{e1_verify_canary_heads,e2_arms_holdout,e3_submission_receipt,e3_uniqueness,e3_uniqueness_gate,run_card}.json` |
+| tests | `tests/test_lane_ef0d41a0.py` (12) |
+| pages | `docs/status-ef0d41a0.html`, `docs/lane-ef0d41a0-submit.html`, run card `docs/run-card-ef0d41a0.json` |
+| irregularities | `registry/irregularities.md` |
+
+### Measured (HOLDOUT-DTI, α = 0.2, β = 0.8, 300 m kernel)
+
+Instrument A = withheld segments (pixel-exact, 11 318 withheld positives); instrument B = withheld
+whole components (`gems57-pooled-hide-v2`, 11 321 withheld positives, paired 20 km-block bootstrap).
+
+| arm | dots | A | B [95 % CI] |
+| --- | --- | --- | --- |
+| `orient_ext` (NMS + hysteresis + tip extension) | 3 604 | 0.01368 | 0.00792 [0.00181, 0.01519] |
+| `orient_noext` | 3 180 | 0.01365 | 0.00725 [0.00159, 0.01437] |
+| `lattice_d3` (shared decimation control) | 5 270 | 0.02218 | 0.01263 [0.00520, 0.02141] |
+| `random` (matched count) | 5 944 | 0.01088 | 0.01295 [0.01018, 0.01572] |
+| `orient_marginal` (calibrated marginal rule) | 207 | 0.00025 | 0.00149 [0.00000, 0.00461] |
+
+* Tip extension is a **null effect**: `orient_ext − orient_noext = +0.00067` [−0.00009, +0.00200].
+* The orientation decode **loses to the plain lattice control in 3 of 4 worlds**.
+* The learned orientation head is real (20.8–26.0° circular MAE vs 51.8–61.6° for a constant frame)
+  and the tip head is weak (AUC 0.5817 vs 0.4500 for the aggregate-evidence control) — the mechanism
+  is not broken, it is simply not informative enough about *hidden* faults.
+* Leakage canary clean: max single-feature AUC 0.6122 (bar 0.90).
+
+### Irregularities this lane adds
+
+1. **IR-67-OVERLAP-01** — the literal registry overlap gate cannot be satisfied: the prior
+   `gems13_r13_lattice_s5_00904` (206 895 dots) has a 3 px halo covering **99.87 %** of the footprint,
+   so a *uniformly random* 37 654-dot set scores 0.9988 overlap and the "> 70 %" stop fires for any
+   dense candidate — including the 0.2778 champion (`duplicate_count = 40`).
+2. **IR-67-MARGINAL-01** — the calibrated marginal-DTI rule is degenerate on this field: the shared
+   surrogate is monotone in the budget (0.247 → 3.533 over 500 → 37 654 dots), because dots are
+   scored against the posterior that placed them.
+3. **IR-67-CATALOGUE-01** — only 36.4 % of the external vector trace pixels are within 1 px of the
+   raster labels (the raster is 100 % within 1 px of the vector): the vector compilation is a superset
+   of the revealed labels.
+4. **IR-67-INSTRUMENT-01** — the two holdout instruments disagree in direction (A prefers the lattice,
+   B prefers matched random), consistent with the repository's own finding that holdout-DTI is
+   uncorrelated with the public leaderboard.
+5. **IR-67-DUPLICATE-LANE-01** — this session's brief duplicated lane `cfeaa9d4`'s brief, which was
+   already merged into `main`. The "stay in lane" rule was written for rasters; it applied to lanes
+   too and nobody checked. Nothing was overwritten: this lane's package, scripts and pages are
+   namespaced, and its own duplicate vendoring (`vendor/template66`) was deleted in favour of the
+   shared `vendor/gems57`.
+6. **IR-67-CI-01** — `python -m pytest -q` fails 3 tests (`tests/test_artifact.py` ×2,
+   `tests/test_grid_and_data.py` ×1) on a clean `main` checkout because the organizer rasters are
+   gitignored; verified on an untouched worktree of `origin/main`, not caused by this lane. This
+   lane's tests skip when the rasters are absent, so the merge adds 12 passing tests and no failures.
+
+### Reproduce
+
+```bash
+bash scripts/fetch_data_ef0d41a0.sh
+python3 scripts/build_prior_index_ef0d41a0.py
+export GEMS67_FEATURES=/path/to/training_features.tif GEMS67_WORK=/tmp/gems67
+export PYTHONPATH=vendor:src
+python3 -u scripts/run_lane_ef0d41a0.py e1 && python3 -u scripts/run_lane_ef0d41a0.py e2 \
+  && python3 -u scripts/run_lane_ef0d41a0.py e3 && python3 -u scripts/run_lane_ef0d41a0.py unique
+python3 scripts/build_run_card_ef0d41a0.py && python3 scripts/build_site_ef0d41a0.py
+python3 -m pytest tests/test_lane_ef0d41a0.py -q
+```

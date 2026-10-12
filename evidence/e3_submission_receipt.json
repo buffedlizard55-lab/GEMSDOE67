@@ -1,0 +1,253 @@
+{
+ "generated_utc": "2026-10-12T02:09:09Z",
+ "hypothesis": "H67-A: an axial (cos2t, sin2t) orientation head fitted within 3 px of catalogue traces, plus a tip/junction heatmap head, let a hysteresis walk follow a lineament through gaps and extend past mapped tips along the predicted strike, so that credit is recovered on the truncated ends of known structures.",
+ "mechanism": "Across-strike NMS collapses a 2-3 px evidence ridge to one path; the walk continues while evidence stays above lo (hysteresis) and, past a tip, up to max_ext_px further along the predicted orientation while evidence stays above lo_ext.  Nodes are then chosen by spacing or by the calibrated marginal-DTI rule.",
+ "non_fault_mimic": "Erosional escarpments, alluvial-fan margins, terrace risers, drainage lineaments and lithological contacts are linear and satisfy the same orientation and coherence tests; the tip head gates only how far a walk may extend and does not verify that the extension is a fault.",
+ "lane_verdict": "negative on its own mechanism: orientation-aware NMS + hysteresis + tip extension did not beat the shared template's decimated lattice on the same field, and tip extension was a null effect.",
+ "shipped_arm": "lattice_d3",
+ "budget_selection": {
+  "rule": "surrogate marginal rule checked first and found DEGENERATE (monotone in budget) on this field; budget therefore selected on instrument A and confirmed on instrument B",
+  "k_truth": 14088.7,
+  "sweep": [
+   {
+    "budget": 500,
+    "dots_grid": 500,
+    "dots_in_cells": 497,
+    "surrogate_dti": 0.2470589079852852,
+    "selection_instrument_stub_dti": 0.00583674682564096,
+    "confirmation_instrument_hide_dti": 0.0,
+    "per_cell_stub": [
+     0.002032,
+     0.025968,
+     0.0,
+     0.0
+    ]
+   },
+   {
+    "budget": 1000,
+    "dots_grid": 1000,
+    "dots_in_cells": 961,
+    "surrogate_dti": 0.4690447063832008,
+    "selection_instrument_stub_dti": 0.007634171213956758,
+    "confirmation_instrument_hide_dti": 3.3754948574181824e-05,
+    "per_cell_stub": [
+     0.005697,
+     0.025626,
+     0.000109,
+     0.004155
+    ]
+   },
+   {
+    "budget": 2000,
+    "dots_grid": 2000,
+    "dots_in_cells": 1871,
+    "surrogate_dti": 0.7912293839121052,
+    "selection_instrument_stub_dti": 0.013712421318355287,
+    "confirmation_instrument_hide_dti": 0.00039127448694383795,
+    "per_cell_stub": [
+     0.00756,
+     0.032001,
+     0.002418,
+     0.016814
+    ]
+   },
+   {
+    "budget": 3000,
+    "dots_grid": 3000,
+    "dots_in_cells": 2771,
+    "surrogate_dti": 1.0828339459800884,
+    "selection_instrument_stub_dti": 0.0162032314633482,
+    "confirmation_instrument_hide_dti": 0.000897386046322408,
+    "per_cell_stub": [
+     0.008404,
+     0.037123,
+     0.003257,
+     0.019917
+    ]
+   },
+   {
+    "budget": 5000,
+    "dots_grid": 5000,
+    "dots_in_cells": 4414,
+    "surrogate_dti": 1.5517610683329794,
+    "selection_instrument_stub_dti": 0.021014177417505605,
+    "confirmation_instrument_hide_dti": 0.0013389081399652466,
+    "per_cell_stub": [
+     0.013859,
+     0.043417,
+     0.006563,
+     0.024425
+    ]
+   },
+   {
+    "budget": 7500,
+    "dots_grid": 7500,
+    "dots_in_cells": 6326,
+    "surrogate_dti": 1.9664404640758997,
+    "selection_instrument_stub_dti": 0.0254043268106954,
+    "confirmation_instrument_hide_dti": 0.002098752337649388,
+    "per_cell_stub": [
+     0.01326,
+     0.053766,
+     0.008186,
+     0.029992
+    ]
+   },
+   {
+    "budget": 10000,
+    "dots_grid": 10000,
+    "dots_in_cells": 8206,
+    "surrogate_dti": 2.2820770782622786,
+    "selection_instrument_stub_dti": 0.029824777273156758,
+    "confirmation_instrument_hide_dti": 0.002563750988008665,
+    "per_cell_stub": [
+     0.014904,
+     0.057496,
+     0.011411,
+     0.037894
+    ]
+   },
+   {
+    "budget": 15000,
+    "dots_grid": 15000,
+    "dots_in_cells": 12526,
+    "surrogate_dti": 2.704662847803152,
+    "selection_instrument_stub_dti": 0.03841511567806982,
+    "confirmation_instrument_hide_dti": 0.0038265271806580095,
+    "per_cell_stub": [
+     0.01945,
+     0.066541,
+     0.018138,
+     0.050547
+    ]
+   },
+   {
+    "budget": 25000,
+    "dots_grid": 25000,
+    "dots_in_cells": 20953,
+    "surrogate_dti": 3.1854054768697293,
+    "selection_instrument_stub_dti": 0.048571751088258,
+    "confirmation_instrument_hide_dti": 0.004917497022807442,
+    "per_cell_stub": [
+     0.035499,
+     0.074919,
+     0.027271,
+     0.058395
+    ]
+   },
+   {
+    "budget": 37654,
+    "dots_grid": 37654,
+    "dots_in_cells": 32361,
+    "surrogate_dti": 3.5334162873638566,
+    "selection_instrument_stub_dti": 0.0592943298745168,
+    "confirmation_instrument_hide_dti": 0.0066917204334098835,
+    "per_cell_stub": [
+     0.046158,
+     0.076844,
+     0.043426,
+     0.070172
+    ]
+   }
+  ],
+  "chosen_budget": 37654,
+  "selection_instrument": "stub (withheld segments, seed 20, mode=all)",
+  "confirmation_instrument": "hide (withheld whole components, seed 20)"
+ },
+ "scored_on_instruments": {
+  "stub": {
+   "pooled_dti": 0.009885082868316866,
+   "per_cell": [
+    0.006486,
+    0.012714,
+    0.007577,
+    0.012329
+   ],
+   "withheld_positive_pixels": 11318,
+   "dots": 31957
+  },
+  "hide": {
+   "evidence_class": "HOLDOUT-DTI",
+   "evaluator_version": "gems57-pooled-hide-v2",
+   "dti": 0.0066917204334098835,
+   "ci95": [
+    0.004385615648133004,
+    0.009259923428526886
+   ],
+   "withheld_positive_pixels": 11321,
+   "tpw": 103.37969734341843,
+   "fpw": 31857.103520509332,
+   "fnw": 11217.62030265658
+  },
+  "evaluator_version": "gems57-pooled-hide-v2"
+ },
+ "gate_met": false,
+ "gate_definition": "beat the best E2 comparator on BOTH instruments (stub > 0.02218 and hide > 0.01295)",
+ "dots": 37654,
+ "raster": {
+  "filename": "gems67-axial-field-ranked-37654-20261012T020908Z-zeros.tif",
+  "sha256": "2ce23e71be15abe7c315516c3512ecb04f542e32537f87aa426aa6bfa191d507",
+  "bytes": 104326,
+  "all_finite": true,
+  "outside_footprint": 0.0
+ },
+ "validator": {
+  "file": "/home/user/GEMSDOE67/submissions/gems67-axial-field-ranked-37654-20261012T020908Z-zeros.tif",
+  "bytes": 104326,
+  "sha256": "2ce23e71be15abe7c315516c3512ecb04f542e32537f87aa426aa6bfa191d507",
+  "meta": {
+   "crs": "EPSG:32611",
+   "shape": [
+    3730,
+    3292
+   ],
+   "dtype": "float32",
+   "count": 1,
+   "nodata": null,
+   "transform": [
+    100.0,
+    0.0,
+    243350.0,
+    0.0,
+    -100.0,
+    4508550.0
+   ],
+   "profile_compress": "deflate"
+  },
+  "band_description": [
+   null
+  ],
+  "n_finite": 12279160,
+  "n_nan": 0,
+  "n_infinite": 0,
+  "min": 0.0,
+  "max": 1.0,
+  "mean": 0.0030664964579045773,
+  "emitted_positive_pixels": 37654,
+  "checks": {
+   "single_band": true,
+   "dtype_float32": true,
+   "dimensions_3730x3292": true,
+   "crs_epsg_32611": true,
+   "transform_matches_sample_submission": true,
+   "no_nan_anywhere": true,
+   "no_inf_anywhere": true,
+   "no_sentinel_values": true,
+   "range_0_1_guaranteed": true,
+   "min_ge_0": true,
+   "max_le_1": true,
+   "in_footprint_all_finite": true,
+   "in_footprint_range_0_1": true,
+   "outside_footprint_zero": true,
+   "zero_dots_on_mapped_catalogue": true
+  },
+  "all_checks_passed": true,
+  "validation_class": "local format/range preflight; not organizer acceptance or uniqueness clearance",
+  "on_catalogue_positive_pixels": 0,
+  "in_footprint_positive_pixels": 37654,
+  "footprint_fraction": 0.007286874781441169
+ },
+ "submission_name": "gems67-axial-field-ranked-37654-20261012T020908Z",
+ "submission_note_140c": "GEMSDOE67 axial-orientation lane: 28-channel band/scale edge field, across-strike NMS + hysteresis decode, >=200 m from mapped traces",
+ "seconds": 183.9926037788391
+}
