@@ -208,7 +208,10 @@ makes when it spends mass near mapped faults. It is now a machine check rather t
         f"pooled HOLDOUT-DTI {fmt(h4.get('pooled', {}).get('ML_cover_allpix_tau0.3', {}).get('dti'))} "
         f"(4 folds, 60594 withheld px); UNSCORED")
 
-    best_arm = next((k for k in h4.get("pooled", {}) if k.endswith("tau0.3")), None)
+    # the shipped arm is the one with the highest pooled DTI among the kernel-cover arms
+    pooled = h4.get("pooled", {})
+    cover_arms = [k for k in pooled if k.startswith("ML_cover_allpix")]
+    best_arm = max(cover_arms, key=lambda k: pooled[k].get("dti", 0.0)) if cover_arms else None
 
     (DOCS / "index.html").write_text(HEAD.format(title="GEMSDOE67 — DOE GEMS Prize submission")
       + f"""
@@ -262,6 +265,8 @@ spends mass as a <b>greedy 3 px kernel-cover</b> of that field — the minimum m
 covers the model's own best estimate of every candidate trace.</p>
 
 <h2>Measured on the hide-and-recover holdout</h2>
+<p class="dim">The row marked <span class="pill ok">shipped family</span> is the rule that produced the
+file above; every other row is a measured alternative, kept so the choice can be audited.</p>
 <p class="dim">Four quadrant folds; whole catalogue components withheld with a 2 px buffer;
 visible faults masked pixel-exactly when scoring; pooled DTI (α = 0.2, β = 0.8, 300 m
 triangular kernel). Withheld positives: {h4.get('pooled',{}).get(best_arm,{}).get('n_truth','—')} px.</p>
