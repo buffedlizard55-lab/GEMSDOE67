@@ -294,3 +294,33 @@ pytest -q
 * EPSG:32611 — <https://epsg.io/32611>
 * Tversky index — <https://en.wikipedia.org/wiki/Tversky_index>
 * GDR submission 1391 (Nevada geothermal data) — <https://gdr.openei.org/submissions/1391>
+
+---
+
+## Handover — end of the 2026-10-12 session (OVTR lane)
+
+**Done and merged.** PR #2 is merged into `main` (`6c080c0`); CI is green; the Pages site builds
+from `main:/`. Deliverables: the verified submission GeoTIFF + `.zip` + all-finite twin + receipts
+under `docs/downloads/`, the one-click site, the why-0.28 root-cause analysis, the hypothesis
+register with H67-A2 ranked first, and the run card at `docs/run-card-ovtr.json`.
+
+**Measured, for the record.** Shipped rule pooled **HOLDOUT-DTI 0.2691** (4 folds, 60 594 withheld
+positives) versus 0.0014 for the incumbent family and 0.1149 for the lane's preregistered
+geometry-gated arm. Registry check: max |rank correlation| 0.0478, max 3 px overlap 0.3593 →
+distinct lane. No organizer score exists for this file; the live bar read on 2026-10-12 is 0.4275.
+
+**Open items, in priority order.**
+1. `IR-67-04` — no bootstrap CI on the pooled DTI; add one (per-truth-pixel resample) and publish it.
+2. **H67-A2** — credit-weighted greedy emission with the marginal-bar stopping rule. Gate: beat
+   0.2691 pooled *at equal or lower emitted mass*, else log the negative. Projection ≈0.34 is a MODEL
+   number and must never be quoted as a score.
+3. H67-E thermal-spring corroboration, with its own masked holdout and without the label-derived
+   `dist_known_fault_px` column.
+4. H67-C/H67-D are blocked in this sandbox (no egress to USGS hosts); a session with egress should
+   fetch the 1 m DEM tiles named in `1m_DEM_links.csv` and the raw ComCat catalogue.
+5. The two-lane site: both lanes' pages coexist and are cross-linked; if the orientation/tip lane
+   re-runs `scripts/build_site_cfeaa9d4.py` it will overwrite the merged pages — regenerate with
+   `scripts/build_site.py` afterwards and re-run `scripts/check_site.py`.
+
+**Standing rules unchanged.** No competition slot is spent here; promotion is a separate selector
+step inside the weekly cap. Every number stays labelled HOLDOUT-DTI / ORGANIZER-CONFIRMED / MODEL.
