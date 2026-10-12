@@ -29,10 +29,11 @@ from pathlib import Path
 
 import numpy as np
 
-sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
+ROOT = Path(__file__).resolve().parents[1]
+sys.path[:0] = [str(ROOT / "src"), str(ROOT / "vendor")]
 
 from gems57 import grid as gridmod, submission_writer  # noqa: E402
-from gems67 import features as featmod, heads as headsmod, lane as lanemod  # noqa: E402
+from lane_5dc3ab34 import features as featmod, heads as headsmod, lane as lanemod  # noqa: E402
 
 NOTE_MAX = 140
 

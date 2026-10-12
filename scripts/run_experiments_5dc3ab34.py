@@ -22,10 +22,11 @@ from pathlib import Path
 import numpy as np
 from scipy import ndimage as ndi
 
-sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
+ROOT = Path(__file__).resolve().parents[1]
+sys.path[:0] = [str(ROOT / "src"), str(ROOT / "vendor")]
 
 from gems57 import evaluate_holdout, holdout as holdout_mod, metric, grid as gridmod  # noqa: E402
-from gems67 import decode as dec, features as featmod, heads as headsmod, lane as lanemod  # noqa: E402
+from lane_5dc3ab34 import decode as dec, features as featmod, heads as headsmod, lane as lanemod  # noqa: E402
 
 EVAL_VERSION = evaluate_holdout.VERSION
 ARMS = ("iso", "lane", "lane_blur")

@@ -40,7 +40,7 @@ PINS = {
 
 
 def main() -> int:
-    root = Path(__file__).resolve().parents[1] / "src" / "gems57"
+    root = Path(__file__).resolve().parents[1] / "vendor" / "gems57"
     bad = []
     for name, pin in PINS.items():
         p = root / name

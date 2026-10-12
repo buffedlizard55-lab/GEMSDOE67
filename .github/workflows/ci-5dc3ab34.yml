@@ -1,4 +1,4 @@
-name: ci
+name: ci-5dc3ab34
 on:
   push:
   pull_request:
@@ -11,6 +11,6 @@ jobs:
         with:
           python-version: "3.11"
       - run: pip install numpy scipy scikit-learn rasterio pytest
-      - run: PYTHONPATH=src pytest tests -q
+      - run: PYTHONPATH=vendor:src pytest tests/test_lane_5dc3ab34.py -q
       - name: validate template pins
-        run: PYTHONPATH=src python scripts/check_template_pins.py
+        run: PYTHONPATH=vendor:src python scripts/check_template_pins_5dc3ab34.py

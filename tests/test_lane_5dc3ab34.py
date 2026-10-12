@@ -6,7 +6,7 @@ import numpy as np
 import pytest
 
 from gems57 import metric
-from gems67 import decode as dec, heads as headsmod, lane as lanemod, nodes as nodesmod
+from lane_5dc3ab34 import decode as dec, heads as headsmod, lane as lanemod, nodes as nodesmod
 
 
 def _ridge_grid(H=60, W=60, t0=10, t1=48):

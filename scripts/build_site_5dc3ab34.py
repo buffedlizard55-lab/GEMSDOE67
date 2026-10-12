@@ -17,7 +17,7 @@ import json
 from pathlib import Path
 
 REPO = Path(__file__).resolve().parents[1]
-DOCS = REPO / "docs"
+DOCS = REPO / "docs" / "lane-5dc3ab34"
 DATA = DOCS / "data"
 
 CSS = """
