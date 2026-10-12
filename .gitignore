@@ -1,0 +1,5 @@
+# large or machine-local artifacts (never commit)
+*.npy
+__pycache__/
+*.pyc
+evidence/*.tmp
