@@ -15,6 +15,10 @@ sys.path.insert(0, str(ROOT / "src"))
 
 DOWNLOADS = ROOT / "docs" / "downloads"
 PRIMARY = "gemsdoe67-ovtr-ml-cover-tau3p0-20261012"
+DATA = Path("/tmp/gems_data")
+HAS_DATA = (DATA / "labels.tif").exists() and (DATA / "labels.tif").stat().st_size > 0
+needs_data = pytest.mark.skipif(not HAS_DATA,
+                                reason="competition rasters (login-walled) are not in this checkout")
 
 
 def sha256(p: Path) -> str:
@@ -27,16 +31,34 @@ def sha256(p: Path) -> str:
 
 @pytest.mark.skipif(not (DOWNLOADS / f"{PRIMARY}-nan.tif").exists(),
                     reason="artifact not built in this checkout")
-def test_primary_artifact_is_a_legal_submission():
+def test_primary_artifact_header_matches_its_receipt():
+    """Readable without the login-walled inputs: bytes, hash, shape, dtype, value range."""
     import tifffile
 
     rep = json.loads((DOWNLOADS / f"checks-{PRIMARY}.json").read_text())
     p = DOWNLOADS / f"{PRIMARY}-nan.tif"
     assert sha256(p) == rep["files"]["nan"]["sha256"]
+    assert p.stat().st_size == rep["files"]["nan"]["bytes"]
+    with tifffile.TiffFile(p) as t:
+        a = t.pages[0].asarray()
+    assert a.shape == (3730, 3292)
+    assert a.dtype == np.float32
+    assert rep["files"]["nan"]["positive_cells"] == int((a > 0.5).sum())
 
-    lab = tifffile.TiffFile(Path("/tmp/gems_data/labels.tif"))
-    labels = lab.pages[0].asarray()
-    a = tifffile.TiffFile(p).pages[0].asarray()
+
+@needs_data
+@pytest.mark.skipif(not (DOWNLOADS / f"{PRIMARY}-nan.tif").exists(),
+                    reason="artifact not built in this checkout")
+def test_primary_artifact_is_a_legal_submission():
+    import tifffile
+
+    rep = json.loads((DOWNLOADS / f"checks-{PRIMARY}.json").read_text())
+    p = DOWNLOADS / f"{PRIMARY}-nan.tif"
+
+    with tifffile.TiffFile(DATA / "labels.tif") as lab:
+        labels = lab.pages[0].asarray()
+    with tifffile.TiffFile(p) as t:
+        a = t.pages[0].asarray()
 
     assert a.shape == (3730, 3292)
     assert a.dtype == np.float32
