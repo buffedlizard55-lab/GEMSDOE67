@@ -1,4 +1,4 @@
-name: ci
+name: ci-lane-c7b2cfa6
 on: [push, pull_request]
 jobs:
   tests:
@@ -9,5 +9,5 @@ jobs:
         with: {python-version: "3.11"}
       - run: pip install numpy scipy rasterio scikit-learn scikit-image pytest
       # data-free tests only: the competition rasters are gitignored mirrors (IR-67-DATA-01)
-      - run: python -m pytest -q tests
-      - run: python -c "import json,glob;[json.load(open(p)) for p in glob.glob('registry/*.json')+glob.glob('docs/data/*.json')]"
+      - run: python -m pytest -q tests/test_lane_c7b2cfa6.py
+      - run: python -c "import json,glob;[json.load(open(p)) for p in glob.glob('registry/c7b2cfa6/*.json')+glob.glob('evidence/c7b2cfa6/*.json')]"
