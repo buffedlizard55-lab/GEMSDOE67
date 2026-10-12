@@ -1,54 +1,169 @@
-# GEMSDOE67 — orientation-voted fault discovery for the DOE GEMS Prize
+# GEMSDOE67 · two lanes: orientation/tip decoding (`main`) and orientation-voted evidence (OVTR)
 
-**Competition:** DrivenData #306, *The Geologic Enhanced Mapping System (GEMS) Prize Challenge*
-(GeoDAWN / NW Nevada). Predict faults that are **not** in the USGS / INGENIOUS catalogue, and
-submit them as a single-band float32 GeoTIFF in EPSG:32611 at 100 m.
+## Submission status — read this table first
+
+| lane | branch / merge | status | measured HOLDOUT-DTI |
+| --- | --- | --- | --- |
+| **OVTR** — orientation-voted evidence, calibrated greedy kernel-cover | `arena/c331a9d8` (PR #2) | **DOWNLOAD READY** — verified artifact offered below | **0.2691** pooled (4 folds, 60 594 withheld px); 22/22 format checks pass with a second GDAL build; registry check *distinct lane* |
+| **ORIENT/TIP** — axial + tip heads, geometry-aware decoding | `arena/cfeaa9d4` (PR #1, already on `main`) | **NEGATIVE · DOWNLOAD BLOCKED** — do not submit a file from that run | 0.0344 (joint) / 0.0404 (segmentation control) |
+
+The two statements do not conflict: they are different lanes with different measured numbers. The
+blocked status belongs to the orientation/tip lane and is preserved verbatim on its own page —
+[`docs/status-cfeaa9d4.html`](docs/status-cfeaa9d4.html) — with its run card still at
+[`docs/run-card.json`](docs/run-card.json). The OVTR lane's card is
+[`docs/run-card-ovtr.json`](docs/run-card-ovtr.json) and its one-click download page is
+[`docs/index.html`](docs/index.html). **No competition slot has been used by either lane**;
+promotion into a slot is a separate selector decision inside the weekly cap shown on the submission
+page.
+
+---
+
+
+## Submission status of the orientation/tip lane: **NOT READY — do not submit a file from *that* run**
+
+[Project website](https://buffedlizard55-lab.github.io/GEMSDOE67/) ·
+[Executive submission guide](https://buffedlizard55-lab.github.io/GEMSDOE67/docs/executive-summary.html) ·
+[Research and irregularities](research/review.md) · [Run card](docs/run-card.json)
+
+A unique, gate-passing submission TIFF is the goal, **not a deliverable we can claim before
+evidence exists**. No previous submission is copied into a new submission. No dummy TIFF,
+renamed historical raster, projected leaderboard score, or unconditional download button.
+Negative results are deliverables. No competition slot is consumed by this repository.
+
+## Starting point — read at every session
+
+This is the maintained project brief from the user's request. Repeated wording is consolidated
+below; it is not represented as a verbatim transcript. Preserve this intent in future work.
+
+> MUST GENERATE A UNIQUE TIF SUBMISSION FOR THE COMPETITION. DO NOT COPY A PREVIOUS
+> SUBMISSION UNLESS IT'S FOR LEARNING AND EDUCATION. IT MUST BE OBVIOUS WHETHER IT IS
+> OK TO DOWNLOAD AND SUBMIT THE GENERATED TIF SUBMISSION.
+
+### Mandatory lane and parallel-run protocol
+
+1. **Orientation/tip heads only.** Joint segmentation, axial `(cos 2θ, sin 2θ)` supervision
+   within 3 px of catalogue traces; Gaussian endpoint/junction supervision σ = 1–2 px.
+   Orientation-aware non-maximum suppression and hysteresis; continuation beyond mapped
+   tips only with predicted-direction and persistent probability support. Greedy calibrated
+   marginal-DTI allocation or 4–5 px node spacing. Do not assume a universal truncation length.
+2. **Reuse, don't rebuild.** Use cached feature inputs and shared `evaluate_holdout.py` /
+   `submission_writer.py`. Whole segments hidden with a buffer; catalogue-derived features
+   use visible faults only; mask visible faults pixel-exactly. Pool DTI terms with α = 0.2,
+   β = 0.8 and a 300 m triangular kernel. Fix shared defects in the template, not privately.
+3. **Distinctness.** Before production placement and again on final dots compare to the
+   registry. Rank correlation exceeding 0.90 or over 70% of candidate dots within 3 px of
+   one prior raster is a duplicate: log and stop. Hash and pixel agreement checks cover all
+   prior rasters; missing registry coverage is not success.
+4. **Leakage canary.** Test each feature alone on the holdout. AUC above 0.90 is leakage
+   until explained. Low AUC alone does not prove safety.
+5. **Evidence.** Scores are HOLDOUT-DTI (evaluator version, withheld positives, 95% CI) or
+   ORGANIZER-CONFIRMED (submission-page receipt). A projection is never a score. Unverified
+   user-reported history remains unverified. Conflicting leaderboard reports must be flagged.
+6. **Promotion gate.** Beat the comparable current holdout best and improve recovery of
+   masked tip-adjacent segments. Then normalize to [0,1], write single-band float32
+   EPSG:32611, 100 m GeoTIFF on the sample's exact shape/transform; NaNs, if any, only outside
+   the footprint. Run `validate_submission.py`, uniqueness and hash/pixel checks. Offer a
+   download only after all gates pass; otherwise log the negative result.
+7. **Run card.** One JSON card records hypothesis, mechanism, named non-fault mimic,
+   holdout DTI/CI, registry comparisons, raster SHA-256, validator output, submission name,
+   note ≤140 characters, and verdict promote/negative. Null means unmeasured, not zero.
+8. **Budget.** Stop after 3 experiments or 2 hours. Real submission-slot promotion is a
+   separate selector step within the weekly cap shown on the submission page. Never assume
+   that cap, auto-submit, or spend a slot during research.
+
+### Research, product and ownership requirements
+
+- Review the repository and previous-session work before implementation. Generate 3–5
+  geological hypotheses, name specific layers, physical transforms/signatures, missing-fault
+  rationale, non-fault confounder and differences from implemented methods. Rank expected
+  holdout utility and cost without presenting speculative scores. Check any new official
+  free data source is obtainable before calling a dependent hypothesis viable.
+- Study the related GEMSDOE work, especially GEMSDOE32 H33-2-B2, but never relabel its raster
+  as new science. Explain how sparsity and the metric interact and why that is not proof of
+  future leaderboard performance. The discovery target is missing faults relevant to
+  geothermal exploration, not unverified claims of vent discovery.
+- Use official, trusted sources where obtainable; preserve source URLs, verification state,
+  hashes, irregularities and limitations for manual review. Do not claim line-by-line
+  official verification where authentication or network policy prevents it.
+- Work autonomously without requesting credentials. Restore obtainable data, test on CPU
+  where possible, and document actual blockers instead of repeating stale setup claims.
+- Build a clean GitHub Pages site. Executive summary and submission readiness belong at
+  the beginning. A future approved artifact has one-click download, unique name and a short
+  note; unapproved candidates have no TIFF link. Provide exact contest upload instructions.
+  A static page cannot itself train a model. Clearly date feed/snapshot evidence, never fake
+  a live leaderboard or current verification.
+- Perform three passes: implement/test; review bugs/assumptions/edge cases and fix; recheck
+  against this brief and document unmet requirements. Open a PR and merge it only after
+  checks. Record next steps and limitations for the next session.
+- **Maximize P(Win):** evidence-based tradeoffs over impressive-looking unvalidated results.
+  **Own the Outcome:** investigate and fix end-to-end failures; a truthful negative is more
+  valuable than an unsafe submission. These values do not authorize invented evidence.
+
+### Competition and source starting points from the request
+
+- [Overview](https://www.drivendata.org/competitions/306/competition-doe-gems/)
+- [Problem / metric](https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/)
+- [About](https://www.drivendata.org/competitions/306/competition-doe-gems/page/968/)
+- [Data](https://www.drivendata.org/competitions/306/competition-doe-gems/data/)
+- [Leaderboard](https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/)
+- [Official reference](https://github.com/drivendataorg/gems-prize-reference-solution)
+- [Prize PDF](https://docs.nlr.gov/docs/fy26osti/96647.pdf)
+- [USGS GeoDAWN](https://www.usgs.gov/data/geodawn-airborne-magnetic-and-radiometric-surveys-northwestern-great-basin-nevada-and)
+- [INGENIOUS](https://gbcge.org/current-projects/ingenious/) · [GDR 1391](https://gdr.openei.org/submissions/1391)
+- [Batra DOI](https://doi.org/10.1109/CVPR.2019.01063) · [Southampton 76146](https://eprints.soton.ac.uk/76146/)
+- [EPSG](https://epsg.io/32611) · [Tversky overview](https://en.wikipedia.org/wiki/Tversky_index)
+- [GEMSDOE32 site](https://buffedlizard55-lab.github.io/GEMSDOE32/docs/index.html)
+- Full related-repository tree inventory: [JSON](evidence/repository_inventory.json).
+  This preserves discovered raster/tool paths, not verification of all published results.
+- Source-by-source verification table: [CSV](research/sources.csv).
+
+## What is actually implemented
+
+- Hash-checked owner-mirror restoration and grid audit; source arrays excluded from Git.
+- Unmodified commit-pinned shared GEMSDOE60 `gems57` evaluator, spatial folds and writer.
+- Feature-alone canaries on buffered spatial folds.
+- Small CPU shared-trunk neural research prototype with axial and heatmap heads feeding a
+  second segmentation stage; raster/PCA proxy labels, orientation NMS, supported directional
+  hysteresis and 5 px node spacing. **Not Batra's spatial CNN, not original polyline labels,
+  not a complete production mapped-tip extension implementation.**
+- One matched segmentation-control experiment, pooled spatial-bootstrap DTI and tip recall.
+- Strict format-validation wrapper, scoped uniqueness comparisons and fail-closed release
+  decision utility. No global-registry or production-artifact approval is implied.
+- Tests, reproducible receipts and a static status/guide site.
+
+## Reproduce locally
+
+```bash
+python -m venv .venv
+.venv/bin/pip install -r requirements.txt
+bash scripts/download_competition_data.sh   # gh auth already configured in Arena
+.venv/bin/python scripts/prepare_data.py
+OPENBLAS_NUM_THREADS=1 .venv/bin/python scripts/run_canaries.py
+OPENBLAS_NUM_THREADS=1 .venv/bin/python scripts/run_experiment.py
+.venv/bin/python -m pytest -q
+.venv/bin/python scripts/build_site.py
+.venv/bin/python scripts/check_site.py
+```
+
+Data restoration uses allowed GitHub hosts. The initial TIFFs occupy roughly half a gigabyte;
+the memory-mapped transcode uses additional disk. A run is not a weekly submission. The fixed
+experiment has no automatic retry/tuning loop. Check the budget before manually rerunning it.
+To validate a future candidate: `.venv/bin/python scripts/validate_submission.py PATH.tif`.
+Format validation alone is never promotion or organizer acceptance.
+
+## Next session
+
+Read this README, `research/review.md`, `research/hypotheses.md`, `research/verification.md`
+and the run card first. Resolve documented gates before spending a slot. The website remains
+blocked until **all** required evidence exists. No credentials belong in this repository.
 
 ---
 
-## ⬇ SUBMISSION FILE — download and submit
+# Lane OVTR (`arena/c331a9d8`) — the lane that produced the offered artifact
 
-> **Is it OK to download and submit? The gate is met** (see the run card below): the shipped
-> emission rule beats the preregistered lane arm and the incumbent family on the spatially
-> blocked hide-and-recover holdout, and it passes every format check. It is a **candidate**,
-> not a proven improvement: no organizer score exists for it yet, and the holdout cannot
-> reward a genuinely new fault.
-
-| what | file |
-| --- | --- |
-| **Primary (upload this one)** | [`docs/downloads/gemsdoe67-ovtr-ml-cover-tau3p0-20261012-nan.tif`](docs/downloads/gemsdoe67-ovtr-ml-cover-tau3p0-20261012-nan.tif) |
-| .zip containing exactly that GeoTIFF | [`docs/downloads/gemsdoe67-ovtr-ml-cover-tau3p0-20261012.zip`](docs/downloads/gemsdoe67-ovtr-ml-cover-tau3p0-20261012.zip) |
-| all-finite twin (same values, no NaN, no nodata tag) | [`…-zero.tif`](docs/downloads/gemsdoe67-ovtr-ml-cover-tau3p0-20261012-zero.tif) |
-| lower-mass sibling (τ = 0.5, 68 463 px) — the lower-variance bet if the live hidden set is sparse | [`…tau5p0-sibling-20261012-nan.tif`](docs/downloads/gemsdoe67-ovtr-ml-cover-tau5p0-sibling-20261012-nan.tif) |
-| format receipts (independent re-read, both twins) | `docs/downloads/checks-gemsdoe67-…json` |
-
-* primary `-nan.tif` sha256 `8624c5a58c681f57a6d26cab0652cfe654bcd46dc8ba68a7d5a4c0feaa29bc89`, 167 597 emitted pixels, 1 789 755 bytes
-* values: `1.0` on emitted pixels, `0.0` elsewhere inside the footprint, `NaN` outside (the twin is all-finite)
-
-**Note to paste into the submit form's _Note_ field** (≤ 200 characters):
-
-```
-GEMSDOE67 OVTR | HGB head on 23 evidence channels -> greedy 3 px kernel-cover of q>=0.3, 167597 dots; pooled HOLDOUT-DTI 0.2691 (4 folds, 60594 withheld px); UNSCORED
-```
-
-### How to submit, in five steps
-
-1. Open <https://www.drivendata.org/competitions/306/competition-doe-gems/submissions/>.
-2. **New submission** → *File to submit* → choose the `.tif` (or the `.zip`).
-3. Paste the note from the table above (optional, but it is how submissions are told apart).
-4. Press **Submit**. The organizer validator checks CRS, shape, geotransform, dtype and the
-   `[0, 1]` value range; this file was verified against all of those with two independent
-   readers (`tifffile` and GDAL/rasterio) before it was published here.
-5. Confirm on the leaderboard — a scored receipt is the only thing that turns any number in
-   this repository into a fact. Nothing here has been scored.
-
-**The portal error `"Predicted values must be in range [0, 1]"`** comes from a nodata sentinel
-(a large negative value such as `-3.4028234663852886e+38`) or from values outside `[0, 1]`.
-Both routes are measured in this repository (see `docs/research/format-notes.md`); the shipped
-file has **no nodata tag** in its `-zero` twin and **`nan`** outside the footprint in its
-primary, exactly like the organizers' own `sample_submission.tif`.
-
----
+> Everything from here on belongs to the OVTR lane. The lane brief and the parallel-run protocol in
+> the first half of this README govern both lanes; the numbers, artifacts and scripts below are
+> OVTR's, and its run card is `docs/run-card-ovtr.json`.
 
 ## What is in this repository
 
@@ -66,75 +181,6 @@ primary, exactly like the organizers' own `sample_submission.tif`.
 | `evidence/ceiling.json` | the metric's algebra applied to every measured arm: coverage `c`, waste `w`, the reachable ceiling, and the coverage each target score would need — computed by `scripts/ceiling_analysis.py` |
 | `evidence/verify_*.json` | 22 format checks re-run on the published bytes by a *different* GDAL build than the writer used (`scripts/verify_artifact.py`) |
 | `docs/assets/preview-*.png` | rendered previews of the shipped emission over a shaded relief of the provided residual-elevation band (a human-eye receipt only) |
-
----
-
-## Standing brief (read first, every session)
-
-> **THE FOLLOWING IS THE HIGHEST URGENCY AND MUST BE FOLLOWED!**
->
-> MUST GENERATE A UNIQUE TIF SUBMISSION FOR THE COMPETITION. DO NOT COPY A PREVIOUS SUBMISSION
-> UNLESS IT'S FOR LEARNING AND EDUCATION. BUT WE MUST GENERATE A UNIQUE TIF SUBMISSION. IT MUST
-> BE OBVIOUS WHETHER IT IS OK TO DOWNLOAD AND SUBMIT THE GENERATED TIF SUBMISSION.
->
-> There should be an easy to download submission tif file as described by the prompt. Read the
-> entire prompt.
->
-> Orientation and tip heads with geometry-aware decoding. Per-pixel classification ignores
-> connectivity. Batra et al. (CVPR 2019, doi:10.1109/CVPR.2019.01063) show that learning
-> orientation jointly with segmentation in stacked multi-branch heads improves the topology of
-> extracted line networks. Add an axial orientation head (cos 2θ, sin 2θ, my adaptation for
-> undirected faults, supervised within 3 px of catalogue traces). Add a tip/junction heatmap
-> head (Gaussian σ = 1–2 px at polyline endpoints and junctions). Decode with orientation-aware
-> non-maximum suppression and hysteresis. Extend traces past mapped tips only along predicted
-> orientation where probability support persists. Published fault-population studies find mapped
-> lengths come up short because tip zones fall below resolution (about 500 m per fault in one
-> seismic array; ≥100–200 m DEM truncation in another rift: Southampton eprint 76146 and a UCD
-> Fault Analysis Group TSG-2008 abstract). Select nodes by calibrated greedy marginal-DTI
-> selection or 4–5 px spacing. Gate: DTI gain and better recovery of masked tip-adjacent
-> segments in hide-and-recover blocks. Finish: normalize to [0,1]; write a float32 EPSG:32611
-> 100 m GeoTIFF (NaN only outside the footprint); pass `validate_submission.py`; run a
-> hash/pixel-agreement check against all prior rasters; offer the download only if the gate is
-> met, else log the negative result.
->
-> **PARALLEL-RUN PROTOCOL — read first. This session is one of several running from this same
-> prompt.**
->
-> 1. **LANE.** Your lane is the single method paragraph below. Stay inside it. If your raster's
->    rank-correlation with any registry raster exceeds [0.90], or more than [70%] of your dots
->    fall within 3 px of one registry raster's dots, you have drifted into another lane: log it
->    as a duplicate and stop. Check this on the surface before placement AND on the final dots.
-> 2. **REUSE, DON'T REBUILD.** Use the template's cached feature stack, `evaluate_holdout.py`
->    and `submission_writer.py`. Holdout = hide-and-recover: withhold whole fault segments with
->    a buffer, derive every catalogue-based feature only from the visible faults, mask visible
->    faults pixel-exactly, score pooled DTI (alpha 0.2, beta 0.8, 300 m triangular kernel). If a
->    shared tool is wrong, fix it once in the template and report it; never keep a private fork.
-> 3. **LABEL EVERY NUMBER** as HOLDOUT-DTI (evaluator version, number of withheld positives,
->    95% CI) or ORGANIZER-CONFIRMED (copied from a submission-page receipt). A projection is
->    never written as a score.
-> 4. **LEAKAGE CANARY.** Test each feature alone on the holdout before trusting any result. AUC
->    above [0.90] means leakage until proven otherwise.
-> 5. **RUN CARD.** End with one JSON card: hypothesis; mechanism; the named non-fault process
->    that could mimic it; holdout DTI + CI; correlation/overlap vs registry; raster sha256;
->    validator output (no NaN inside the footprint, values in [0,1], CRS/shape/transform match);
->    submission name + note of at most 140 characters; verdict promote / negative. Negative
->    results are deliverables.
-> 6. **BUDGET.** Stop after [3] experiments or [2] hours. Do not pick submissions: promotion to
->    a real slot is a separate selector step, within the weekly cap shown on the submission
->    page.
->
-> Work line by line verifying from official verified trusted sources, provide links for manual
-> review. There should be no manual input, work on your own to complete tasks. Flag any
-> irregularities for review. No hallucinations. Verify line by line.
->
-> **Core values.** *Maximize P(Win)* — every weekly submission slot is an experiment, not a
-> lottery ticket. *Own the Outcome* — every claim here carries an evidence class, and a defect
-> found in our own instrument is published and replaced rather than quietly dropped.
-
-The brief's own protocol is implemented literally: the lane is the method paragraph above, the
-holdout is the hide-and-recover instrument in `src/gems67/holdout.py`, every number below is
-labelled, the leakage canary runs before any emission decision, and the run card is
-`docs/run-card.json`.
 
 ---
 
@@ -179,7 +225,7 @@ Both facts are in the run card; the tip-relay bug is irregularity IR-67-02.)*
 ## Honest limitations
 
 * **No organizer score exists for anything here.** All numbers are holdout numbers from this
-  repository's own instrument. `docs/run-card.json` labels each one.
+  repository's own instrument. `docs/run-card-ovtr.json` labels each one.
 * **The instrument's truth is the old catalogue**, so it structurally cannot reward a genuinely
   new fault; a holdout pass licenses *packaging*, never a score claim.
 * **The detector is trained on the catalogue**, so its strongest predictions are catalogue-like
@@ -215,7 +261,7 @@ exposure to buy coverage makes it worse (τ = 0.05: `c = 0.508`, score 0.2536). 
 ## Reproduce
 
 ```bash
-python scripts/prepare_data.py          # verify sha256 pins, decode the stack
+python scripts/prepare_data_ovtr.py     # verify sha256 pins, decode the stack to /tmp/gems_data
 python scripts/build_features.py        # 19-band evidence + axial orientation + context
 python scripts/add_external_channels.py # public USGS-derived lidar/radiometric evidence
 python scripts/run_holdout.py           # arms A0..A3   -> evidence/holdout.json

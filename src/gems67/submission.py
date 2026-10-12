@@ -1,6 +1,6 @@
 """Building the deliverable: calibrated greedy dot emission, then the legal GeoTIFF.
 
-The emission rule (fixed before scoring; see docs/run-card.json):
+The emission rule (fixed before scoring; see docs/run-card-ovtr.json):
 
 1.  evidence -> calibrated probability ``q`` (bin calibration on the *visible* catalogue only)
 2.  axial NMS -> hysteresis (high/low quantiles of the in-footprint evidence) -> tip relay

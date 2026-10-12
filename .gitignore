@@ -1,5 +1,11 @@
 # large or machine-local artifacts (never commit)
 *.npy
-__pycache__/
 *.pyc
+__pycache__/
+.pytest_cache/
 evidence/*.tmp
+# lane cfeaa9d4 (from main)
+.venv/
+data/
+artifacts/
+*.egg-info/

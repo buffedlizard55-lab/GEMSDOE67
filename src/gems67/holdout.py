@@ -1,7 +1,7 @@
 """Hide-and-recover holdout: the only instrument in this repository that is allowed to
 make a promotion recommendation.
 
-Protocol (fixed before any emission rule was scored; see docs/run-card.json):
+Protocol (fixed before any emission rule was scored; see docs/run-card-ovtr.json):
 
 *   The catalogue (``labels.tif``) is cut into connected components (8-connectivity).
 *   Four spatial blocks = the four quadrants of the grid.  For fold *k* the components whose

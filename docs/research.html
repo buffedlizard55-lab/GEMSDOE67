@@ -5,7 +5,8 @@
 <header><div class="wrap"><b>GEMSDOE67</b>
 <nav><a href="index.html">Overview</a><a href="how-to-submit.html">How to submit</a>
 <a href="ceiling.html">Why 0.28</a><a href="research.html">Research</a>
-<a href="run-card.html">Run card</a><a href="sources.html">Sources</a></nav></div></header><main>
+<a href="run-card.html">Run card</a><a href="sources.html">Sources</a>
+<a href="status-cfeaa9d4.html">Other lane</a></nav></div></header><main>
 
 <h1>Research register</h1>
 <p>The five candidate geological hypotheses this session produced, ranked, and what happened to
@@ -35,6 +36,25 @@ mirrored in this family of repositories. Deferred: it needs its own masked-holdo
 the session budget is three experiments. Leakage warning: drop the
 <code>dist_known_fault_px</code> column, it is label-derived.</p>
 </div>
+<h2>The other lane in this repository (orientation/tip decoding, run <code>cfeaa9d4</code>)</h2>
+<p>Merged into <code>main</code> in PR #1 and preserved here unedited. Its own status page says
+<b>NEGATIVE · DOWNLOAD BLOCKED</b> and its measured arms are <b>0.0344</b> (joint) and
+<b>0.0404</b> (segmentation control) pooled HOLDOUT-DTI with evaluator
+<code>gems57-pooled-hide-v2</code> and paired block bootstrap intervals — a different lane, a
+different instrument version, and a real negative result rather than a projection.</p>
+<ul>
+<li><a href="status-cfeaa9d4.html">Its status page</a> and <a href="run-card.json">its run card</a></li>
+<li><a href="../research/hypotheses.md">Its hypothesis register</a> ·
+<a href="../research/review.md">review</a> · <a href="../research/verification.md">verification</a> ·
+<a href="../research/sources.csv">sources.csv</a></li>
+<li><a href="../evidence/experiment.json">Its experiment evidence</a> ·
+<a href="../evidence/feature_canaries.json">feature canaries</a> ·
+<a href="../evidence/data_audit.json">data audit</a> ·
+<a href="../evidence/upstream/h33_holdout.json">upstream h33 holdout</a></li>
+<li><a href="../evidence/README.md">Its evidence index</a> and the vendored evaluator it used,
+<code>vendor/gems57/</code></li>
+</ul>
+
 <h2>Negative results are deliverables</h2>
 <ul>
 <li>The lane's geometry gate (sparse, topologically clean traces) scores 0.1149 versus 0.2689 for

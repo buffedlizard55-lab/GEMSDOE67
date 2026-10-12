@@ -1,288 +1,137 @@
 {
- "run_card_version": 1,
- "session": "arena/c331a9d8-gemsdoe67",
- "date_utc": "2026-10-12",
- "lane": {
-  "id": "G67-L1 / OVTR",
-  "name": "orientation-voted tip relay with calibrated greedy kernel-cover emission",
-  "one_line": "Per-band gradient structure tensor gives an axial orientation field (cos 2theta, sin 2theta) and multi-physics lineament evidence; a supervised head turns that into a calibrated fault-probability field; a greedy 3 px kernel-cover spends the minimum mass that still covers the model's own best estimate of every candidate trace, with tip relay extending traces past mapped tips along the predicted orientation."
- },
- "hypothesis": "Under the published metric (alpha 0.2, beta 0.8) the binding constraint on score is coverage of hidden-fault pixels, not geometric tidiness of the emitted traces: a unit of emitted mass costs at most 0.2 while an uncovered hidden-fault pixel costs 0.8. Therefore a calibrated, context-aware fault-probability field emitted as a low-mass greedy kernel-cover should beat both (a) the sparse topologically-clean traces that the lane's own geometry gate produces and (b) the incumbent 'dots on the dilated mapped faults' family.",
- "mechanism": "DTI = T / (0.2*(T + S - M) + 0.8*|G|) with T the distance-weighted credit, S emitted mass, M mass inside the 300 m kernel of a truth pixel, |G| the hidden truth count. Adding one unit of mass at a pixel whose best kernel weight is k helps iff k > 0.2*DTI; the objective is submodular, so greedy selection is near-optimal (Nemhauser-Wolsey-Fisher 1-1/e). Because 0.8*|G| dominates the denominator for any thin emission, mass is cheap and missing truth is expensive -- the optimum is the minimum mass that still covers the model's high-probability set.",
- "named_non_fault_mimic": "Anthropogenic and non-tectonic linear features in the same fields: fence lines, roads, pipelines, canals and stock tanks in the 1 m-derived LiDAR slope-excess product; drainage lineaments and lithologic contacts that produce magnetic/gravity gradients without fault displacement. These are the processes most likely to place a confidence-1 pixel away from any hidden fault, and they are exactly why the emission is a cover of a *calibrated probability* field rather than a raw threshold on evidence.",
- "gate": {
-  "rule": "the shipped emission rule must beat the preregistered lane arm and the incumbent family on the spatially blocked hide-and-recover holdout",
-  "preregistered_lane_arm": "A1_ovtr (geometry-gated, quantile thresholds 0.90/0.70, bar alpha*DTI, exclusion radius 2 px)",
-  "result": "PASS"
- },
- "holdout": {
-  "instrument": "hide-and-recover: whole catalogue components withheld by centroid quadrant with a 2 px buffer; every catalogue-derived quantity from the visible faults only; visible faults masked pixel-exactly when scoring; pooled DTI over four folds (alpha 0.2, beta 0.8, 300 m triangular kernel)",
-  "n_withheld_positives": 60594,
-  "withheld_positives_per_fold": {
-   "NW": 29254,
-   "NE": 12559,
-   "SW": 9263,
-   "SE": 9518
+  "schema_version": 1,
+  "run_id": "h67-axial-tip-20261012-c125eabd72",
+  "as_of_utc": "2026-10-12",
+  "hypothesis": "Joint axial orientation and endpoint/junction supervision improves missing-fault topology and tip recovery.",
+  "mechanism": "Cached numerical bands feed shared hidden trunk, axial and heatmap heads, stacked segmentation, directional NMS/hysteresis and 5 px node spacing.",
+  "non_fault_mimic": "Lithologic contacts and aligned erosional channels",
+  "experiment_count": 1,
+  "holdout": {
+    "evidence_class": "HOLDOUT-DTI",
+    "evaluator_version": "gems57-pooled-hide-v2",
+    "alpha": 0.2,
+    "beta": 0.8,
+    "triangular_radius_m": 300.0,
+    "pooled": true,
+    "scores": {
+      "joint": {
+        "evidence_class": "HOLDOUT-DTI",
+        "evaluator_version": "gems57-pooled-hide-v2",
+        "dti": 0.0344423533317653,
+        "ci95": [
+          0.024994896584225153,
+          0.0442545385009099
+        ],
+        "withheld_positive_pixels": 60988,
+        "tpw": 1744.8840669076817,
+        "fpw": 7608.116625135525,
+        "fnw": 59243.11593309233
+      },
+      "segmentation_control": {
+        "evidence_class": "HOLDOUT-DTI",
+        "evaluator_version": "gems57-pooled-hide-v2",
+        "dti": 0.040398486913333954,
+        "ci95": [
+          0.028589042033363207,
+          0.05281174174351739
+        ],
+        "withheld_positive_pixels": 60988,
+        "tpw": 2048.3778185065394,
+        "fpw": 7521.223485631736,
+        "fnw": 58939.62218149345
+      }
+    },
+    "best_comparable_control": "segmentation_control",
+    "paired_differences": {
+      "segmentation_control": {
+        "evidence_class": "HOLDOUT-DTI",
+        "evaluator_version": "gems57-pooled-hide-v2",
+        "delta": -0.005956133581568657,
+        "ci95": [
+          -0.01331219292200999,
+          0.002000865202684084
+        ],
+        "withheld_positive_pixels": 60988
+      }
+    },
+    "bootstrap": {
+      "method": "paired physical spatial-cluster percentile",
+      "clusters": 156,
+      "draws": 1000,
+      "seed": 67012,
+      "confidence": 0.95,
+      "caveat": "Conditional on fitted folds, catalogue labels and fixed budgets; not a leaderboard interval."
+    },
+    "implementation_sha256": {
+      "evaluate_holdout.py": "ad86640b46f3c5fc6b1aceec4c4bfc82d03e35008b37ab2a8ad6076e6810ff3a",
+      "holdout.py": "7a0a84176986190b527aa9c6a84216c2dab4b599f25b1143db5f420e85020ab1",
+      "metric.py": "4afe10cbaa229948520c75194b1ebc32676e72544f05582f0725092b097b4d7f",
+      "spatial.py": "fad7b09db9efc512247b9a176a7e7ce8631e287592b4e07902d0b9c38bed00f8"
+    }
   },
-  "ci95": null,
-  "ci_note": "not bootstrapped in this session (budget stop at three experiments); the four per-fold DTIs are published in evidence/*.json and a per-truth-pixel bootstrap is the first task of the next session",
-  "arms": {
-   "A0_incumbent_dots": {
-    "pooled_dti": 0.0014,
-    "mean_px": 459,
-    "per_fold": [
-     0.00058,
-     0.00109,
-     0.00441,
-     0.00156
-    ]
-   },
-   "A1_ovtr_geometry_gated": {
-    "pooled_dti": 0.1149,
-    "mean_px": 10404,
-    "per_fold": [
-     0.1059,
-     0.15874,
-     0.1131,
-     0.0829
-    ]
-   },
-   "A1_soft_same_sites": {
-    "pooled_dti": 0.0034,
-    "mean_px": 10404,
-    "per_fold": [
-     0.00336,
-     0.00442,
-     0.00298,
-     0.00259
-    ]
-   },
-   "A3_random_matched_mass": {
-    "pooled_dti": 0.076,
-    "mean_px": 10404,
-    "per_fold": [
-     0.08074,
-     0.07638,
-     0.07612,
-     0.06002
-    ]
-   },
-   "ML_cover_allpix_tau0.2": {
-    "pooled_dti": 0.2671,
-    "mean_px": 56495,
-    "per_fold": [
-     0.26068,
-     0.25136,
-     0.30292,
-     0.27261
-    ]
-   },
-   "ML_cover_allpix_tau0.3": {
-    "pooled_dti": 0.2691,
-    "mean_px": 40106,
-    "per_fold": [
-     0.25472,
-     0.26099,
-     0.30252,
-     0.28603
-    ]
-   },
-   "ML_cover_allpix_tau0.5": {
-    "pooled_dti": 0.2207,
-    "mean_px": 16742,
-    "per_fold": [
-     0.19506,
-     0.22921,
-     0.24981,
-     0.25382
-    ]
-   },
-   "ML_cover_geom_tau0.3": {
-    "pooled_dti": 0.1469,
-    "mean_px": 5122,
-    "per_fold": [
-     0.0875,
-     0.1452,
-     0.0909,
-     0.0
-    ]
-   }
+  "tip_recovery": {
+    "joint": {
+      "kernel_recall": 0.026975209030430727,
+      "withheld_tip_adjacent_pixels": 23150,
+      "evidence_class": "HOLDOUT-DIAGNOSTIC, not DTI"
+    },
+    "segmentation_control": {
+      "kernel_recall": 0.03434929460097002,
+      "withheld_tip_adjacent_pixels": 23150,
+      "evidence_class": "HOLDOUT-DIAGNOSTIC, not DTI"
+    }
   },
-  "head_auc_per_fold": {
-   "q_ml": [
-    0.647,
-    0.7262,
-    0.6469,
-    0.687
-   ],
-   "ev_alone": [
-    0.5961,
-    0.6485,
-    0.6087,
-    0.6074
-   ]
+  "registry": {
+    "inventory": "../evidence/repository_inventory.json",
+    "complete": false,
+    "surface_correlation": null,
+    "final_dot_correlation": null,
+    "dot_overlap_within_3px": null,
+    "hash_pixel_agreement": null,
+    "status": "No production raster generated; comparisons not run. Tree inventory is not global uniqueness clearance."
   },
-  "leakage_canary_auc": {
-   "ev": [
-    0.5961,
-    0.6485,
-    0.6087,
-    0.6074
-   ],
-   "coh": [
-    0.5307,
-    0.5733,
-    0.5266,
-    0.5425
-   ],
-   "order_R": [
-    0.4996,
-    0.4992,
-    0.5149,
-    0.5006
-   ],
-   "threshold": 0.9,
-   "verdict": "no leakage: every standalone feature is far below the 0.90 bar"
+  "raster_sha256": null,
+  "validator": {
+    "status": "NOT RUN \u2014 no production raster",
+    "no_nan_inside_footprint": null,
+    "values_in_0_1": null,
+    "crs_shape_transform_match": null
   },
-  "public_layer_extension": {
-   "channels_added": 7,
-   "pooled_dti_tau0.3_with": 0.2691,
-   "pooled_dti_tau0.3_without": 0.2689,
-   "verdict": "no measurable gain (delta +0.0002 pooled; NW down, NE up, SW flat, SE up); retained for the tip-zone argument the instrument cannot test, reported as a negative result for the score claim"
-  }
- },
- "registry_check": {
-  "max_abs_rank_correlation": 0.0478,
-  "rank_limit": 0.9,
-  "max_overlap_within_3px": 0.3593,
-  "overlap_limit": 0.7,
-  "priors_compared": 46,
-  "verdict": "distinct lane"
- },
- "raster": {
-  "primary": {
-   "file": "gemsdoe67-ovtr-ml-cover-tau3p0-20261012-nan.tif",
-   "sha256": "8624c5a58c681f57a6d26cab0652cfe654bcd46dc8ba68a7d5a4c0feaa29bc89",
-   "bytes": 1789755,
-   "emitted_pixels": 167597,
-   "values": "1.0 on emitted pixels, 0.0 elsewhere inside the footprint, NaN outside"
+  "submission_name": null,
+  "research_candidate_name": "h67-axial-tip-20261012-c125eabd72",
+  "note": "Axial orientation and raster-tip heads; buffered holdout research only. Negative: no TIFF approved for submission.",
+  "gates": {
+    "holdout_gain": false,
+    "tip_gain": false,
+    "current_best_beaten": false,
+    "feature_canaries": true,
+    "surface_registry": false,
+    "dots_registry": false,
+    "all_prior_hash_pixel_checks": false,
+    "format_valid": false
   },
-  "all_finite_twin": {
-   "file": "gemsdoe67-ovtr-ml-cover-tau3p0-20261012-zero.tif",
-   "sha256": "28adc53bcaca11329c807baa5659079c25f225c5908f7874762a034cf70cab05",
-   "nodata_tag": null,
-   "nan_cells": 0
-  },
-  "zip": {
-   "file": "gemsdoe67-ovtr-ml-cover-tau3p0-20261012.zip",
-   "sha256": "7bb2b6d7c02974f9",
-   "bytes": 699997
-  },
-  "conservative_sibling": {
-   "file": "gemsdoe67-ovtr-ml-cover-tau5p0-sibling-20261012-nan.tif",
-   "emitted_pixels": 68463,
-   "sha256": "f514ed677937c3efd3227427d5680a674a9e3ebe62dfe7ebf14270b829cf5258",
-   "holdout_pooled_dti": 0.2207,
-   "why_it_exists": "the live hidden-truth count |G| is unknown, so the mass optimum is uncertain; this sibling is the same rule at a fifth of the mass and is the lower-variance choice if the live hidden set turns out to be sparse"
-  }
- },
- "validator": {
-  "reader_1": "tifffile 2026.3.3",
-  "reader_2": "rasterio 1.4.4 / GDAL 3.10.3",
-  "shape": [
-   3730,
-   3292
+  "registry_complete": false,
+  "paired_dti_ci95": [
+    -0.01331219292200999,
+    0.002000865202684084
   ],
-  "dtype": "float32",
-  "single_band": true,
-  "crs": "EPSG:32611",
-  "transform": [
-   100.0,
-   0.0,
-   243350.0,
-   0.0,
-   -100.0,
-   4508550.0
+  "verdict": "negative",
+  "download_enabled": false,
+  "weekly_slot_approved": false,
+  "submission_slots_used": 0,
+  "template_commit": "32024716f218d06a94e01464157392119c03cb15",
+  "limitations": [
+    "No established current holdout-best baseline available in starting repository.",
+    "Raster skeleton endpoint/junction supervision is a proxy, not original polylines.",
+    "No production candidate: global registry checks and TIFF validator not run.",
+    "CPU pixelwise input model is not a spatial stacked CNN.",
+    "Fixed class-balanced thresholds are not calibrated probabilities."
   ],
-  "finite_cells_primary": 5167373,
-  "nan_cells_primary": 7111787,
-  "nan_inside_footprint": 0,
-  "min": 0.0,
-  "max": 1.0,
-  "cells_outside_0_1": 0,
-  "verdict": "all format checks pass in both readers"
- },
- "submission": {
-  "unique_name": "GEMSDOE67-OVTR-ML-COVER",
-  "form_note_140_char": "GEMSDOE67-OVTR-ML-COVER: HGB head -> 3px greedy cover of q>=0.3; HOLDOUT-DTI 0.2691 (4 folds, 60594 px); UNSCORED",
-  "form_note_200_char": "GEMSDOE67 OVTR | HGB head on 23 evidence channels -> greedy 3 px kernel-cover of q>=0.3, 167597 dots; pooled HOLDOUT-DTI 0.2691 (4 folds, 60594 withheld px); UNSCORED",
-  "organizer_score": null,
-  "organizer_score_note": "no organizer score exists for any artifact in this repository; the leaderboard read on 2026-10-12 has xiaofanhu 0.4275 first"
- },
- "irregularities": [
-  {
-   "id": "IR-67-01",
-   "what": "the lane's geometry gate (axial NMS + hysteresis + tip relay used as a mass filter) scores 0.1469 pooled against 0.2691 for the same head emitting a greedy cover",
-   "status": "measured, published, gate demoted from mass filter to trace-geometry provider"
-  },
-  {
-   "id": "IR-67-02",
-   "what": "tip_relay originally tested acceptance against the thinned evidence field, which is zero off-ridge, so it could never extend a trace (A1 == A2 exactly, 10404 px both); fixed to test the raw evidence field",
-   "status": "fixed in src/gems67/decode.py, the bug and its symptom are recorded here rather than dropped"
-  },
-  {
-   "id": "IR-67-03",
-   "what": "the first calibration target was P(pixel within 3 px of a fault); summed through the kernel this over-counts the same fault roughly 9-fold, which made the marginal bar non-binding. The shipped rule calibrates to the per-cell fault indicator instead",
-   "status": "fixed in scripts/run_holdout_ml.py and src/gems67/head.py"
-  },
-  {
-   "id": "IR-67-04",
-   "what": "no bootstrap CI on the pooled DTI was computed before the session budget stop",
-   "status": "open, first task of the next session"
-  },
-  {
-   "id": "IR-67-05",
-   "what": "the instrument's truth is the withheld catalogue, so it cannot measure generalization to genuinely new faults; all promotions here are packaging decisions, not score claims",
-   "status": "structural, documented in README limitations"
-  }
- ],
- "verdict": "promote_for_packaging",
- "verdict_scope": "The download is offered because the gate is met and the format is verified. Promotion into a weekly submission slot remains a separate selector decision, inside the weekly cap shown on the submission page.",
- "artifacts_evidence": {
-  "holdout_evidence_files": [
-   "evidence/holdout.json",
-   "evidence/holdout_ml.json",
-   "evidence/holdout_ml_ext.json"
-  ],
-  "registry_check": "evidence/registry_check.json",
-  "ceiling_analysis": "evidence/ceiling.json",
-  "independent_verification": "evidence/verify_gemsdoe67-ovtr-ml-cover-tau3p0-20261012.json",
-  "previews": [
-   "docs/assets/preview-overview.png",
-   "docs/assets/preview-zoom.png"
+  "next_steps": [
+    "Audit raster-proxy targets against original catalogue polylines before production training.",
+    "Obtain a reproducible current holdout-best baseline and complete prior-raster registry.",
+    "Improve spatial context and validate probability-supported mapped-tip continuation without increasing the experiment budget.",
+    "Only after positive paired DTI/tip gates, screen the production surface, place nodes, screen final dots, write using the shared writer and run validate_submission.py.",
+    "Verify current rules, weekly cap and organizer receipt separately; no automatic submission."
   ]
- },
- "ceiling_analysis": {
-  "identity": "DTI = c / (0.8 + 0.2*c + 0.2*w), c = TP_w/|G|, w = FP_w/|G|",
-  "shipped_arm_coverage_c": 0.3684,
-  "shipped_arm_waste_w": 2.477,
-  "shipped_arm_credit_per_unit_mass": 0.1392,
-  "best_reachable_at_our_coverage_zero_waste": 0.4217,
-  "live_bar": 0.4275,
-  "needed_c_for_0.30_at_our_waste": 0.4134,
-  "needed_c_for_the_live_bar_at_our_waste": 0.6056,
-  "verdict": "the 0.26-0.28 band is the Pareto ridge of coverage against waste at this head's ranking quality, not a writer or format defect; the current live bar is out of reach for the shipped arm's coverage even at zero waste, so a ranking improvement is a prerequisite for a top-5 push and a better emission (H67-A2) is the cheapest next gain"
- },
- "verification": {
-  "tests": "python3 -m pytest tests -q -> 16 passed (metric algebra, grid/format checks, shipped-artifact checks)",
-  "independent_reader": "rasterio 1.4.4 / GDAL 3.10.3, 22/22 checks pass on the published bytes",
-  "semantic_corroboration": "the organizers' sample_submission.tif ('predicts total fault absence') has 1-cells exactly equal to the 60988 mapped catalogue pixels, which is only consistent with the staff answer that known USGS/INGENIOUS fault pixels are excluded from every metric term (forum thread 11516)",
-  "previews": "docs/assets/preview-*.png (human eye only; not used for any score)"
- },
- "next_session": [
-  "H67-A2 credit-weighted greedy emission with the marginal-bar stopping rule (lazy greedy, exact), gate: beat 0.2691 pooled at equal or lower emitted mass",
-  "bootstrap CI on the pooled DTI (IR-67-04) and a per-fold coverage/waste table for every arm",
-  "H67-C 1 m DEM scarplets and H67-D raw ComCat, if a session with working egress to USGS hosts is available",
-  "H67-E thermal-spring corroboration with its own masked holdout test (drop the label-derived dist_known_fault_px column)"
- ]
 }

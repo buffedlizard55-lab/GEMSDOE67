@@ -1,0 +1,701 @@
+{
+  "diagnostic": "FEATURE-ALONE AUC; NOT HOLDOUT-DTI or organizer score",
+  "split": "gems57.spatial.folds label-blind-quadrants-v2",
+  "buffer_px": 80,
+  "seed": 67012,
+  "folds": [
+    {
+      "fold": 0,
+      "split_receipt": {
+        "fold": 0,
+        "split_version": "label-blind-quadrants-v2",
+        "evaluation_region_label_blind": true,
+        "truth_px": 29319,
+        "evaluation_px": 2449030,
+        "training_domain_px": 2508386,
+        "held_components": 1830,
+        "shared_train_truth_components": 0,
+        "buffer_px": 80,
+        "nearest_training_to_region_px": 80.00624975587844,
+        "held_pixels_without_feature_support": 0,
+        "held_positive_pixels_outside_this_evaluation_region": 244
+      },
+      "positive_pixels": 29319,
+      "negative_sample_pixels": 50000,
+      "features": [
+        {
+          "band": 1,
+          "name": "mag_anom - Magnetic anomaly - deviation from expected Earth's magnetic field",
+          "auc": 0.498919149073638,
+          "two_sided_auc": 0.501080850926362,
+          "missing_pixels": 43,
+          "leakage_alarm": false
+        },
+        {
+          "band": 2,
+          "name": "rtp - Reduced to pole magnetic data - magnetic anomaly corrected for latitude effects",
+          "auc": 0.5069408282447669,
+          "two_sided_auc": 0.5069408282447669,
+          "missing_pixels": 43,
+          "leakage_alarm": false
+        },
+        {
+          "band": 3,
+          "name": "tmi_hg - Total magnetic intensity horizontal gradient - rate of change in horizontal direction",
+          "auc": 0.5262127870269666,
+          "two_sided_auc": 0.5262127870269666,
+          "missing_pixels": 43,
+          "leakage_alarm": false
+        },
+        {
+          "band": 4,
+          "name": "geod_2ndinv - Geodetic second invariant - measure of strain rate tensor magnitude",
+          "auc": 0.5678218807594312,
+          "two_sided_auc": 0.5678218807594312,
+          "missing_pixels": 43,
+          "leakage_alarm": false
+        },
+        {
+          "band": 5,
+          "name": "iso_grav_anom_slope - Isostatic gravity anomaly slope - gradient of gravity after isostatic correction",
+          "auc": 0.52931344896638,
+          "two_sided_auc": 0.52931344896638,
+          "missing_pixels": 43,
+          "leakage_alarm": false
+        },
+        {
+          "band": 6,
+          "name": "tc - Tilt angle or total curvature - magnetic field derivative for edge detection",
+          "auc": 0.4635458637857787,
+          "two_sided_auc": 0.5364541362142212,
+          "missing_pixels": 43,
+          "leakage_alarm": false
+        },
+        {
+          "band": 7,
+          "name": "geod_shearrate - Geodetic shear rate - rate of angular deformation from GPS/InSAR",
+          "auc": 0.5715734956908682,
+          "two_sided_auc": 0.5715734956908682,
+          "missing_pixels": 43,
+          "leakage_alarm": false
+        },
+        {
+          "band": 8,
+          "name": "geod_dilaterate - Geodetic dilatation rate - rate of volumetric strain (expansion/contraction)",
+          "auc": 0.4970724516940047,
+          "two_sided_auc": 0.5029275483059953,
+          "missing_pixels": 43,
+          "leakage_alarm": false
+        },
+        {
+          "band": 9,
+          "name": "tmi_vg - Total magnetic intensity vertical gradient - rate of change in vertical direction",
+          "auc": 0.49194828978391086,
+          "two_sided_auc": 0.5080517102160891,
+          "missing_pixels": 43,
+          "leakage_alarm": false
+        },
+        {
+          "band": 10,
+          "name": "deq_n100a15 - Distance to earthquake (n=100km radius, a=15\u00b0 azimuth parameters)",
+          "auc": 0.5258587276827276,
+          "two_sided_auc": 0.5258587276827276,
+          "missing_pixels": 43,
+          "leakage_alarm": false
+        },
+        {
+          "band": 11,
+          "name": "iso_grav_anom_vg - Isostatic gravity anomaly vertical gradient - vertical rate of change",
+          "auc": 0.5142560086862247,
+          "two_sided_auc": 0.5142560086862247,
+          "missing_pixels": 43,
+          "leakage_alarm": false
+        },
+        {
+          "band": 12,
+          "name": "det_elev - Detrended elevation - topography with regional trends removed",
+          "auc": 0.49772257968171185,
+          "two_sided_auc": 0.5022774203182881,
+          "missing_pixels": 43,
+          "leakage_alarm": false
+        },
+        {
+          "band": 13,
+          "name": "iso_grav_anom - Isostatic gravity anomaly - gravity after compensating for topographic mass",
+          "auc": 0.4568063140568942,
+          "two_sided_auc": 0.5431936859431058,
+          "missing_pixels": 43,
+          "leakage_alarm": false
+        },
+        {
+          "band": 14,
+          "name": "tmi - Total magnetic intensity - total strength of magnetic field",
+          "auc": 0.4976899906453047,
+          "two_sided_auc": 0.5023100093546953,
+          "missing_pixels": 43,
+          "leakage_alarm": false
+        },
+        {
+          "band": 15,
+          "name": "depth_to_base_surf - Depth to basement surface - thickness of sedimentary cover",
+          "auc": 0.5149374315189647,
+          "two_sided_auc": 0.5149374315189647,
+          "missing_pixels": 43,
+          "leakage_alarm": false
+        },
+        {
+          "band": 16,
+          "name": "ieq_n100a15 - Earthquake intensity or density (n=100km radius, a=15\u00b0 parameters)",
+          "auc": 0.5488183980508322,
+          "two_sided_auc": 0.5488183980508322,
+          "missing_pixels": 43,
+          "leakage_alarm": false
+        },
+        {
+          "band": 17,
+          "name": "cond_surf - Conductivity surface - electrical conductivity of subsurface",
+          "auc": 0.5060344025584373,
+          "two_sided_auc": 0.5060344025584373,
+          "missing_pixels": 43,
+          "leakage_alarm": false
+        },
+        {
+          "band": 18,
+          "name": "iso_grav_anom_hg - Isostatic gravity anomaly horizontal gradient - horizontal rate of change",
+          "auc": 0.4716827734542729,
+          "two_sided_auc": 0.5283172265457271,
+          "missing_pixels": 43,
+          "leakage_alarm": false
+        },
+        {
+          "band": 19,
+          "name": "det_elev_slope - Detrended elevation slope - gradient of elevation after detrending",
+          "auc": 0.5482156156129999,
+          "two_sided_auc": 0.5482156156129999,
+          "missing_pixels": 43,
+          "leakage_alarm": false
+        }
+      ]
+    },
+    {
+      "fold": 1,
+      "split_receipt": {
+        "fold": 1,
+        "split_version": "label-blind-quadrants-v2",
+        "evaluation_region_label_blind": true,
+        "truth_px": 12596,
+        "evaluation_px": 1366431,
+        "training_domain_px": 3636842,
+        "held_components": 687,
+        "shared_train_truth_components": 0,
+        "buffer_px": 80,
+        "nearest_training_to_region_px": 80.00624975587844,
+        "held_pixels_without_feature_support": 0,
+        "held_positive_pixels_outside_this_evaluation_region": 82
+      },
+      "positive_pixels": 12596,
+      "negative_sample_pixels": 50000,
+      "features": [
+        {
+          "band": 1,
+          "name": "mag_anom - Magnetic anomaly - deviation from expected Earth's magnetic field",
+          "auc": 0.5145776285419523,
+          "two_sided_auc": 0.5145776285419523,
+          "missing_pixels": 68,
+          "leakage_alarm": false
+        },
+        {
+          "band": 2,
+          "name": "rtp - Reduced to pole magnetic data - magnetic anomaly corrected for latitude effects",
+          "auc": 0.4949597369028628,
+          "two_sided_auc": 0.5050402630971371,
+          "missing_pixels": 68,
+          "leakage_alarm": false
+        },
+        {
+          "band": 3,
+          "name": "tmi_hg - Total magnetic intensity horizontal gradient - rate of change in horizontal direction",
+          "auc": 0.4884232039901942,
+          "two_sided_auc": 0.5115767960098059,
+          "missing_pixels": 68,
+          "leakage_alarm": false
+        },
+        {
+          "band": 4,
+          "name": "geod_2ndinv - Geodetic second invariant - measure of strain rate tensor magnitude",
+          "auc": 0.5351918436891486,
+          "two_sided_auc": 0.5351918436891486,
+          "missing_pixels": 68,
+          "leakage_alarm": false
+        },
+        {
+          "band": 5,
+          "name": "iso_grav_anom_slope - Isostatic gravity anomaly slope - gradient of gravity after isostatic correction",
+          "auc": 0.5792830604698309,
+          "two_sided_auc": 0.5792830604698309,
+          "missing_pixels": 68,
+          "leakage_alarm": false
+        },
+        {
+          "band": 6,
+          "name": "tc - Tilt angle or total curvature - magnetic field derivative for edge detection",
+          "auc": 0.4275239430919593,
+          "two_sided_auc": 0.5724760569080407,
+          "missing_pixels": 68,
+          "leakage_alarm": false
+        },
+        {
+          "band": 7,
+          "name": "geod_shearrate - Geodetic shear rate - rate of angular deformation from GPS/InSAR",
+          "auc": 0.5021275974488653,
+          "two_sided_auc": 0.5021275974488653,
+          "missing_pixels": 68,
+          "leakage_alarm": false
+        },
+        {
+          "band": 8,
+          "name": "geod_dilaterate - Geodetic dilatation rate - rate of volumetric strain (expansion/contraction)",
+          "auc": 0.5402207771602684,
+          "two_sided_auc": 0.5402207771602684,
+          "missing_pixels": 68,
+          "leakage_alarm": false
+        },
+        {
+          "band": 9,
+          "name": "tmi_vg - Total magnetic intensity vertical gradient - rate of change in vertical direction",
+          "auc": 0.4899705466488928,
+          "two_sided_auc": 0.5100294533511072,
+          "missing_pixels": 68,
+          "leakage_alarm": false
+        },
+        {
+          "band": 10,
+          "name": "deq_n100a15 - Distance to earthquake (n=100km radius, a=15\u00b0 azimuth parameters)",
+          "auc": 0.560554449376507,
+          "two_sided_auc": 0.560554449376507,
+          "missing_pixels": 68,
+          "leakage_alarm": false
+        },
+        {
+          "band": 11,
+          "name": "iso_grav_anom_vg - Isostatic gravity anomaly vertical gradient - vertical rate of change",
+          "auc": 0.528389844834672,
+          "two_sided_auc": 0.528389844834672,
+          "missing_pixels": 68,
+          "leakage_alarm": false
+        },
+        {
+          "band": 12,
+          "name": "det_elev - Detrended elevation - topography with regional trends removed",
+          "auc": 0.45056008961559896,
+          "two_sided_auc": 0.549439910384401,
+          "missing_pixels": 68,
+          "leakage_alarm": false
+        },
+        {
+          "band": 13,
+          "name": "iso_grav_anom - Isostatic gravity anomaly - gravity after compensating for topographic mass",
+          "auc": 0.4811311902557494,
+          "two_sided_auc": 0.5188688097442506,
+          "missing_pixels": 68,
+          "leakage_alarm": false
+        },
+        {
+          "band": 14,
+          "name": "tmi - Total magnetic intensity - total strength of magnetic field",
+          "auc": 0.5055709283919555,
+          "two_sided_auc": 0.5055709283919555,
+          "missing_pixels": 68,
+          "leakage_alarm": false
+        },
+        {
+          "band": 15,
+          "name": "depth_to_base_surf - Depth to basement surface - thickness of sedimentary cover",
+          "auc": 0.5194487868045949,
+          "two_sided_auc": 0.5194487868045949,
+          "missing_pixels": 68,
+          "leakage_alarm": false
+        },
+        {
+          "band": 16,
+          "name": "ieq_n100a15 - Earthquake intensity or density (n=100km radius, a=15\u00b0 parameters)",
+          "auc": 0.5446774566883088,
+          "two_sided_auc": 0.5446774566883088,
+          "missing_pixels": 68,
+          "leakage_alarm": false
+        },
+        {
+          "band": 17,
+          "name": "cond_surf - Conductivity surface - electrical conductivity of subsurface",
+          "auc": 0.4689585953393902,
+          "two_sided_auc": 0.5310414046606098,
+          "missing_pixels": 68,
+          "leakage_alarm": false
+        },
+        {
+          "band": 18,
+          "name": "iso_grav_anom_hg - Isostatic gravity anomaly horizontal gradient - horizontal rate of change",
+          "auc": 0.569221828142438,
+          "two_sided_auc": 0.569221828142438,
+          "missing_pixels": 68,
+          "leakage_alarm": false
+        },
+        {
+          "band": 19,
+          "name": "det_elev_slope - Detrended elevation slope - gradient of elevation after detrending",
+          "auc": 0.5550596324842484,
+          "two_sided_auc": 0.5550596324842484,
+          "missing_pixels": 68,
+          "leakage_alarm": false
+        }
+      ]
+    },
+    {
+      "fold": 2,
+      "split_receipt": {
+        "fold": 2,
+        "split_version": "label-blind-quadrants-v2",
+        "evaluation_region_label_blind": true,
+        "truth_px": 9473,
+        "evaluation_px": 564135,
+        "training_domain_px": 4383314,
+        "held_components": 382,
+        "shared_train_truth_components": 0,
+        "buffer_px": 80,
+        "nearest_training_to_region_px": 80.00624975587844,
+        "held_pixels_without_feature_support": 0,
+        "held_positive_pixels_outside_this_evaluation_region": 483
+      },
+      "positive_pixels": 9473,
+      "negative_sample_pixels": 50000,
+      "features": [
+        {
+          "band": 1,
+          "name": "mag_anom - Magnetic anomaly - deviation from expected Earth's magnetic field",
+          "auc": 0.4542816097790246,
+          "two_sided_auc": 0.5457183902209755,
+          "missing_pixels": 83,
+          "leakage_alarm": false
+        },
+        {
+          "band": 2,
+          "name": "rtp - Reduced to pole magnetic data - magnetic anomaly corrected for latitude effects",
+          "auc": 0.5429111291620897,
+          "two_sided_auc": 0.5429111291620897,
+          "missing_pixels": 83,
+          "leakage_alarm": false
+        },
+        {
+          "band": 3,
+          "name": "tmi_hg - Total magnetic intensity horizontal gradient - rate of change in horizontal direction",
+          "auc": 0.5347840264221633,
+          "two_sided_auc": 0.5347840264221633,
+          "missing_pixels": 83,
+          "leakage_alarm": false
+        },
+        {
+          "band": 4,
+          "name": "geod_2ndinv - Geodetic second invariant - measure of strain rate tensor magnitude",
+          "auc": 0.5803387202615791,
+          "two_sided_auc": 0.5803387202615791,
+          "missing_pixels": 83,
+          "leakage_alarm": false
+        },
+        {
+          "band": 5,
+          "name": "iso_grav_anom_slope - Isostatic gravity anomaly slope - gradient of gravity after isostatic correction",
+          "auc": 0.4604800794431117,
+          "two_sided_auc": 0.5395199205568884,
+          "missing_pixels": 83,
+          "leakage_alarm": false
+        },
+        {
+          "band": 6,
+          "name": "tc - Tilt angle or total curvature - magnetic field derivative for edge detection",
+          "auc": 0.4276992811237761,
+          "two_sided_auc": 0.5723007188762239,
+          "missing_pixels": 84,
+          "leakage_alarm": false
+        },
+        {
+          "band": 7,
+          "name": "geod_shearrate - Geodetic shear rate - rate of angular deformation from GPS/InSAR",
+          "auc": 0.5928516503627022,
+          "two_sided_auc": 0.5928516503627022,
+          "missing_pixels": 83,
+          "leakage_alarm": false
+        },
+        {
+          "band": 8,
+          "name": "geod_dilaterate - Geodetic dilatation rate - rate of volumetric strain (expansion/contraction)",
+          "auc": 0.4585398791205958,
+          "two_sided_auc": 0.5414601208794042,
+          "missing_pixels": 83,
+          "leakage_alarm": false
+        },
+        {
+          "band": 9,
+          "name": "tmi_vg - Total magnetic intensity vertical gradient - rate of change in vertical direction",
+          "auc": 0.4783972745130727,
+          "two_sided_auc": 0.5216027254869273,
+          "missing_pixels": 83,
+          "leakage_alarm": false
+        },
+        {
+          "band": 10,
+          "name": "deq_n100a15 - Distance to earthquake (n=100km radius, a=15\u00b0 azimuth parameters)",
+          "auc": 0.4902929717903628,
+          "two_sided_auc": 0.5097070282096372,
+          "missing_pixels": 83,
+          "leakage_alarm": false
+        },
+        {
+          "band": 11,
+          "name": "iso_grav_anom_vg - Isostatic gravity anomaly vertical gradient - vertical rate of change",
+          "auc": 0.5281934841786474,
+          "two_sided_auc": 0.5281934841786474,
+          "missing_pixels": 83,
+          "leakage_alarm": false
+        },
+        {
+          "band": 12,
+          "name": "det_elev - Detrended elevation - topography with regional trends removed",
+          "auc": 0.5320677415143545,
+          "two_sided_auc": 0.5320677415143545,
+          "missing_pixels": 83,
+          "leakage_alarm": false
+        },
+        {
+          "band": 13,
+          "name": "iso_grav_anom - Isostatic gravity anomaly - gravity after compensating for topographic mass",
+          "auc": 0.4473832516636416,
+          "two_sided_auc": 0.5526167483363584,
+          "missing_pixels": 83,
+          "leakage_alarm": false
+        },
+        {
+          "band": 14,
+          "name": "tmi - Total magnetic intensity - total strength of magnetic field",
+          "auc": 0.4646988830621197,
+          "two_sided_auc": 0.5353011169378803,
+          "missing_pixels": 83,
+          "leakage_alarm": false
+        },
+        {
+          "band": 15,
+          "name": "depth_to_base_surf - Depth to basement surface - thickness of sedimentary cover",
+          "auc": 0.46488155367522566,
+          "two_sided_auc": 0.5351184463247743,
+          "missing_pixels": 83,
+          "leakage_alarm": false
+        },
+        {
+          "band": 16,
+          "name": "ieq_n100a15 - Earthquake intensity or density (n=100km radius, a=15\u00b0 parameters)",
+          "auc": 0.5023162705891235,
+          "two_sided_auc": 0.5023162705891235,
+          "missing_pixels": 83,
+          "leakage_alarm": false
+        },
+        {
+          "band": 17,
+          "name": "cond_surf - Conductivity surface - electrical conductivity of subsurface",
+          "auc": 0.45579643632928535,
+          "two_sided_auc": 0.5442035636707147,
+          "missing_pixels": 83,
+          "leakage_alarm": false
+        },
+        {
+          "band": 18,
+          "name": "iso_grav_anom_hg - Isostatic gravity anomaly horizontal gradient - horizontal rate of change",
+          "auc": 0.4871170750362751,
+          "two_sided_auc": 0.5128829249637249,
+          "missing_pixels": 83,
+          "leakage_alarm": false
+        },
+        {
+          "band": 19,
+          "name": "det_elev_slope - Detrended elevation slope - gradient of elevation after detrending",
+          "auc": 0.5928069378932287,
+          "two_sided_auc": 0.5928069378932287,
+          "missing_pixels": 83,
+          "leakage_alarm": false
+        }
+      ]
+    },
+    {
+      "fold": 3,
+      "split_receipt": {
+        "fold": 3,
+        "split_version": "label-blind-quadrants-v2",
+        "evaluation_region_label_blind": true,
+        "truth_px": 9600,
+        "evaluation_px": 787777,
+        "training_domain_px": 4263431,
+        "held_components": 329,
+        "shared_train_truth_components": 0,
+        "buffer_px": 80,
+        "nearest_training_to_region_px": 80.00624975587844,
+        "held_pixels_without_feature_support": 0,
+        "held_positive_pixels_outside_this_evaluation_region": 368
+      },
+      "positive_pixels": 9600,
+      "negative_sample_pixels": 50000,
+      "features": [
+        {
+          "band": 1,
+          "name": "mag_anom - Magnetic anomaly - deviation from expected Earth's magnetic field",
+          "auc": 0.5022739312416722,
+          "two_sided_auc": 0.5022739312416722,
+          "missing_pixels": 27,
+          "leakage_alarm": false
+        },
+        {
+          "band": 2,
+          "name": "rtp - Reduced to pole magnetic data - magnetic anomaly corrected for latitude effects",
+          "auc": 0.5041064472061715,
+          "two_sided_auc": 0.5041064472061715,
+          "missing_pixels": 27,
+          "leakage_alarm": false
+        },
+        {
+          "band": 3,
+          "name": "tmi_hg - Total magnetic intensity horizontal gradient - rate of change in horizontal direction",
+          "auc": 0.5002650870950812,
+          "two_sided_auc": 0.5002650870950812,
+          "missing_pixels": 27,
+          "leakage_alarm": false
+        },
+        {
+          "band": 4,
+          "name": "geod_2ndinv - Geodetic second invariant - measure of strain rate tensor magnitude",
+          "auc": 0.5192893806250589,
+          "two_sided_auc": 0.5192893806250589,
+          "missing_pixels": 27,
+          "leakage_alarm": false
+        },
+        {
+          "band": 5,
+          "name": "iso_grav_anom_slope - Isostatic gravity anomaly slope - gradient of gravity after isostatic correction",
+          "auc": 0.5629405496547132,
+          "two_sided_auc": 0.5629405496547132,
+          "missing_pixels": 27,
+          "leakage_alarm": false
+        },
+        {
+          "band": 6,
+          "name": "tc - Tilt angle or total curvature - magnetic field derivative for edge detection",
+          "auc": 0.3881158177808546,
+          "two_sided_auc": 0.6118841822191454,
+          "missing_pixels": 28,
+          "leakage_alarm": false
+        },
+        {
+          "band": 7,
+          "name": "geod_shearrate - Geodetic shear rate - rate of angular deformation from GPS/InSAR",
+          "auc": 0.5014126447207007,
+          "two_sided_auc": 0.5014126447207007,
+          "missing_pixels": 27,
+          "leakage_alarm": false
+        },
+        {
+          "band": 8,
+          "name": "geod_dilaterate - Geodetic dilatation rate - rate of volumetric strain (expansion/contraction)",
+          "auc": 0.5684597480234067,
+          "two_sided_auc": 0.5684597480234067,
+          "missing_pixels": 27,
+          "leakage_alarm": false
+        },
+        {
+          "band": 9,
+          "name": "tmi_vg - Total magnetic intensity vertical gradient - rate of change in vertical direction",
+          "auc": 0.47701647560777133,
+          "two_sided_auc": 0.5229835243922287,
+          "missing_pixels": 27,
+          "leakage_alarm": false
+        },
+        {
+          "band": 10,
+          "name": "deq_n100a15 - Distance to earthquake (n=100km radius, a=15\u00b0 azimuth parameters)",
+          "auc": 0.4768044654139007,
+          "two_sided_auc": 0.5231955345860992,
+          "missing_pixels": 27,
+          "leakage_alarm": false
+        },
+        {
+          "band": 11,
+          "name": "iso_grav_anom_vg - Isostatic gravity anomaly vertical gradient - vertical rate of change",
+          "auc": 0.5649229680538039,
+          "two_sided_auc": 0.5649229680538039,
+          "missing_pixels": 27,
+          "leakage_alarm": false
+        },
+        {
+          "band": 12,
+          "name": "det_elev - Detrended elevation - topography with regional trends removed",
+          "auc": 0.4737022654868571,
+          "two_sided_auc": 0.5262977345131429,
+          "missing_pixels": 27,
+          "leakage_alarm": false
+        },
+        {
+          "band": 13,
+          "name": "iso_grav_anom - Isostatic gravity anomaly - gravity after compensating for topographic mass",
+          "auc": 0.47975516836612514,
+          "two_sided_auc": 0.5202448316338748,
+          "missing_pixels": 27,
+          "leakage_alarm": false
+        },
+        {
+          "band": 14,
+          "name": "tmi - Total magnetic intensity - total strength of magnetic field",
+          "auc": 0.49263207311643165,
+          "two_sided_auc": 0.5073679268835684,
+          "missing_pixels": 27,
+          "leakage_alarm": false
+        },
+        {
+          "band": 15,
+          "name": "depth_to_base_surf - Depth to basement surface - thickness of sedimentary cover",
+          "auc": 0.5275588697364572,
+          "two_sided_auc": 0.5275588697364572,
+          "missing_pixels": 27,
+          "leakage_alarm": false
+        },
+        {
+          "band": 16,
+          "name": "ieq_n100a15 - Earthquake intensity or density (n=100km radius, a=15\u00b0 parameters)",
+          "auc": 0.5752553434942278,
+          "two_sided_auc": 0.5752553434942278,
+          "missing_pixels": 27,
+          "leakage_alarm": false
+        },
+        {
+          "band": 17,
+          "name": "cond_surf - Conductivity surface - electrical conductivity of subsurface",
+          "auc": 0.5421762412337333,
+          "two_sided_auc": 0.5421762412337333,
+          "missing_pixels": 27,
+          "leakage_alarm": false
+        },
+        {
+          "band": 18,
+          "name": "iso_grav_anom_hg - Isostatic gravity anomaly horizontal gradient - horizontal rate of change",
+          "auc": 0.5094763817912021,
+          "two_sided_auc": 0.5094763817912021,
+          "missing_pixels": 27,
+          "leakage_alarm": false
+        },
+        {
+          "band": 19,
+          "name": "det_elev_slope - Detrended elevation slope - gradient of elevation after detrending",
+          "auc": 0.5696758583562402,
+          "two_sided_auc": 0.5696758583562402,
+          "missing_pixels": 27,
+          "leakage_alarm": false
+        }
+      ]
+    }
+  ],
+  "passed": true
+}

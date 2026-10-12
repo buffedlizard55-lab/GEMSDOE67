@@ -1,0 +1,220 @@
+{
+  "experiment_id": "H67-A-01",
+  "experiment_count": 1,
+  "model": "CPU shared-trunk stacked heads; raster-proxy geometry, not Batra CNN",
+  "seed": 67012,
+  "training_steps": 300,
+  "folds": [
+    {
+      "fold": 0,
+      "split_receipt": {
+        "fold": 0,
+        "split_version": "label-blind-quadrants-v2",
+        "evaluation_region_label_blind": true,
+        "truth_px": 29319,
+        "evaluation_px": 2449030,
+        "training_domain_px": 2508386,
+        "held_components": 1830,
+        "shared_train_truth_components": 0,
+        "buffer_px": 80,
+        "nearest_training_to_region_px": 80.00624975587844,
+        "held_pixels_without_feature_support": 0,
+        "held_positive_pixels_outside_this_evaluation_region": 244
+      },
+      "train_samples": 80000,
+      "orientation_supervised_samples": 22737,
+      "arms": {
+        "segmentation_control": {
+          "emitted_pixels": 4369,
+          "tip_kernel_credit_sum": 360.33849104540195,
+          "tip_positive_pixels": 12687
+        },
+        "joint": {
+          "emitted_pixels": 4874,
+          "tip_kernel_credit_sum": 334.13885389195167,
+          "tip_positive_pixels": 12687
+        }
+      }
+    },
+    {
+      "fold": 1,
+      "split_receipt": {
+        "fold": 1,
+        "split_version": "label-blind-quadrants-v2",
+        "evaluation_region_label_blind": true,
+        "truth_px": 12596,
+        "evaluation_px": 1366431,
+        "training_domain_px": 3636842,
+        "held_components": 687,
+        "shared_train_truth_components": 0,
+        "buffer_px": 80,
+        "nearest_training_to_region_px": 80.00624975587844,
+        "held_pixels_without_feature_support": 0,
+        "held_positive_pixels_outside_this_evaluation_region": 82
+      },
+      "train_samples": 80000,
+      "orientation_supervised_samples": 22807,
+      "arms": {
+        "segmentation_control": {
+          "emitted_pixels": 17,
+          "tip_kernel_credit_sum": 0.0,
+          "tip_positive_pixels": 4622
+        },
+        "joint": {
+          "emitted_pixels": 15,
+          "tip_kernel_credit_sum": 4.092883549420547,
+          "tip_positive_pixels": 4622
+        }
+      }
+    },
+    {
+      "fold": 2,
+      "split_receipt": {
+        "fold": 2,
+        "split_version": "label-blind-quadrants-v2",
+        "evaluation_region_label_blind": true,
+        "truth_px": 9473,
+        "evaluation_px": 564135,
+        "training_domain_px": 4383314,
+        "held_components": 382,
+        "shared_train_truth_components": 0,
+        "buffer_px": 80,
+        "nearest_training_to_region_px": 80.00624975587844,
+        "held_pixels_without_feature_support": 0,
+        "held_positive_pixels_outside_this_evaluation_region": 483
+      },
+      "train_samples": 80000,
+      "orientation_supervised_samples": 22479,
+      "arms": {
+        "segmentation_control": {
+          "emitted_pixels": 1011,
+          "tip_kernel_credit_sum": 149.45534705539384,
+          "tip_positive_pixels": 3145
+        },
+        "joint": {
+          "emitted_pixels": 1707,
+          "tip_kernel_credit_sum": 140.24287505400596,
+          "tip_positive_pixels": 3145
+        }
+      }
+    },
+    {
+      "fold": 3,
+      "split_receipt": {
+        "fold": 3,
+        "split_version": "label-blind-quadrants-v2",
+        "evaluation_region_label_blind": true,
+        "truth_px": 9600,
+        "evaluation_px": 787777,
+        "training_domain_px": 4263431,
+        "held_components": 329,
+        "shared_train_truth_components": 0,
+        "buffer_px": 80,
+        "nearest_training_to_region_px": 80.00624975587844,
+        "held_pixels_without_feature_support": 0,
+        "held_positive_pixels_outside_this_evaluation_region": 368
+      },
+      "train_samples": 80000,
+      "orientation_supervised_samples": 22752,
+      "arms": {
+        "segmentation_control": {
+          "emitted_pixels": 2841,
+          "tip_kernel_credit_sum": 285.3923319116601,
+          "tip_positive_pixels": 2696
+        },
+        "joint": {
+          "emitted_pixels": 1637,
+          "tip_kernel_credit_sum": 146.0014765590931,
+          "tip_positive_pixels": 2696
+        }
+      }
+    }
+  ],
+  "production_raster_written": false,
+  "holdout": {
+    "evidence_class": "HOLDOUT-DTI",
+    "evaluator_version": "gems57-pooled-hide-v2",
+    "alpha": 0.2,
+    "beta": 0.8,
+    "triangular_radius_m": 300.0,
+    "pooled": true,
+    "scores": {
+      "joint": {
+        "evidence_class": "HOLDOUT-DTI",
+        "evaluator_version": "gems57-pooled-hide-v2",
+        "dti": 0.0344423533317653,
+        "ci95": [
+          0.024994896584225153,
+          0.0442545385009099
+        ],
+        "withheld_positive_pixels": 60988,
+        "tpw": 1744.8840669076817,
+        "fpw": 7608.116625135525,
+        "fnw": 59243.11593309233
+      },
+      "segmentation_control": {
+        "evidence_class": "HOLDOUT-DTI",
+        "evaluator_version": "gems57-pooled-hide-v2",
+        "dti": 0.040398486913333954,
+        "ci95": [
+          0.028589042033363207,
+          0.05281174174351739
+        ],
+        "withheld_positive_pixels": 60988,
+        "tpw": 2048.3778185065394,
+        "fpw": 7521.223485631736,
+        "fnw": 58939.62218149345
+      }
+    },
+    "best_comparable_control": "segmentation_control",
+    "paired_differences": {
+      "segmentation_control": {
+        "evidence_class": "HOLDOUT-DTI",
+        "evaluator_version": "gems57-pooled-hide-v2",
+        "delta": -0.005956133581568657,
+        "ci95": [
+          -0.01331219292200999,
+          0.002000865202684084
+        ],
+        "withheld_positive_pixels": 60988
+      }
+    },
+    "bootstrap": {
+      "method": "paired physical spatial-cluster percentile",
+      "clusters": 156,
+      "draws": 1000,
+      "seed": 67012,
+      "confidence": 0.95,
+      "caveat": "Conditional on fitted folds, catalogue labels and fixed budgets; not a leaderboard interval."
+    },
+    "implementation_sha256": {
+      "evaluate_holdout.py": "ad86640b46f3c5fc6b1aceec4c4bfc82d03e35008b37ab2a8ad6076e6810ff3a",
+      "holdout.py": "7a0a84176986190b527aa9c6a84216c2dab4b599f25b1143db5f420e85020ab1",
+      "metric.py": "4afe10cbaa229948520c75194b1ebc32676e72544f05582f0725092b097b4d7f",
+      "spatial.py": "fad7b09db9efc512247b9a176a7e7ce8631e287592b4e07902d0b9c38bed00f8"
+    }
+  },
+  "tip_recovery": {
+    "joint": {
+      "kernel_recall": 0.026975209030430727,
+      "withheld_tip_adjacent_pixels": 23150,
+      "evidence_class": "HOLDOUT-DIAGNOSTIC, not DTI"
+    },
+    "segmentation_control": {
+      "kernel_recall": 0.03434929460097002,
+      "withheld_tip_adjacent_pixels": 23150,
+      "evidence_class": "HOLDOUT-DIAGNOSTIC, not DTI"
+    }
+  },
+  "positive_paired_dti_ci": false,
+  "tip_improved": false,
+  "seconds": 100.42719560800003,
+  "verdict": "negative",
+  "limitations": [
+    "No established current holdout-best baseline available in starting repository.",
+    "Raster skeleton endpoint/junction supervision is a proxy, not original polylines.",
+    "No production candidate: global registry checks and TIFF validator not run.",
+    "CPU pixelwise input model is not a spatial stacked CNN.",
+    "Fixed class-balanced thresholds are not calibrated probabilities."
+  ]
+}
