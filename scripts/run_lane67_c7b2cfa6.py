@@ -8,7 +8,7 @@ Arms (all emitted as 4.5 px min-separation unit dots, scored with the shared DTI
   A1 orient    + orientation-aware (across-strike) NMS and hysteresis
   A2 full      + along-strike extension past mapped tips (the lane mechanism)
 
-Usage: python scripts/run_lane67.py [--folds 3] [--quick]
+Usage: python scripts/run_lane67_c7b2cfa6.py [--folds 3] [--quick]
 """
 from __future__ import annotations
 
@@ -27,10 +27,10 @@ import numpy as np  # noqa: E402
 import rasterio  # noqa: E402
 from scipy import ndimage  # noqa: E402
 
-from gems67 import decode67, emit67, features67, heads67, holdout67  # noqa: E402
+from lane_c7b2cfa6 import decode67, emit67, features67, heads67, holdout67  # noqa: E402
 
 CACHE = ROOT / "cache"
-EVID = ROOT / "evidence"
+EVID = ROOT / "evidence" / "c7b2cfa6"
 CHUNK_ROWS = 200  # ROWS of the 3730-row grid, not cells: 200 rows ~ 660k cells ~ 160 MB of float32
 
 
@@ -193,7 +193,7 @@ def main() -> int:
     canary.sort(key=lambda d: -d["auc_fold0"])
     log("canary top:", canary[:3])
     (EVID / "e1_canary.json").write_text(json.dumps(
-        {"evidence_class": "HOLDOUT-DTI instrument (AUC), evaluator gems67.holdout67.roc_auc",
+        {"evidence_class": "HOLDOUT-DTI instrument (AUC), evaluator lane_c7b2cfa6.holdout67.roc_auc",
          "fold": 0, "withheld_positives": int(y.sum()), "scored_cells": int(inside.sum()),
          "threshold_rule": "AUC > 0.90 is leakage until proven otherwise",
          "channels": canary}, indent=2))

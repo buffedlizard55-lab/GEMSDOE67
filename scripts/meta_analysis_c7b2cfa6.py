@@ -6,7 +6,7 @@ the live score (dot count, DTI against the visible catalogue, catalogue-proximit
 mean radiometric K under the dots) and rank-correlates it with the reported scores in the inherited
 ledger. Reported scores are OWNER-REPORTED: no organiser receipt links any hash to any score.
 
-Output: evidence/e0_meta_analysis.json
+Output: evidence/c7b2cfa6/e0_meta_analysis.json
 """
 from __future__ import annotations
 
@@ -26,9 +26,9 @@ from scipy.stats import spearmanr  # noqa: E402
 from gems.metric import tversky_terms  # noqa: E402
 
 REG = ROOT / "data/registry"
-EVID = ROOT / "evidence"
-LEDGER = ROOT / "registry/ledger_reported_scores.json"
-ANATOMY_INHERITED = ROOT / "registry/inherited_owner_score_map.json"
+EVID = ROOT / "evidence" / "c7b2cfa6"
+LEDGER = ROOT / "registry/c7b2cfa6/ledger_reported_scores.json"
+ANATOMY_INHERITED = ROOT / "registry/c7b2cfa6/inherited_owner_score_map.json"
 
 
 def main() -> int:

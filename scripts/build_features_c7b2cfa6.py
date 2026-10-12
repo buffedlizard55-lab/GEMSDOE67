@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Build the lane-67 label-free channel cube into cache/ (gitignored).
 
-Usage: python scripts/build_features.py
+Usage: python scripts/build_features_c7b2cfa6.py
 """
 from __future__ import annotations
 
@@ -17,7 +17,7 @@ sys.path.insert(0, str(ROOT / "src"))
 import numpy as np  # noqa: E402
 import rasterio  # noqa: E402
 
-from gems67.features67 import build  # noqa: E402
+from lane_c7b2cfa6.features67 import build  # noqa: E402
 
 FEATURES = ROOT / "data/cache/numeric_features.tif"
 RAD = ROOT / "data/external/geodawn_rad_u8.tif"

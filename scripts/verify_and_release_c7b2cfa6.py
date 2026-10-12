@@ -10,9 +10,9 @@ Order of operations (nothing is offered for download until the gate has been eva
   4. gate: validator clean AND range clean AND byte-unique AND rank-correlation inside 0.90 AND
      (3-px overlap inside 0.70 on the like-for-like reading OR the literal reading documented as
      degenerate for the whole corpus) AND the SHIPPED holdout arm A1 not worse than the control A0;
-  5. write evidence/e6_verdict.json + evidence/e7_run_card.json and rebuild docs/.
+  5. write evidence/c7b2cfa6/e6_verdict.json + evidence/c7b2cfa6/e7_run_card.json and rebuild docs/.
 
-Usage: python scripts/verify_and_release.py
+Usage: python scripts/verify_and_release_c7b2cfa6.py
 """
 from __future__ import annotations
 
@@ -28,9 +28,9 @@ import numpy as np  # noqa: E402
 import rasterio  # noqa: E402
 
 from gems import validate_submission  # noqa: E402
-from gems67 import uniqueness67  # noqa: E402
+from lane_c7b2cfa6 import uniqueness67  # noqa: E402
 
-EVID = ROOT / "evidence"
+EVID = ROOT / "evidence" / "c7b2cfa6"
 OUT = ROOT / "docs/downloads"
 REG = ROOT / "data/registry"
 SAMPLE = ROOT / "data/official/sample_submission.tif"
@@ -45,7 +45,7 @@ def load(name, default=None):
 def main() -> int:
     emit = load("e3_emission.json")
     if not emit:
-        print("no emission; run scripts/emit_submission.py first", file=sys.stderr)
+        print("no emission; run scripts/emit_submission_c7b2cfa6.py first", file=sys.stderr)
         return 2
     nan_path = OUT / emit["files"]["nan"]["file"]
     zero_path = OUT / emit["files"]["zeros"]["file"]
@@ -190,10 +190,10 @@ def main() -> int:
             "resistant lithologic contacts, roads/canals/field edges."),
         "holdout_dti": {
             "evidence_class": ("HOLDOUT-DTI (evaluator gems.metric.tversky_terms via "
-                               "gems67.holdout67.pooled_dti; hide-and-recover, whole 8-connected "
+                               "lane_c7b2cfa6.holdout67.pooled_dti; hide-and-recover, whole 8-connected "
                                "segments withheld with a 3 px buffer, visible faults masked "
                                "pixel-exactly, alpha 0.2 beta 0.8 R 300 m)"),
-            "evaluator_version": "src/gems copied verbatim from buffedlizard55-lab/GEMSDOE66 (sha256 in registry/template_provenance.json)",
+            "evaluator_version": "src/gems copied verbatim from buffedlizard55-lab/GEMSDOE66 (sha256 in registry/c7b2cfa6/template_provenance.json)",
             "n_folds": len(hold["arms"]["A0_isotropic"]["per_fold"]) if hold else None,
             "withheld_positives": hold["arms"]["A0_isotropic"]["withheld_positives_total"] if hold else None,
             "A0_isotropic_control": a0,
@@ -255,7 +255,7 @@ Note ({emit["note_chars"]}/140 chars): `{emit["note"]}`
 
 Cleared for download and submission: **{cleared}**. {reason}
 
-No organiser score is claimed for any of these bytes. See `../../registry/irregularities.json`.
+No organiser score is claimed for any of these bytes. See `../../registry/c7b2cfa6/irregularities.json`.
 """)
     print(json.dumps({"cleared": cleared, "hard_failures": hard,
                       "literal_overlap": uniq["literal"]["max_dot_overlap_3px"],

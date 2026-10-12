@@ -2,7 +2,7 @@
 """Render README.md from the evidence JSON files, so no number in it can go stale.
 
 The narrative text is fixed; every number is read from evidence/*.json at build time.
-Usage: python scripts/build_readme.py
+Usage: python scripts/build_readme_c7b2cfa6.py
 """
 from __future__ import annotations
 
@@ -12,7 +12,7 @@ import time
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-EVID = ROOT / "evidence"
+EVID = ROOT / "evidence" / "c7b2cfa6"
 
 
 def load(name):
@@ -20,7 +20,7 @@ def load(name):
     return json.loads(p.read_text()) if p.exists() else None
 
 
-PROMPT_FILE = ROOT / "registry/original-brief-verbatim.md"
+PROMPT_FILE = ROOT / "registry/c7b2cfa6/original-brief-verbatim.md"
 
 
 def main() -> int:
@@ -59,7 +59,7 @@ def main() -> int:
 > ## {'✅ CLEARED — a unique, format-valid submission TIF is ready to download' if cleared else '⛔ NOT CLEARED — no download is offered; the negative result is logged below'}
 >
 > **Site:** <https://buffedlizard55-lab.github.io/GEMSDOE67/docs/> &nbsp;·&nbsp;
-> **Download (primary):** [`docs/downloads/{f.get('file', 'NOT-EMITTED')}`](docs/downloads/{f.get('file', '')})
+> **Download (primary):** [`docs/downloads/{f.get('file', 'NOT-EMITTED')}`](../downloads/{f.get('file', '')})
 > &nbsp;·&nbsp; sha256 `{(f.get('sha256') or 'n/a')}`
 >
 > | | |
@@ -77,7 +77,7 @@ def main() -> int:
 > | **ORGANIZER-CONFIRMED score** | **none. Nothing was submitted and no receipt exists.** |
 >
 > Read the [executive summary](docs/executive-summary.html) for the exact portal steps, or
-> [docs/downloads/README.md](docs/downloads/README.md) for the file list.
+> [docs/downloads/README.md](../downloads/README.md) for the file list.
 
 ## 1. What this lane is
 
@@ -114,7 +114,7 @@ pooled α=0.2 β=0.8 R=300 m through the shared template evaluator):
 * **A2 − A1 = {d21.get('dti_delta_mean')} DTI, positive in {d21.get('dti_folds_positive')}/{d21.get('n_folds')} folds; tip-adjacent {d21.get('tip_dti_delta_mean')}, positive in {d21.get('tip_dti_folds_positive')}/{d21.get('n_folds')}.** NEGATIVE on both metrics in both folds.
 
 **Consequence, taken rather than deferred:** the shipped candidate is the A1 decode. The
-along-strike tip-extension term is *disabled by default* (`scripts/emit_submission.py --max-len 0`)
+along-strike tip-extension term is *disabled by default* (`scripts/emit_submission_c7b2cfa6.py --max-len 0`)
 and the reason is written into the emission evidence. This is a disclosed deviation from the lane
 text, justified by the measurement, and it is recorded as IR-67-DECODE-01 plus a negative result in
 §6. Two mechanism bugs were found on the way and fixed once, in the shared module: seeds were being
@@ -129,7 +129,7 @@ single transform is individually predictive — the expected signature of a mult
 ## 3. Why the family's best raster scored 0.2778, and whether it can be beaten
 
 Everything below is arithmetic from the published metric plus statistics I recomputed from the pinned
-registry bytes in this checkout (`scripts/meta_analysis.py`). The score column is OWNER-REPORTED:
+registry bytes in this checkout (`scripts/meta_analysis_c7b2cfa6.py`). The score column is OWNER-REPORTED:
 **no organiser receipt links any hash to any score.**
 
 The published metric is `DTI = TP_w / (TP_w + 0.2·FP_w + 0.8·FN_w)` with
@@ -167,7 +167,7 @@ improve.
 
 * *FP lever (verifiable, implemented).* Let the metric's own first-order condition choose the
   stopping point instead of a hand-picked budget: calibrated greedy marginal-DTI acceptance
-  (`src/gems67/emit67.py`) keeps a dot only while its expected new kernel credit exceeds α·DTI. The
+  (`src/lane_c7b2cfa6/emit67.py`) keeps a dot only while its expected new kernel credit exceeds α·DTI. The
   calibration needs the hidden truth's cell count, which is unknowable here, so both an inherited
   low-prevalence assumption and a catalogue-like one are reported side by side
   ({json.dumps((emit or {}).get('selection_arms', {}), separators=(',', ':'))[:300]}).
@@ -183,13 +183,13 @@ improve.
 
 ```bash
 pip install -r requirements.txt          # numpy scipy rasterio scikit-learn scikit-image pytest
-bash scripts/fetch_data.sh               # restore the hash-pinned mirrors into data/ (gitignored)
-python scripts/build_features.py         # 55 label-free channels -> cache/channels.f16.npy
-python scripts/run_lane67.py --folds 2   # canary + 3-arm hide-and-recover gate
-python scripts/emit_submission.py        # decode -> select -> docs/downloads/*.tif (+ receipt)
-python scripts/meta_analysis.py          # registry anatomy vs reported scores
-python scripts/verify_and_release.py     # validator + uniqueness + verdict + run card
-python scripts/build_readme.py && python scripts/build_site.py
+bash scripts/fetch_data_c7b2cfa6.sh               # restore the hash-pinned mirrors into data/ (gitignored)
+python scripts/build_features_c7b2cfa6.py         # 55 label-free channels -> cache/channels.f16.npy
+python scripts/run_lane67_c7b2cfa6.py --folds 2   # canary + 3-arm hide-and-recover gate
+python scripts/emit_submission_c7b2cfa6.py        # decode -> select -> docs/downloads/*.tif (+ receipt)
+python scripts/meta_analysis_c7b2cfa6.py          # registry anatomy vs reported scores
+python scripts/verify_and_release_c7b2cfa6.py     # validator + uniqueness + verdict + run card
+python scripts/build_readme_c7b2cfa6.py && python scripts/build_site_c7b2cfa6.py
 python -m pytest -q tests                # 13 tests, all data-free
 ```
 
@@ -233,7 +233,7 @@ chunk; two earlier runs were SIGKILLed (exit 137) before that fix (IR-67-COMPUTE
    population the mechanism actually claims.
 3. Verify `trace_segments_utm11.csv` and use authoritative segment IDs in the holdout.
 4. Implement H67-B (signed across-strike radiometric K / K–Th alteration step using this lane's
-   orientation head) — rank 2 in [registry/hypotheses.json](registry/hypotheses.json), low cost, and
+   orientation head) — rank 2 in [registry/c7b2cfa6/hypotheses.json](registry/c7b2cfa6/hypotheses.json), low cost, and
    the one layer family with a documented hydrothermal-alteration signature.
 5. If a first-hand copy of `numeric_features.tif` and `1m_DEM_links.csv` is obtained, re-verify the
    radiometric band assignment and re-run the canary before promoting anything.
@@ -282,11 +282,13 @@ one internal contradiction about the top of the board (0.3774 vs 0.3195 vs the i
 
 ---
 
-*Generated by `scripts/build_readme.py` on {time.strftime('%Y-%m-%d %H:%M UTC', time.gmtime())} from
+*Generated by `scripts/build_readme_c7b2cfa6.py` on {time.strftime('%Y-%m-%d %H:%M UTC', time.gmtime())} from
 the evidence files in `evidence/`. Do not edit numbers by hand.*
 """
-    (ROOT / "README.md").write_text(s)
-    print("README.md written:", len(s), "chars")
+    out = ROOT / "docs" / "c7b2cfa6" / "README.md"
+    out.parent.mkdir(parents=True, exist_ok=True)
+    out.write_text(s)
+    print("README written:", out, len(s), "chars")
     return 0
 
 

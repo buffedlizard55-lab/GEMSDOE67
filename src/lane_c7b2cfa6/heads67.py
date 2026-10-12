@@ -11,7 +11,7 @@ Both heads are *supervised inside the visible catalogue only*:
 Every function here takes the *visible* mask as an argument so a holdout fold can pass only the
 faults that fold is allowed to see. Nothing reads ``labels.tif`` directly.
 
-Orientation convention: ``theta`` returned by :func:`gems67.features67.structure_tensor` is the
+Orientation convention: ``theta`` returned by :func:`lane_c7b2cfa6.features67.structure_tensor` is the
 direction of maximum gradient (perpendicular to a line); the along-strike unit vector is
 ``s = (-sin theta, cos theta)`` in (x=column, y=row). Because the representation is axial
 (period pi), ``cos 2theta``/``sin 2theta`` determine ``s`` up to sign, which is all a trace

@@ -4,7 +4,7 @@
 Every number on the site is read from ``evidence/*.json`` at build time; nothing is hand-typed, so
 the pages cannot drift from the measurements. Evidence classes are printed verbatim.
 
-Usage: python scripts/build_site.py
+Usage: python scripts/build_site_c7b2cfa6.py
 """
 from __future__ import annotations
 
@@ -15,8 +15,8 @@ import time
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-DOCS = ROOT / "docs"
-EVID = ROOT / "evidence"
+DOCS = ROOT / "docs" / "c7b2cfa6"
+EVID = ROOT / "evidence" / "c7b2cfa6"
 CSS = """
 :root{--bg:#0d1117;--fg:#e6edf3;--mut:#9da7b3;--card:#161b22;--acc:#3fb950;--warn:#d29922;--bad:#f85149;--line:#30363d}
 *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:15px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif}
@@ -89,8 +89,8 @@ def dl_panel(emit: dict, verdict: dict) -> str:
 <div class="card dl">
 <h2 style="margin-top:0">1. Download the submission &mdash; {badge}</h2>
 <p><b>Primary file (submit this one):</b></p>
-<a class="btn" href="downloads/{esc(f['file'])}" download>&#11015; DOWNLOAD {esc(f['file'])}</a>
-<a class="btn alt" href="downloads/{esc(fz['file'])}" download>&#11015; all-finite sibling (0 outside footprint)</a>
+<a class="btn" href="../downloads/{esc(f['file'])}" download>&#11015; DOWNLOAD {esc(f['file'])}</a>
+<a class="btn alt" href="../downloads/{esc(fz['file'])}" download>&#11015; all-finite sibling (0 outside footprint)</a>
 <div class="kv" style="margin-top:12px">
 <div>sha256 (primary)</div><div><code>{esc(f['sha256'])}</code></div>
 <div>bytes</div><div>{f.get('bytes', '')}</div>
@@ -232,7 +232,7 @@ def build_exec(emit, verdict, uniq) -> str:
         f = emit["files"]["nan"]
         s += f'''<div class="card"><h3>Exactly how to make the submission (5 steps)</h3>
 <ol>
-<li>Download <a href="downloads/{esc(f["file"])}"><code>{esc(f["file"])}</code></a> with the green button on the
+<li>Download <a href="../downloads/{esc(f["file"])}"><code>{esc(f["file"])}</code></a> with the green button on the
 <a href="index.html">front page</a>. Check the sha256 matches <code>{esc(f["sha256"])}</code>
 (<code>sha256sum {esc(f["file"])}</code> on Linux/macOS, <code>certutil -hashfile {esc(f["file"])} SHA256</code> on Windows).</li>
 <li>Sign in at the competition site and open the <b>New submission</b> form (Competition #306,
@@ -290,11 +290,11 @@ def build_guide(emit) -> str:
           f'<tr><td>ledger name</td><td><code>{esc((emit or {}).get("name", ""))}</code></td></tr></table>'
           '<h3>Reproduce this file from a clean checkout</h3><pre>'
           'pip install numpy scipy rasterio scikit-learn scikit-image\n'
-          'bash scripts/fetch_data.sh            # mirrors the hash-pinned inputs into data/ (gitignored)\n'
-          'python scripts/build_features.py      # 55-channel label-free cube -> cache/\n'
-          'python scripts/run_lane67.py --folds 2 # leakage canary + hide-and-recover gate\n'
-          'python scripts/emit_submission.py     # decode -> select -> write docs/downloads/*.tif\n'
-          'python scripts/verify_and_release.py  # validator + uniqueness + run card + site build\n'
+          'bash scripts/fetch_data_c7b2cfa6.sh            # mirrors the hash-pinned inputs into data/ (gitignored)\n'
+          'python scripts/build_features_c7b2cfa6.py      # 55-channel label-free cube -> cache/\n'
+          'python scripts/run_lane67_c7b2cfa6.py --folds 2 # leakage canary + hide-and-recover gate\n'
+          'python scripts/emit_submission_c7b2cfa6.py     # decode -> select -> write docs/downloads/*.tif\n'
+          'python scripts/verify_and_release_c7b2cfa6.py  # validator + uniqueness + run card + site build\n'
           '</pre></div>')
     return s + tail()
 
@@ -368,7 +368,7 @@ def build_results(hold, canary, emit, meta_analysis) -> str:
 
 
 def build_sources() -> str:
-    src = json.loads((ROOT / "registry/sources.json").read_text())
+    src = json.loads((ROOT / "registry/c7b2cfa6/sources.json").read_text())
     s = head("Sources", "sources.html")
     s += '<table><tr><th>id</th><th>title</th><th>link (manual review)</th><th>what it supports</th><th>status</th></tr>'
     for x in src:
@@ -381,7 +381,7 @@ def build_sources() -> str:
 
 
 def build_irregularities() -> str:
-    ir = json.loads((ROOT / "registry/irregularities.json").read_text())
+    ir = json.loads((ROOT / "registry/c7b2cfa6/irregularities.json").read_text())
     s = head("Irregularities", "irregularities.html")
     s += '<table><tr><th>id</th><th>severity</th><th>statement</th><th>mitigation / disposition</th></tr>'
     for x in ir:
@@ -410,8 +410,8 @@ def main() -> int:
     canary = load("e1_canary.json")
     verdict = load("e6_verdict.json")
     card = load("e7_run_card.json")
-    hyp = json.loads((ROOT / "registry/hypotheses.json").read_text())
-    irr = (ROOT / "registry/irregularities.json").exists()
+    hyp = json.loads((ROOT / "registry/c7b2cfa6/hypotheses.json").read_text())
+    irr = (ROOT / "registry/c7b2cfa6/irregularities.json").exists()
     meta = load("e0_meta_analysis.json")
     inputs = load("e0_inputs.json")
     prov = {}

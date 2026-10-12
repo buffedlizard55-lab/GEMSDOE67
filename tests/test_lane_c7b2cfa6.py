@@ -11,7 +11,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
 from gems.metric import dti, dti_from_terms, marginal_credit_bar, tversky_terms, tversky_terms_bruteforce  # noqa: E402
-from gems67 import decode67, emit67, heads67  # noqa: E402
+from lane_c7b2cfa6 import decode67, emit67, heads67  # noqa: E402
 
 
 def test_official_worked_example():

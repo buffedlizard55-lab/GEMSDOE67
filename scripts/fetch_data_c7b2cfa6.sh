@@ -2,7 +2,7 @@
 # Restore the mirrored inputs into data/ (gitignored). Nothing here contacts the organiser:
 # www.drivendata.org requires a competition login and is not reachable from the sandbox, so the
 # files are fetched from hash-pinned mirrors inside the same GitHub account and RE-HASHED on
-# arrival against registry/data_manifest.json. See registry/irregularities.json IR-67-DATA-01.
+# arrival against registry/c7b2cfa6/data_manifest.json. See registry/c7b2cfa6/irregularities.json IR-67-DATA-01.
 #
 # To replace these with first-hand copies, run on a machine with a competition login:
 #   curl -L -b cookies.txt https://www.drivendata.org/competitions/306/competition-doe-gems/data/...
@@ -38,10 +38,10 @@ if [ -z "$(ls -A data/registry 2>/dev/null)" ]; then
   rm -rf /tmp/s66.tgz /tmp/GEMSDOE66-main
 fi
 
-echo "== re-hash and compare with registry/data_manifest.json"
+echo "== re-hash and compare with registry/c7b2cfa6/data_manifest.json"
 python3 - <<'PY'
 import hashlib, json, pathlib
-man = json.loads(pathlib.Path('registry/data_manifest.json').read_text())
+man = json.loads(pathlib.Path('registry/c7b2cfa6/data_manifest.json').read_text())
 want = {f['path']: f['sha256'] for f in man['files'] if not f['path'].startswith('data/registry/')}
 bad = []
 for p, h in sorted(want.items()):

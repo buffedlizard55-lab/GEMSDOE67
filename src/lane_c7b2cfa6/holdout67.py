@@ -5,7 +5,7 @@ catalogue-based feature only from the visible faults, mask visible faults pixel-
 pooled DTI (alpha 0.2, beta 0.8, 300 m triangular kernel) over the withheld positives.
 
 The shared evaluator is ``gems.metric.tversky_terms`` (template provenance in
-``registry/template_provenance.json``); this module only builds the masks and pools the terms.
+``registry/c7b2cfa6/template_provenance.json``); this module only builds the masks and pools the terms.
 """
 from __future__ import annotations
 

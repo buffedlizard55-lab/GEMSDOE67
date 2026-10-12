@@ -3,7 +3,7 @@
 
 Steps (each one writes evidence JSON):
   1. train the propensity model and the two heads on the FULL visible catalogue (nothing is held
-     out here; the holdout experiment in ``scripts/run_lane67.py`` is the gate, this is inference);
+     out here; the holdout experiment in ``scripts/run_lane67_c7b2cfa6.py`` is the gate, this is inference);
   2. geometry-aware decode (orientation-aware NMS + hysteresis + along-strike tip extension);
   3. node selection: 4.5 px minimum separation, then calibrated greedy marginal-DTI acceptance
      (accept while expected new kernel credit > alpha * DTI_target), reported at two prevalence
@@ -13,7 +13,7 @@ Steps (each one writes evidence JSON):
      placement, so both are shipped and the NaN one is the primary);
   5. validate against sample_submission.tif + the feature grid, then uniqueness vs the registry.
 
-Usage: python scripts/emit_submission.py [--prevalence 12691] [--dti-target 0.28] [--max-dots 200000]
+Usage: python scripts/emit_submission_c7b2cfa6.py [--prevalence 12691] [--dti-target 0.28] [--max-dots 200000]
 """
 from __future__ import annotations
 
@@ -32,10 +32,10 @@ import rasterio  # noqa: E402
 from scipy import ndimage  # noqa: E402
 
 from gems import submission_writer  # noqa: E402
-from gems67 import decode67, emit67, features67, heads67, uniqueness67  # noqa: E402
+from lane_c7b2cfa6 import decode67, emit67, features67, heads67, uniqueness67  # noqa: E402
 from run_lane67 import context_features, drop_cache, isotropic_nms, predict_full, ridge_full  # noqa: E402
 
-EVID = ROOT / "evidence"
+EVID = ROOT / "evidence" / "c7b2cfa6"
 OUT = ROOT / "docs/downloads"
 STAMP = time.strftime("%Y%m%dT%H%M%SZ", time.gmtime())
 
@@ -64,7 +64,7 @@ def main() -> int:
     ap.add_argument("--max-len", type=int, default=0,
                     help="along-strike tip extension, cells. DEFAULT 0 = DISABLED: the arm that "
                          "extends past tips measured NEGATIVE against the preregistered gate "
-                         "(evidence/e2_holdout_arms.json, both folds), so the shipped decode is the "
+                         "(evidence/c7b2cfa6/e2_holdout_arms.json, both folds), so the shipped decode is the "
                          "orientation-aware NMS + hysteresis arm that passed it. This is a disclosed "
                          "deviation from the lane text, not a silent one.")
     ap.add_argument("--tip-extension", choices=("gate_decided", "force_on"), default="gate_decided")
@@ -88,7 +88,7 @@ def main() -> int:
     # ---- out-of-fold propensity -------------------------------------------------------------
     # Training one model with the FULL catalogue as its own context makes the model copy the
     # catalogue: measured in this checkout, the single-model propensity field was > 0 on exactly
-    # 60,988 cells = the catalogue, leaving 0 off-catalogue candidates (evidence/_run_emit.log).
+    # 60,988 cells = the catalogue, leaving 0 off-catalogue candidates (evidence/c7b2cfa6/_run_emit.log).
     # The gate already avoids this (each fold derives context only from the visible faults), so the
     # final inference must too: the catalogue is split into K groups of whole 8-connected segments,
     # one model is trained per group with that group removed (plus a 3 px buffer, as the shared
@@ -166,7 +166,7 @@ def main() -> int:
     cos_err = float(np.mean(np.abs(c2[band] - ot["cos2t"][band])))
     sin_err = float(np.mean(np.abs(s2[band] - ot["sin2t"][band])))
     tip_auc = None
-    from gems67.holdout67 import roc_auc
+    from lane_c7b2cfa6.holdout67 import roc_auc
     tip_auc = roc_auc((tt["tips"] | tt["junctions"])[fp], tip_pred[fp])
     log(f"orientation head MAE(cos2t)={cos_err:.4f} MAE(sin2t)={sin_err:.4f} tip head AUC={tip_auc:.4f}")
     del ot, band
@@ -215,7 +215,7 @@ def main() -> int:
 
     slug = "h67-oritip-relay"
     sha_tag = "pending"
-    base = f"gems67-{slug}-{n_dots}dots-{STAMP}"
+    base = f"lane_c7b2cfa6-{slug}-{n_dots}dots-{STAMP}"
     nan_path = OUT / f"{base}-nan.tif"
     zero_path = OUT / f"{base}-zeros.tif"
     note = (f"GEMSDOE67 H67 orientation+tip geometry-aware decode; {n_dots} dots; "
@@ -240,7 +240,7 @@ def main() -> int:
         "t_hi_pct": 99.5, "t_lo_pct": 99.0, "tip_extension_max_len_px": max_len,
         "tip_extension_disabled_reason": (
             "preregistered gate measured negative on both hide-and-recover folds; see "
-            "evidence/e2_holdout_arms.json paired A2_minus_A1 and A2_minus_A0"),
+            "evidence/c7b2cfa6/e2_holdout_arms.json paired A2_minus_A1 and A2_minus_A0"),
         "network_cells": n_net,
         "extension_cells": n_ext,
         "orientation_head_mae_cos2t": cos_err, "orientation_head_mae_sin2t": sin_err,

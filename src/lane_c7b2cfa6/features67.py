@@ -1,7 +1,7 @@
 """Lane-67 feature stack: label-free physical channels on the official 100 m grid.
 
 Everything here is computed from the 19 official GeoDAWN bands (mirrored copy, sha256-pinned in
-``registry/data_manifest.json``) plus two *named* auxiliary products whose band meanings are
+``registry/c7b2cfa6/data_manifest.json``) plus two *named* auxiliary products whose band meanings are
 declared inside the files themselves or in the sibling code that produced them:
 
 * ``geodawn_rad_u8.tif``  band 1 = radiometric K, band 2 = radiometric Th
