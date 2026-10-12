@@ -38,9 +38,11 @@ result that argues against the idea.
 * **Cost:** features 63 s; head 20-40 s per fold on 2 CPU cores. **[MEASURED]** AUC of the head
   on the withheld block: 0.652 / 0.722 / 0.627 / 0.676 (four folds) versus 0.596 / 0.649 /
   0.609 / 0.607 for the raw aggregate evidence alone — context is worth ≈ +0.05 AUC.
-* **Result:** pooled HOLDOUT-DTI **0.2689** (4 folds, 60 594 withheld positives, 41 198
-  emitted px/fold) versus 0.0014 for the incumbent "dots on the dilated visible catalogue"
-  family. **Promoted; this is what the shipped file emits.**
+* **Result:** pooled HOLDOUT-DTI **0.2689** on the 16 catalogue-free channels (4 folds, 60 594
+  withheld positives, 41 198 emitted px/fold at τ = 0.3) versus 0.0014 for the incumbent "dots on
+  the dilated visible catalogue" family. **Promoted.** With H67-B's seven public-layer channels
+  added the same head reads AUC 0.647 / 0.726 / 0.647 / 0.687 and pooled **0.2691** — that
+  23-channel configuration is what the shipped file emits (`docs/downloads/checks-*.json → rule`).
 
 ## H67-A2 — Credit-weighted greedy emission with a calibrated stopping rule — rank 1b, derived, not yet measured
 
