@@ -1,0 +1,137 @@
+{
+  "schema_version": 1,
+  "run_id": "h67-axial-tip-20261012-c125eabd72",
+  "as_of_utc": "2026-10-12",
+  "hypothesis": "Joint axial orientation and endpoint/junction supervision improves missing-fault topology and tip recovery.",
+  "mechanism": "Cached numerical bands feed shared hidden trunk, axial and heatmap heads, stacked segmentation, directional NMS/hysteresis and 5 px node spacing.",
+  "non_fault_mimic": "Lithologic contacts and aligned erosional channels",
+  "experiment_count": 1,
+  "holdout": {
+    "evidence_class": "HOLDOUT-DTI",
+    "evaluator_version": "gems57-pooled-hide-v2",
+    "alpha": 0.2,
+    "beta": 0.8,
+    "triangular_radius_m": 300.0,
+    "pooled": true,
+    "scores": {
+      "joint": {
+        "evidence_class": "HOLDOUT-DTI",
+        "evaluator_version": "gems57-pooled-hide-v2",
+        "dti": 0.0344423533317653,
+        "ci95": [
+          0.024994896584225153,
+          0.0442545385009099
+        ],
+        "withheld_positive_pixels": 60988,
+        "tpw": 1744.8840669076817,
+        "fpw": 7608.116625135525,
+        "fnw": 59243.11593309233
+      },
+      "segmentation_control": {
+        "evidence_class": "HOLDOUT-DTI",
+        "evaluator_version": "gems57-pooled-hide-v2",
+        "dti": 0.040398486913333954,
+        "ci95": [
+          0.028589042033363207,
+          0.05281174174351739
+        ],
+        "withheld_positive_pixels": 60988,
+        "tpw": 2048.3778185065394,
+        "fpw": 7521.223485631736,
+        "fnw": 58939.62218149345
+      }
+    },
+    "best_comparable_control": "segmentation_control",
+    "paired_differences": {
+      "segmentation_control": {
+        "evidence_class": "HOLDOUT-DTI",
+        "evaluator_version": "gems57-pooled-hide-v2",
+        "delta": -0.005956133581568657,
+        "ci95": [
+          -0.01331219292200999,
+          0.002000865202684084
+        ],
+        "withheld_positive_pixels": 60988
+      }
+    },
+    "bootstrap": {
+      "method": "paired physical spatial-cluster percentile",
+      "clusters": 156,
+      "draws": 1000,
+      "seed": 67012,
+      "confidence": 0.95,
+      "caveat": "Conditional on fitted folds, catalogue labels and fixed budgets; not a leaderboard interval."
+    },
+    "implementation_sha256": {
+      "evaluate_holdout.py": "ad86640b46f3c5fc6b1aceec4c4bfc82d03e35008b37ab2a8ad6076e6810ff3a",
+      "holdout.py": "7a0a84176986190b527aa9c6a84216c2dab4b599f25b1143db5f420e85020ab1",
+      "metric.py": "4afe10cbaa229948520c75194b1ebc32676e72544f05582f0725092b097b4d7f",
+      "spatial.py": "fad7b09db9efc512247b9a176a7e7ce8631e287592b4e07902d0b9c38bed00f8"
+    }
+  },
+  "tip_recovery": {
+    "joint": {
+      "kernel_recall": 0.026975209030430727,
+      "withheld_tip_adjacent_pixels": 23150,
+      "evidence_class": "HOLDOUT-DIAGNOSTIC, not DTI"
+    },
+    "segmentation_control": {
+      "kernel_recall": 0.03434929460097002,
+      "withheld_tip_adjacent_pixels": 23150,
+      "evidence_class": "HOLDOUT-DIAGNOSTIC, not DTI"
+    }
+  },
+  "registry": {
+    "inventory": "../evidence/repository_inventory.json",
+    "complete": false,
+    "surface_correlation": null,
+    "final_dot_correlation": null,
+    "dot_overlap_within_3px": null,
+    "hash_pixel_agreement": null,
+    "status": "No production raster generated; comparisons not run. Tree inventory is not global uniqueness clearance."
+  },
+  "raster_sha256": null,
+  "validator": {
+    "status": "NOT RUN \u2014 no production raster",
+    "no_nan_inside_footprint": null,
+    "values_in_0_1": null,
+    "crs_shape_transform_match": null
+  },
+  "submission_name": null,
+  "research_candidate_name": "h67-axial-tip-20261012-c125eabd72",
+  "note": "Axial orientation and raster-tip heads; buffered holdout research only. Negative: no TIFF approved for submission.",
+  "gates": {
+    "holdout_gain": false,
+    "tip_gain": false,
+    "current_best_beaten": false,
+    "feature_canaries": true,
+    "surface_registry": false,
+    "dots_registry": false,
+    "all_prior_hash_pixel_checks": false,
+    "format_valid": false
+  },
+  "registry_complete": false,
+  "paired_dti_ci95": [
+    -0.01331219292200999,
+    0.002000865202684084
+  ],
+  "verdict": "negative",
+  "download_enabled": false,
+  "weekly_slot_approved": false,
+  "submission_slots_used": 0,
+  "template_commit": "32024716f218d06a94e01464157392119c03cb15",
+  "limitations": [
+    "No established current holdout-best baseline available in starting repository.",
+    "Raster skeleton endpoint/junction supervision is a proxy, not original polylines.",
+    "No production candidate: global registry checks and TIFF validator not run.",
+    "CPU pixelwise input model is not a spatial stacked CNN.",
+    "Fixed class-balanced thresholds are not calibrated probabilities."
+  ],
+  "next_steps": [
+    "Audit raster-proxy targets against original catalogue polylines before production training.",
+    "Obtain a reproducible current holdout-best baseline and complete prior-raster registry.",
+    "Improve spatial context and validate probability-supported mapped-tip continuation without increasing the experiment budget.",
+    "Only after positive paired DTI/tip gates, screen the production surface, place nodes, screen final dots, write using the shared writer and run validate_submission.py.",
+    "Verify current rules, weekly cap and organizer receipt separately; no automatic submission."
+  ]
+}
