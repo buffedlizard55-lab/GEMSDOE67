@@ -6,6 +6,7 @@
 | --- | --- | --- | --- |
 | **OVTR** — orientation-voted evidence, calibrated greedy kernel-cover | `arena/c331a9d8` (PR #2) | **DOWNLOAD READY** — verified artifact offered below | **0.2691** pooled (4 folds, 60 594 withheld px); 22/22 format checks pass with a second GDAL build; registry check *distinct lane* |
 | **ORIENT/TIP** — axial + tip heads, geometry-aware decoding | `arena/cfeaa9d4` (PR #1, already on `main`) | **NEGATIVE · DOWNLOAD BLOCKED** — do not submit a file from that run | 0.0344 (joint) / 0.0404 (segmentation control) |
+| **ORIENT/TIP 3** — independent re-run: orientation + tip heads, geometry-aware decoding (`lane_5dc3ab34`) | `arena/5dc3ab34` (PR #7) | **DOWNLOAD READY — lane gate PASSED** (paired Δ vs its own per-pixel ablation + tip-adjacent recovery; selector step pending; see IR-67-INST-01 before any slot) | **0.03757** pooled [0.02456, 0.04962] (`gems57-pooled-hide-v2`, 22,893 withheld px); Δ vs ablation **+0.00964** [+0.00394, +0.01543]; tip-adjacent coverage 0.0426 vs 0.0273 |
 | **ORIENT/TIP 2** — the same brief re-implemented independently | `arena/ef0d41a0` (PR #5) | **NEGATIVE · NO DOWNLOAD OFFERED** — repository policy forbids a download button for a negative lane; record raster kept at `docs/downloads/gems67-axial-field-ranked-37654-20261012T020908Z-zeros.tif` | **0.01368** pooled (instrument A, 11 318 withheld px) / **0.00792** [0.00181, 0.01519] (instrument B, `gems57-pooled-hide-v2`, 11 321 withheld px) |
 | **ORIENT/TIP 3 (H67 relay)** — out-of-fold propensity + axial orientation and tip heads, orientation-aware NMS + hysteresis | `arena/c7b2cfa6-gemsdoe67` (PR #8) | **DOWNLOAD READY** — one cleared artifact offered at [`docs/c7b2cfa6/index.html`](docs/c7b2cfa6/index.html) | **0.28170** pooled shipped arm A1 vs **0.28095** isotropic control (2 folds, 29,083 withheld px, Δ +0.00075, 2/2 folds) — this lane's own hide-and-recover instrument, **not** comparable with the rows above without re-running each instrument |
 
@@ -524,3 +525,30 @@ repository's `vendor/gems57/`; it is used unmodified, not forked.
    contacts, so they are a feature candidate at most, never a placement domain.
 5. Cross-lane: this lane's instrument and the OVTR lane's instrument have never been run on the same
    folds. Doing that once would make the four HOLDOUT-DTI numbers in the table above comparable.
+
+
+---
+
+## Lane `5dc3ab34` — orientation + tip heads (session run)
+
+**One-click submission:** [`docs/lane-5dc3ab34/index.html`](docs/lane-5dc3ab34/index.html) —
+executive summary leads with the OK-TO-DOWNLOAD gate, the file, and the exact name/note.
+Primary file (portal-range-safe: all-finite [0,1], zeros outside the footprint, no nodata tag —
+cannot trigger “Predicted values must be in range [0, 1]”):
+
+* `docs/downloads/gems67-h67a-orientip-lane-29447dots-20261012T021226Z-allfinite.tif`
+  · sha256 `9088ee175c6061488855cbe5ffdaabf7e3b21164aa20834cf2717f3f851d80cd`
+  · 29,447 dots (38,758 tip-extension px) · float32 · EPSG:32611 · 100 m · 3292×3730
+* name `GEMSDOE67-H67A-ORIENTIP-LANE` · note (114 chars):
+  `GEMSDOE67 orientation+tip lane lane: 29447 dots, 38758 tip-extension px; greedy DTI-gated; HOLDOUT-GATED; UNSCORED`
+* sample-faithful NaN twin on the lane page; receipts re-derived from the written bytes
+
+**Evidence (HOLDOUT-DTI, `gems57-pooled-hide-v2`, 22,893 withheld + px):** lane 0.03757
+[0.02456, 0.04962] vs per-pixel ablation 0.02793 [0.01486, 0.03958]; paired Δ **+0.00964**
+[+0.00394, +0.01543]; tip-adjacent coverage 0.04257 vs 0.02725 (7,854 px). Canary worst AUC
+`dist_to_visible` 0.894 (bar 0.90, IR-67-CANARY-01). Uniqueness vs the full registry:
+byte-unique, pixel-unique, worst Jaccard 0.0215 (copy bar 0.5); literal overlap firings
+disclosed as IR-67-DUP-01 (4 halo-saturated lattice witnesses) and IR-67-DUP-02 (OVTR shipped
+raster: forward 0.795 vs chance 0.544, Jaccard 0.009 — distinct raster under the shared gate
+semantics). **IR-67-INST-01:** cross-lane instruments are unreconciled — the selector must run
+one shared draw before spending any weekly slot. Run card: `docs/run-card-5dc3ab34.json`.

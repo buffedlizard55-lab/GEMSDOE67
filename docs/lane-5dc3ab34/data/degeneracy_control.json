@@ -1,0 +1,19 @@
+{
+ "witness": "gems61-lane-buried-step-gravinversion-hgm-r3-k400k-b2zeros.tif",
+ "witness_sha256": "a70dee1a390c08e98ac91034e92d07a26b0845ec65f726b943a3598d0d5f8cf2",
+ "witness_dots": 311617,
+ "chance_expected_forward_overlap": 0.969626262022938,
+ "covered_allowed_fraction": 0.969626262022938,
+ "control_incumbent_h33_2_b2": {
+  "dots": 37654,
+  "forward_overlap_vs_witness": 0.9872789079513464,
+  "reverse": 0.15501721664735876,
+  "jaccard": 0.006889970912214852,
+  "note": "ORGANIZER-CONFIRMED 0.2778 family best; trips the literal 0.70 rule against the same witness"
+ },
+ "classification": "halo-saturated background lattice: 3px halo covers ~97% of allowed cells, so chance-expected forward overlap exceeds the 0.70 limit for any nonempty candidate",
+ "precedent": [
+  "GEMSDOE65 docs/data/registry_check.json saturated_witnesses (r13 lattice)",
+  "GEMSDOE66 docs/data/run-card-session66.json DEGENERATE-BLOCKER-LOGGED on this exact file, control = incumbent scores 1.000"
+ ]
+}

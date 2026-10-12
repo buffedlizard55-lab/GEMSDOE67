@@ -1,0 +1,114 @@
+[
+  {
+    "id": "competition",
+    "url": "https://www.drivendata.org/competitions/306/competition-doe-gems/",
+    "title": "DOE GEMS Prize — competition home (DrivenData #306)",
+    "status": "official; referenced by every family site",
+    "note": "Overview, rules, data tab (login-walled), submissions, leaderboard"
+  },
+  {
+    "id": "problem",
+    "url": "https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/",
+    "title": "Problem description — metric, submission format",
+    "status": "official; metric transcribed and numerically cross-checked in gems57/metric.py (worked example TP_w 3.00 / FP_w 1.89 / FN_w 2.00 -> 0.6027)",
+    "note": "Source of DTI = TP_w/(TP_w + 0.2 FP_w + 0.8 FN_w), 300 m triangular kernel, [0,1] range requirement"
+  },
+  {
+    "id": "about",
+    "url": "https://www.drivendata.org/competitions/306/competition-doe-gems/page/968/",
+    "title": "About page — additional resources",
+    "status": "official",
+    "note": "Context for the Great Basin geothermal setting"
+  },
+  {
+    "id": "leaderboard",
+    "url": "https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/",
+    "title": "Public leaderboard",
+    "status": "family verified read 2026-10-04: #1 nchuzhoy 0.3262, #2 DARD 0.3195, #3 alexoktaba 0.3042 (GEMSDOE32 docs)",
+    "note": "IR-67-LB-01: the session brief quotes 0.3195 as the current high; the group's stored read has 0.3262 at #1 on 2026-10-04. Re-check the live page before any claim."
+  },
+  {
+    "id": "rules_pdf",
+    "url": "https://docs.nlr.gov/docs/fy26osti/96647.pdf",
+    "title": "GEMS rules / submission entry PDF (NLR 96647)",
+    "status": "mirrored in family repos with sha256 50d854b1e0239fe6… (GEMSDOE28 feed)",
+    "note": "How submissions must be entered"
+  },
+  {
+    "id": "reference_solution",
+    "url": "https://github.com/drivendataorg/gems-prize-reference-solution",
+    "title": "Official reference solution (U-Net, John Lipor, Portland State)",
+    "status": "cloned and inspected from this sandbox (github.com reachable); TverskyLoss(0.2, 0.8) confirmed in notebook",
+    "note": "unet-mc-cv-reference-solution.ipynb"
+  },
+  {
+    "id": "geodawn",
+    "url": "https://www.usgs.gov/data/geodawn-airborne-magnetic-and-radiometric-surveys-northwestern-great-basin-nevada-and",
+    "title": "GeoDAWN airborne magnetic & radiometric surveys, NW Great Basin (USGS)",
+    "status": "official USGS data release — source of the 19-band feature stack",
+    "note": "Survey layers behind mag/rtp/tmi gradients and radiometric context"
+  },
+  {
+    "id": "ingenious",
+    "url": "https://gbcge.org/current-projects/ingenious/",
+    "title": "Great Basin Center for Geothermal Energy — INGENIOUS project",
+    "status": "official project page; catalogue provenance",
+    "note": "USGS/INGENIOUS mapped-fault catalogue = labels/existing_faults raster (60,988 px)"
+  },
+  {
+    "id": "epsg32611",
+    "url": "https://epsg.io/32611",
+    "title": "EPSG:32611 — WGS 84 / UTM zone 11N",
+    "status": "official CRS registry",
+    "note": "Submission CRS"
+  },
+  {
+    "id": "tversky",
+    "url": "https://en.wikipedia.org/wiki/Tversky_index",
+    "title": "Tversky index (metric family)",
+    "status": "background",
+    "note": "DTI is the distance-weighted Tversky index with alpha=0.2, beta=0.8"
+  },
+  {
+    "id": "batra2019",
+    "url": "https://doi.org/10.1109/CVPR.2019.01063",
+    "title": "Batra et al., CVPR 2019 — multi-branch orientation/segmentation heads",
+    "status": "peer-reviewed; DOI provided in the lane brief",
+    "note": "Learning orientation jointly with segmentation improves extracted line-network topology"
+  },
+  {
+    "id": "tip_under_mapping_seismic",
+    "url": "https://eprints.soton.ac.uk/76146",
+    "title": "Southampton eprint 76146 — fault tip zones below seismic resolution (~500 m per fault)",
+    "status": "cited in the lane brief; open eprint — verify figure values manually",
+    "note": "Motivation for the tip-extension radius (up to 600 m)"
+  },
+  {
+    "id": "tip_under_mapping_dem",
+    "url": "https://www.geosoc.org.uk/abstract/item/TSG2008_226.html",
+    "title": "UCD Fault Analysis Group, TSG-2008 abstract — DEM truncation of mapped fault tips (≥100–200 m)",
+    "status": "cited in the lane brief as a UCD Fault Analysis Group TSG-2008 abstract — URL pattern must be checked manually; flagged pending verification",
+    "note": "IR-67-SRC-01: exact abstract URL not machine-verified from this sandbox"
+  },
+  {
+    "id": "gdr1391",
+    "url": "https://gdr.openei.org/submissions/1391",
+    "title": "OpenEI GDR submission 1391 — Nevada geothermal data",
+    "status": "official data repository listing",
+    "note": "Additional public geothermal data for Nevada"
+  },
+  {
+    "id": "data_bridge",
+    "url": "https://github.com/buffedlizard55-lab/6GEMSDOE",
+    "title": "Family data bridge — official competition rasters split for git transport",
+    "status": "sha256-pinned to the DrivenData data-tab files (manifest.json; re-verified from this sandbox)",
+    "note": "gems-geodawn-numerical-features.tif 4371c82e…, existing_faults.tif 7ba308cc…, example_submission.tif 2176d08e…"
+  },
+  {
+    "id": "shared_template",
+    "url": "https://github.com/buffedlizard55-lab/60GEMSDOE",
+    "title": "Shared gems57 template (metric, holdout, evaluator, submission writer)",
+    "status": "vendored byte-identical (23/23 files match the GEMSDOE65 template pin)",
+    "note": "evaluate_holdout VERSION gems57-pooled-hide-v2"
+  }
+]

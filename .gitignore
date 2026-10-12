@@ -3,6 +3,7 @@ __pycache__/
 *.pyc
 .pytest_cache/
 .venv/
+venv/
 *.egg-info/
 
 # large or machine-local artifacts (never commit)
@@ -10,10 +11,16 @@ __pycache__/
 *.memmap
 evidence/*.tmp
 data/bridge/part-*
+data/raw/
+data/cache/
 training_features.tif
 work/
 artifacts/
+<<<<<<< HEAD
+/tmp/
+=======
 
 # competition data is second-hand-mirrored and must never be committed (size + licence)
 data/
 cache/
+>>>>>>> origin/main
