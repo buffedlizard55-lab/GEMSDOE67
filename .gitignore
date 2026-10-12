@@ -1,0 +1,9 @@
+data/raw/
+data/cache/
+data/bridge/*.tif
+venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+evidence/*.npy
+/tmp/

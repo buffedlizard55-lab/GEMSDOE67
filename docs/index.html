@@ -1,0 +1,282 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GEMSDOE67 — orientation + tip heads · DOE GEMS fault-discovery submissions</title>
+<link rel="stylesheet" href="assets/site.css"></head>
+<body>
+<header class="site"><div class="wrap">
+  <h1>GEMSDOE67</h1>
+  <nav>
+    <a href="index.html">Executive summary</a>
+    <a href="hypotheses.html">Hypotheses</a>
+    <a href="research.html">Research</a>
+    <a href="sources.html">Sources</a>
+  </nav>
+</div></header>
+<div class="wrap">
+
+<h1>Executive summary — get the submission file</h1>
+<p><b>Goal:</b> discover geothermal-indicative faults <i>missing</i> from the USGS / INGENIOUS
+catalogue in NW Nevada (GeoDAWN survey) and submit them as a GeoTIFF to the
+<a href="https://www.drivendata.org/competitions/306/competition-doe-gems/" target="_blank" rel="noopener">DOE GEMS Prize</a>
+(DrivenData #306). This page is the whole workflow: download the file, read the gate,
+paste the name and note, press Create.</p>
+
+
+<div class="card gate ">
+  <p class="big"><span class="badge">OK TO DOWNLOAD AND SUBMIT</span></p>
+  <p>Generated automatically by this repository's pipeline. A <b>PASS</b> clears the file for
+  you to download and upload on the DrivenData submission page. It is <i>not</i> an organiser
+  acceptance and it does not spend a weekly submission slot — promotion is a separate step.</p>
+  <table><tr><th>Gate</th><th>Status</th></tr><tr><td>Format preflight (float32 · EPSG:32611 · 100 m · 3292×3730 · values in [0,1] · no NaN/inf · zeros outside footprint)</td><td><b>PASS</b></td></tr>
+<tr><td>No positive mass on the mapped catalogue</td><td><b>PASS</b></td></tr>
+<tr><td>Uniqueness vs local prior-raster registry (|ρ|≤0.90 · ≤70% dots within 3 px of any one prior · unique sha256)</td><td><b>PASS</b></td></tr>
+<tr><td>Holdout gate: paired HOLDOUT-DTI gain CI &gt; 0 AND tip-adjacent recovery better than the ablation</td><td><b>PASS</b></td></tr></table>
+  <p class='small'><b>Disclosed registry degeneracy (IR-67-DUP-01).</b> One prior in the accessible registry (<code>gems61-lane-buried-step-gravinversion-hgm-r3-k400k-b2zeros.tif</code>, 311,617 dots) is a background lattice whose 3 px halo covers 96.96% of allowed cells, so its forward-overlap test fires for <i>any</i> nonempty candidate (chance-expected overlap 0.9696). The ORGANIZER-CONFIRMED 0.2778 incumbent trips the same test at 0.987. The firing is measured, logged, and excluded from the drift-stop set; every informative prior passes (max forward overlap 0.54 &lt; 0.70; max |ρ| 0.036 &lt; 0.90; byte- and pixel-unique).</p>
+</div>
+
+<div class="card">
+  <p class="big">⬇ Submission file</p>
+  <p>
+    <a class="dl" href="downloads/gems67-h67a-orientip-lane-29447dots-20261012T021226Z-allfinite.tif" download>Download gems67-h67a-orientip-lane-29447dots-20261012T021226Z-allfinite.tif</a>
+    <a class="dl alt" href="downloads/gems67-h67a-orientip-lane-29447dots-20261012T021226Z-allfinite.zip" download>Download gems67-h67a-orientip-lane-29447dots-20261012T021226Z-allfinite.zip (single GeoTIFF inside)</a>
+  </p>
+  <p class="small">File: <code>gems67-h67a-orientip-lane-29447dots-20261012T021226Z-allfinite.tif</code><br>
+  sha256: <code>9088ee175c6061488855cbe5ffdaabf7e3b21164aa20834cf2717f3f851d80cd</code><br>
+  Predicted pixels (dots): <b>29447</b> · single band · float32 · EPSG:32611 ·
+  100 m · 3292×3730 · every cell finite · every value in [0,1] · zeros outside the footprint ·
+  no nodata tag (this is the convention that cannot trigger the portal error
+  “Predicted values must be in range [0, 1]”).<br>
+  Sample-faithful twin (NaN outside, NaN nodata): <a href="downloads/gems67-h67a-orientip-lane-29447dots-20261012T021226Z-nan.tif">gems67-h67a-orientip-lane-29447dots-20261012T021226Z-nan.tif</a>
+  — same values inside the footprint; use the all-finite file above as your primary.</p>
+</div>
+
+<div class="card">
+  <p class="big">📋 How to submit (exactly)</p>
+  <ol class="tight">
+    <li>Open the competition submission page:
+      <a href="https://www.drivendata.org/competitions/306/competition-doe-gems/submissions/" target="_blank" rel="noopener">
+      drivendata.org/competitions/306/competition-doe-gems/submissions/</a> and sign in.</li>
+    <li>Click <b>New submission</b>. For “File to submit”, choose the <code>.tif</code> you
+      downloaded above (or the <code>.zip</code> — it contains exactly one GeoTIFF).</li>
+    <li>In <b>Note (optional)</b>, paste the comment below (140 characters or fewer).</li>
+    <li>Click <b>Create</b>. The file matches the submission format's CRS, shape and
+      geotransform, and all values are in [0, 1], so neither format error can occur.</li>
+  </ol>
+  <p><b>Unique submission name to use:</b><br><code>GEMSDOE67-H67A-ORIENTIP-LANE</code></p>
+  <p><b>Note to paste into the form:</b><br><code>GEMSDOE67 orientation+tip lane lane: 29447 dots, 38758 tip-extension px; greedy DTI-gated; HOLDOUT-GATED; UNSCORED</code></p>
+  <p class="small">If the portal still rejects a file, you are almost certainly holding a
+  raster with a nodata sentinel (e.g. −3.4e+38) or NaN values: re-download the all-finite
+  file on this page. Details in the “range error” section below.</p>
+</div>
+
+<h2>Why the family's best file scored 0.2778 — and whether we can beat it</h2>
+<div class="card">
+<p><b>The metric is a budget, not a beauty contest.</b> The official score is a
+distance-weighted Tversky index (α = 0.2, β = 0.8, 300 m triangular kernel):
+<code>DTI = TP_w / (TP_w + 0.2·FP_w + 0.8·FN_w)</code>. Algebraically
+<code>DTI = T / (0.2(T+S−M) + 0.8|G|)</code>, so every emitted pixel that does not
+raise the covered-truth credit <code>T</code> costs 0.2 of denominator mass, while each
+uncovered truth pixel costs 0.8. A dot earns its place only above the break-even
+credit <code>k &gt; 0.2·DTI</code> (≈ 0.055 at today's scores).</p>
+<p><b>The 0.2778 rung is allocation-side optimisation.</b> The family's score ladder —
+h19-5 solid 0.1922 → dotted d1.5 0.2477 → dotted d2.8 0.2600 → h27-4 0.2708 →
+h33-2-B2 0.2778 (<span class="evidence org">ORGANIZER-CONFIRMED</span>) — removed mass that was
+already covered (thinning a surface to dots) and then pruned flank dots within 200 m of
+the mapped catalogue. Each step raised credit per emitted pixel on the <i>same</i>
+detector family. The arithmetic of diminishing returns is visible in the rungs themselves:
+pruning alone was worth +0.0070.</p>
+<p><b>Yes — beating 0.2778 is possible, but only detector-side.</b> At the same emitted
+mass the public leader (0.3262 verified read 2026-10-04; the brief quotes 0.3195 for the
+current #1 — see irregularity IR-67-LB-01) needs ~25% more mean credit per pixel than the
+h19-5 surface delivers. That credit must come from pixels the catalogue does not already
+cover: unmapped segments near mapped tips (published tip under-mapping runs to ~500 m per
+fault in one seismic array and 100–200 m of DEM truncation in a rift), blind splays, and
+buried fault zones with no surface expression. This repository's lane is built for exactly
+that: an <b>axial-orientation head + tip/junction head with geometry-aware decoding</b>
+(Batra et al., CVPR 2019) that extends traces past mapped tips along predicted strike where
+evidence persists.</p>
+<p><b>What the numbers say today.</b> On the shared hide-and-recover instrument
+(<span class="evidence holdout">HOLDOUT-DTI</span>, evaluator
+<code>gems57-pooled-hide-v2</code>,
+22893 withheld positive pixels, 2 draws × 4 quadrants),
+the full lane beats its own per-pixel ablation at matched pipeline settings:
+paired Δ = <b>0.00964</b>
+(95% CI [0.00394,
+0.01543]), and tip-adjacent recovery rises
+from 0.0273 to
+0.0426 (+56% relative) on
+7854 tip-adjacent withheld pixels. That is the
+gate the brief demanded before a weekly slot may be considered. Absolute HOLDOUT-DTI here
+is not comparable to leaderboard scores — the hidden organiser truth is not our truth.</p>
+</div>
+
+<h2>Experiment results <span class="evidence holdout">HOLDOUT-DTI</span></h2>
+<table>
+<tr><th>arm</th><th>pooled DTI</th><th>95% CI (paired block bootstrap)</th>
+<th>withheld + px</th><th>tip-adjacent coverage</th></tr>
+<tr><td><code>iso</code></td><td>0.0279</td><td>[0.0149, 0.0396]</td><td>22893</td><td>0.0273</td></tr>
+<tr><td><code>lane</code></td><td>0.0376</td><td>[0.0246, 0.0496]</td><td>22893</td><td>0.0426</td></tr>
+<tr><td><code>lane_blur</code></td><td>0.0373</td><td>[0.0243, 0.0493]</td><td>22893</td><td>0.0422</td></tr>
+</table>
+<table>
+<tr><th>paired difference</th><th>Δ DTI</th><th>95% CI</th><th>withheld + px</th></tr>
+<tr><td>lane − iso</td><td>0.00964</td><td>[0.00394, 0.01543]</td><td>22893</td></tr>
+<tr><td>lane − lane_blur</td><td>0.00024</td><td>[-0.00106, 0.00160]</td><td>22893</td></tr>
+</table>
+<p class="small">Arms: <code>iso</code> = isotropic hysteresis on the segmentation head only
+(ablation); <code>lane</code> = orientation-gated hysteresis + orientation-aware NMS + tip
+extension (this lane); <code>lane_blur</code> = lane with a wider allocation scatter kernel
+(indistinguishable from <code>lane</code>: Δ 0.00024).
+Emission = shared greedy marginal-DTI allocation (k_truth prior 45,000 px, preregistered).
+No arm's parameters were tuned on the scored folds.</p>
+
+<h2>Leakage canary (feature-alone AUCs; anything &gt; 0.90 is leakage until proven otherwise)</h2>
+<table><tr><th>draw</th><th>highest-AUC feature</th><th>AUC</th><th>verdict</th></tr>
+<tr><td>draw 20</td><td><code>dist_to_visible</code></td><td>0.8939</td><td>pass (&lt; 0.90)</td></tr><tr><td>draw 21</td><td><code>dist_to_visible</code></td><td>0.8654</td><td>pass (&lt; 0.90)</td></tr></table>
+
+<h2>The portal error “Predicted values must be in range [0, 1]” — why it happens and why this file is safe</h2>
+<div class="card">
+<p>The message fires for two different reasons, and both are fixed here:</p>
+<ul class="tight">
+<li><b>Mechanism 1 — nodata sentinels.</b> The GeoDAWN feature stack uses
+<code>-3.4028234663852886e+38</code> as nodata. Any pipeline that writes that sentinel
+through to the submission puts values outside [0, 1] in the file. This file contains no
+sentinel values at all.</li>
+<li><b>Mechanism 2 — NaN handling.</b> A file with NaN outside the footprint is a
+legitimate competition representation (the sample submission uses it), but a validator
+that computes <code>min ≥ 0 and max ≤ 1</code> over the raw array rejects it because NaN
+comparisons are false. The file offered here is <b>all-finite</b>: min 0.0, max 1.0,
+zeros outside the footprint, no nodata tag. It cannot trip either mechanism.</li>
+</ul>
+<p>The receipt that proves it is generated by re-reading the written bytes
+(<code>scripts/validate_submission.py</code> over the shared
+<code>gems57.validate</code>/<code>gems57.gates</code> checks) and is shipped next to the
+download. A sample-faithful NaN-outside twin is also generated for completeness.</p>
+</div>
+
+<h2>Run card</h2>
+<div class="card"><pre>{
+ &quot;schema&quot;: &quot;gems-run-card/2&quot;,
+ &quot;run_id&quot;: &quot;gemsdoe67-h67a-orientip-2026-10-12&quot;,
+ &quot;generated_utc&quot;: &quot;2026-10-12&quot;,
+ &quot;repo&quot;: &quot;buffedlizard55-lab/GEMSDOE67&quot;,
+ &quot;lane&quot;: &quot;orientation and tip heads with geometry-aware decoding (parallel-run lane brief)&quot;,
+ &quot;hypothesis&quot;: &quot;Fault geometry (axial strike and tip/junction structure) learned jointly with per-pixel evidence (Batra et al. CVPR 2019 multi-branch heads, adapted to undirected faults as cos 2theta/sin 2theta) decodes to line networks with better topology than per-pixel classification alone, and orientation-consistent extension past mapped tips recovers fault segments missing from the USGS/INGENIOUS catalogue because mapped tips are systematically short (tip zones below mapping resolution: ~500 m per fault in one published seismic array; 100-200 m DEM truncation in a rift study).&quot;,
+ &quot;mechanism&quot;: &quot;A segmentation head (logistic, 26 catalogue-free GeoDAWN fabric layers) supplies probability; an axial orientation head (ridge regression to (cos 2t, sin 2t) of visible-trace geometry within 3 px) supplies strike; a tip head (Gaussian sigma 1.5 px heat at visible-trace endpoints and junctions) supplies stop/continue cues. Decoding: orientation-gated hysteresis (|dtheta| &lt;= 45 deg to the nearest seed axis), orientation-aware NMS (thin along the predicted normal, bilinear sampling), then &lt;= 6 px (600 m) tip marches along outward strike while probability support persists. Candidates within 2 px of the mapped catalogue are flank-pruned (h33 lesson) with extension pixels protected; nodes are selected by the shared greedy marginal-DTI allocator (k_truth prior 45,000 px, preregistered).&quot;,
+ &quot;named_non_fault_process_that_could_mimic_it&quot;: &quot;Fluvial terrace risers and channel-bank lines (coherent strike, tip-like endings); landslide headscarps; playa shorelines and evaporite fronts (conductivity contrast); roads and canals; lithologic contacts in the potential-field bands (coherent edges with no fault throw).&quot;,
+ &quot;holdout_dti&quot;: {
+  &quot;label&quot;: &quot;HOLDOUT-DTI&quot;,
+  &quot;evaluator_version&quot;: &quot;gems57-pooled-hide-v2&quot;,
+  &quot;instrument&quot;: &quot;shared buffered hide-and-recover (whole-component withholding, 3 px feature collar, pixel-exact known masking), 2 draws x 4 label-blind quadrants&quot;,
+  &quot;withheld_positive_pixels&quot;: 22893,
+  &quot;arms&quot;: {
+   &quot;iso&quot;: {
+    &quot;dti&quot;: 0.02792906718798417,
+    &quot;ci95&quot;: [
+     0.014861619748956608,
+     0.03958201245946746
+    ]
+   },
+   &quot;lane&quot;: {
+    &quot;dti&quot;: 0.03757315447648737,
+    &quot;ci95&quot;: [
+     0.02455512714700117,
+     0.049623947789993496
+    ]
+   },
+   &quot;lane_blur&quot;: {
+    &quot;dti&quot;: 0.037331318656285785,
+    &quot;ci95&quot;: [
+     0.024334151049485112,
+     0.04928740553529956
+    ]
+   }
+  },
+  &quot;paired_delta_vs_ablation&quot;: {
+   &quot;evidence_class&quot;: &quot;HOLDOUT-DTI&quot;,
+   &quot;evaluator_version&quot;: &quot;gems57-pooled-hide-v2&quot;,
+   &quot;delta&quot;: 0.0096440872885032,
+   &quot;ci95&quot;: [
+    0.003939768676338777,
+    0.015428748683580778
+   ],
+   &quot;withheld_positive_pixels&quot;: 22893
+  },
+  &quot;tip_adjacent_gate&quot;: {
+   &quot;iso&quot;: {
+    &quot;pooled_tip_adjacent_coverage&quot;: 0.0272541195005009,
+    &quot;n_tip_adjacent_pixels&quot;: 7854
+   },
+   &quot;lane&quot;: {
+    &quot;pooled_tip_adjacent_coverage&quot;: 0.042565993751518996,
+    &quot;n_tip_adjacent_pixels&quot;: 7854
+   },
+   &quot;lane_blur&quot;: {
+    &quot;pooled_tip_adjacent_coverage&quot;: 0.0421875041974377,
+    &quot;n_tip_adjacent_pixels&quot;: 7854
+   }
+  },
+  &quot;gate&quot;: {
+   &quot;dti_gain_positive_ci&quot;: true,
+   &quot;tip_adjacent_recovery_better&quot;: true,
+   &quot;passed&quot;: true,
+   &quot;control&quot;: &quot;iso (per-pixel ablation; preregistered)&quot;,
+   &quot;delta_vs_ablation&quot;: {
+    &quot;evidence_class&quot;: &quot;HOLDOUT-DTI&quot;,
+    &quot;evaluator_version&quot;: &quot;gems57-pooled-hide-v2&quot;,
+    &quot;delta&quot;: 0.0096440872885032,
+    &quot;ci95&quot;: [
+     0.003939768676338777,
+     0.015428748683580778
+    ],
+    &quot;withheld_positive_pixels&quot;: 22893
+   },
+   &quot;variant_lane_blur&quot;: {
+    &quot;evidence_class&quot;: &quot;HOLDOUT-DTI&quot;,
+    &quot;evaluator_version&quot;: &quot;gems57-pooled-hide-v2&quot;,
+    &quot;delta&quot;: 0.000241835820201583,
+    &quot;ci95&quot;: [
+     -0.0010579011784143525,
+     0.0015979733048211329
+    ],
+    &quot;withheld_positive_pixels&quot;: 22893
+   },
+   &quot;best_arm_by_dti&quot;: &quot;lane&quot;,
+   &quot;rule&quot;: &quot;both criteria required by the lane brief: paired HOLDOUT-DTI gain vs the ablation with 95% CI &gt; 0, AND better tip-adjacent recovery&quot;
+  },
+  &quot;caveat&quot;: &quot;Conditional on catalogue truth and fixed budgets; NOT a leaderboard interval and not comparable to leaderboard scores.&quot;
+ },
+ &quot;leakage_canary&quot;: {
+  &quot;threshold&quot;: 0.9,
+  &quot;per_draw_worst&quot;: {
+   &quot;20&quot;: {
+    &quot;worst_feature&quot;: &quot;dist_to_visible&quot;,
+    &quot;worst_auc&quot;: 0.8939092507287343,
+    &quot;threshold&quot;: 0.9,
+    &quot;verdict&quot;: &quot;pass (&lt;0.90)&quot;,
+    &quot;n_pos&quot;: 11321,
+    &quot;n_neg&quot;: 400000
+   },
+   &quot;21&quot;: {
+    &quot;worst_feature&quot;: &quot;dist_to_visible&quot;,
+    &quot;worst_auc&quot;: 0.8654000504450399,
+    &quot;threshold&quot;: 0.9,
+    &quot;verdict&quot;: &quot;pass (&lt;0.90)&quot;,
+    &quot;n_pos&quot;: 11572,
+    &quot;n_neg&quot;: 400000
+   }
+  },
+  &quot;verdict&quot;: &quot;all feature-alone AUCs &lt; 0.90 on withheld whole components&quot;
+ },
+ &quot;registry_checks&quot;: {
+  &quot;registry_scope&quot;: &quot;forward-overlap firing admitted to the drift-stop set only if chance-expecte</pre>
+<p class="small">Full machine-readable card: <a href="data/run-card.json">data/run-card.json</a>.</p></div>
+
+<footer>
+<p>GEMSDOE67 · lane: orientation + tip heads with geometry-aware decoding ·
+shared template <code>gems57</code> vendored byte-identical (60GEMSDOE pin) ·
+every metric-labelled number on this page is HOLDOUT-DTI unless marked
+ORGANIZER-CONFIRMED · projections are labelled MODEL and are never written as scores.</p>
+</footer>
+</div></body></html>

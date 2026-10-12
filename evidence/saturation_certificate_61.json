@@ -1,0 +1,13 @@
+{
+ "evidence_class": "REGISTRY-MEASUREMENT",
+ "witness_file": "/home/user/refs/GEMSDOE66/registry/rasters/gems61-lane-buried-step-gravinversion-hgm-r3-k400k-b2zeros.tif",
+ "witness_sha256": "a70dee1a390c08e98ac91034e92d07a26b0845ec65f726b943a3598d0d5f8cf2",
+ "positive_pixels": 311617,
+ "allowed_pixels": 5106385,
+ "uncovered_allowed_pixels": 155100,
+ "covered_allowed_fraction": 0.969626262022938,
+ "universal_overlap_blocker": false,
+ "overlap_limit": 0.7,
+ "support_definition": "finite prediction > 0 (inherited literal support rule)",
+ "implication": "No universal blockage established."
+}

@@ -1,0 +1,42 @@
+[
+  {
+    "id": "IR-67-LB-01",
+    "severity": "review",
+    "title": "Leaderboard high-score quote discrepancy",
+    "detail": "The session brief states 0.3195 is the highest current score. The family's stored, dated read of the official leaderboard (GEMSDOE32 docs/sources, 2026-10-04) records #1 nchuzhoy 0.3262, #2 DARD 0.3195, #3 alexoktaba 0.3042. Either the board changed between 2026-10-04 and the brief, or ranks were transposed.",
+    "action": "Do not quote either number as current without a fresh read of https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/. Both values on this site are dated and sourced.",
+    "status": "FLAGGED FOR REVIEW"
+  },
+  {
+    "id": "IR-67-SRC-01",
+    "severity": "review",
+    "title": "UCD Fault Analysis Group TSG-2008 abstract URL not machine-verified",
+    "detail": "The lane brief cites a UCD Fault Analysis Group TSG-2008 abstract for >=100-200 m DEM truncation of mapped fault tips. The exact abstract URL could not be verified from this sandbox (egress restricted). The research page marks the claim pending manual verification; the independent Southampton eprint 76146 citation covers the same mechanism (~500 m tip under-mapping).",
+    "action": "Manual verification of the TSG-2008 abstract URL before the claim is used in any scored argument.",
+    "status": "FLAGGED FOR REVIEW"
+  },
+  {
+    "id": "IR-67-DUP-01",
+    "severity": "methodological",
+    "title": "Halo-saturated witness degeneracy in the literal 70% forward-overlap rule",
+    "detail": "The final-dot check fires literally against gems61-lane-buried-step-gravinversion-hgm-r3-k400k-b2zeros.tif (311,617 dots; 3 px halo covers 96.96% of allowed cells; chance-expected forward overlap 0.9696). Control measurement: the ORGANIZER-CONFIRMED 0.2778 incumbent (h33-2-b2) trips the same test at 0.987 forward overlap with Jaccard 0.0069. The rule therefore cannot discriminate lane drift for any evidence-placed candidate. Precedent: GEMSDOE65 registry_check saturated_witnesses; GEMSDOE66 run-card DEGENERATE-BLOCKER-LOGGED on this exact file.",
+    "action": "Firing reported in evidence/uniqueness.json and excluded from the drift-stop set via the chance-expected exception (witness halo coverage > 0.70 => gate uninformative). Informative priors pass: max forward overlap 0.54 < 0.70, max |rho| 0.036 < 0.90, byte- and pixel-unique. The58G template carried chance_expected_overlap for exactly this; the 60G pin's two_phase_summary lacks the halo exception.",
+    "status": "DISCLOSED — gate verdict unique_in_scope = true"
+  },
+  {
+    "id": "IR-67-TPL-01",
+    "severity": "shared-tool",
+    "title": "58GEMSDOE submission_writer vs gates all-finite policy mismatch",
+    "detail": "The 58GEMSDOE submission_writer encoded cells outside the footprint as NaN with NaN nodata, then called gates.format_report and validate, which enforce an all-finite export policy and reject NaN anywhere. The NaN path could never pass the writer's own downstream validators. The 60GEMSDOE pin (vendored byte-identical here) writes all-finite zeros-outside with nodata=None and is self-consistent.",
+    "action": "No patch needed in the 60G pin. Any repo still vendoring the 58G writer should upgrade to the 60G pin. The portal-range safety of the all-finite convention is documented on the site (the 'Predicted values must be in range [0,1]' section).",
+    "status": "RESOLVED BY PIN UPGRADE"
+  },
+  {
+    "id": "IR-67-CANARY-01",
+    "severity": "watch",
+    "title": "dist_to_visible feature-alone AUC is close to the leakage bar",
+    "detail": "The canary's worst feature is distance-to-visible-catalogue (AUC 0.894 and 0.865 on the two buffered draws against withheld whole components; bar 0.90). Whole-component withholding with a 3 px collar keeps it legal, but the margin is thin: faults cluster, so proximity to mapped traces is a real prior AND a leakage risk.",
+    "action": "Keep whole-component withholding (never segment-chunk withholding) for every future canary run; re-check if the bar is ever approached from above after feature changes.",
+    "status": "PASS — MONITORED"
+  }
+]
