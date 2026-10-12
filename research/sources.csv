@@ -1,0 +1,14 @@
+id,source,url,verification_status,permitted_claim
+S01,DrivenData official reference solution,https://github.com/drivendataorg/gems-prize-reference-solution,README and notebook inspected via GitHub API,Official repository describes model training and CPU support; not a submission receipt
+S02,Competition problem description,https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/,Not fetched - host outside network allowlist,Manual review link only
+S03,Competition data,https://www.drivendata.org/competitions/306/competition-doe-gems/data/,Not fetched - host outside network allowlist,No current login or data availability claim independently verified
+S04,Competition leaderboard,https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/,Not fetched - host outside network allowlist,No current leader score or weekly cap verified
+S05,Prize PDF,https://docs.nlr.gov/docs/fy26osti/96647.pdf,Not fetched - host outside network allowlist,No rule interpretation inferred
+S06,USGS GeoDAWN,https://www.usgs.gov/data/geodawn-airborne-magnetic-and-radiometric-surveys-northwestern-great-basin-nevada-and,Not fetched - host outside network allowlist,Potential official external data source; not checked obtainable
+S07,INGENIOUS project,https://gbcge.org/current-projects/ingenious/,Not fetched - host outside network allowlist,Manual review link only
+S08,GDR submission,https://gdr.openei.org/submissions/1391,Not fetched - host outside network allowlist,Potential official external source; not checked obtainable
+S09,Batra CVPR DOI,https://doi.org/10.1109/CVPR.2019.01063,User-supplied citation; full text not independently verified,Orientation multitask transfer is a hypothesis not established fault performance
+S10,Southampton eprint,https://eprints.soton.ac.uk/76146/,User-supplied identifier; not independently verified,Do not apply a universal tip length correction
+S11,EPSG code reference,https://epsg.io/32611,Not fetched - host outside network allowlist,Grid CRS instead checked against restored sample with rasterio
+S12,GEMSDOE32 audit,https://github.com/buffedlizard55-lab/GEMSDOE32/blob/main/docs/downloads/gemsdoe32-h33-h33-2-b2-20261004T220000Z-e5eb6e7e-audit.json,Retrieved secondary owner record,Pruning construction documented; reported/projection numbers are not organizer receipts
+S13,Shared template,https://github.com/buffedlizard55-lab/60GEMSDOE/tree/main/src/gems57,Retrieved and commit/hash pinned,Shared evaluator and writer reused unchanged; not organizer code

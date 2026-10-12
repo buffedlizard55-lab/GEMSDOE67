@@ -1,9 +1,18 @@
-data/raw/
-data/cache/
-data/bridge/*.tif
-venv/
+# Python
 __pycache__/
 *.pyc
 .pytest_cache/
-evidence/*.npy
+.venv/
+venv/
+*.egg-info/
+
+# large or machine-local artifacts (never commit)
+*.npy
+evidence/*.tmp
+data/bridge/part-*
+data/raw/
+data/cache/
+training_features.tif
+work/
+artifacts/
 /tmp/

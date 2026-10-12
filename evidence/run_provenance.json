@@ -1,0 +1,17 @@
+{
+  "recorded_utc": "2026-10-12T01:31:24.758068+00:00",
+  "experiment_count": 1,
+  "source_and_evidence_sha256": {
+    "src/gems67/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "src/gems67/model.py": "fc9ee506ff8c24403d51a26f28cf458fdbdc74be940cc0eef2377521f1ef75c0",
+    "src/gems67/geometry.py": "36265b52c89506a9d30d18e8b2f67b52d1de8b938c6ecdc8720bb509b0ad839f",
+    "src/gems67/release.py": "7c16e72eb73995000f78e637476c994454b9296542ac3348344f6527eb6e2897",
+    "src/gems67/uniqueness.py": "234f20d2e8ba4422b1e48cba3da429b6bc5ed3582b2070d6a5bbf8f6df5cbb71",
+    "scripts/run_experiment.py": "1cb35cfb214d127c79cd38f8cbca14ec70d51c41b7b2bb87642f50f355b195ed",
+    "scripts/run_canaries.py": "ed2af31cfa489fed9ddeaac9d30f0c6bad0f259b7a87cf8b716546c81088fbf1",
+    "research/hypotheses.md": "e1b57f152beb71eabea9fdcf9bc47c9936198a9552320283cb1f1578f88d534f",
+    "evidence/experiment.json": "15151e8022709183d64d2948d5434e2a0616612ed26849ad55b1dd68b8ac8367",
+    "evidence/feature_canaries.json": "07e9194385bab67dc02e2be60670aab40ac120b5068296b5eaaf152e5f3a0d51"
+  },
+  "warning": "Model weights and production predictions are not persisted; deterministic seeds/source and input pins support rerunning this negative diagnostic. No submission was produced."
+}
