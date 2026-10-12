@@ -1,0 +1,43 @@
+/home/user/GEMSDOE67/scripts/meta_analysis.py:88: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+  rho, pv = spearmanr(x[m], y[m])
+{
+ "n": 60,
+ "scored": 20,
+ "corr": {
+  "dots": {
+   "spearman_rho": -0.8453,
+   "p": 0.0,
+   "n": 20
+  },
+  "dti_vs_catalogue": {
+   "spearman_rho": -0.7182,
+   "p": 0.0004,
+   "n": 20
+  },
+  "frac_within_3px": {
+   "spearman_rho": -0.7239,
+   "p": 0.0003,
+   "n": 20
+  },
+  "median_dist_px": {
+   "spearman_rho": 0.8265,
+   "p": 0.0,
+   "n": 20
+  },
+  "mean_intensity": {
+   "spearman_rho": NaN,
+   "p": NaN,
+   "n": 20
+  },
+  "coverage_frac_of_footprint": {
+   "spearman_rho": -0.8404,
+   "p": 0.0,
+   "n": 20
+  },
+  "mean_K_under_dots": {
+   "spearman_rho": 0.9832,
+   "p": 0.0,
+   "n": 20
+  }
+ }
+}

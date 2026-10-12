@@ -1,4 +1,4 @@
-# GEMSDOE67 · three lanes: orientation/tip decoding (`main`), orientation-voted evidence (OVTR) and an independent orientation/tip re-implementation (lane `ef0d41a0`)
+# GEMSDOE67 · four lanes: orientation/tip decoding (`main`), orientation-voted evidence (OVTR), an independent orientation/tip re-implementation (lane `ef0d41a0`) and out-of-fold orientation+tip relay decoding (lane `c7b2cfa6`)
 
 ## Submission status — read this table first
 
@@ -8,8 +8,9 @@
 | **ORIENT/TIP** — axial + tip heads, geometry-aware decoding | `arena/cfeaa9d4` (PR #1, already on `main`) | **NEGATIVE · DOWNLOAD BLOCKED** — do not submit a file from that run | 0.0344 (joint) / 0.0404 (segmentation control) |
 | **ORIENT/TIP 3** — independent re-run: orientation + tip heads, geometry-aware decoding (`lane_5dc3ab34`) | `arena/5dc3ab34` (PR #7) | **DOWNLOAD READY — lane gate PASSED** (paired Δ vs its own per-pixel ablation + tip-adjacent recovery; selector step pending; see IR-67-INST-01 before any slot) | **0.03757** pooled [0.02456, 0.04962] (`gems57-pooled-hide-v2`, 22,893 withheld px); Δ vs ablation **+0.00964** [+0.00394, +0.01543]; tip-adjacent coverage 0.0426 vs 0.0273 |
 | **ORIENT/TIP 2** — the same brief re-implemented independently | `arena/ef0d41a0` (PR #5) | **NEGATIVE · NO DOWNLOAD OFFERED** — repository policy forbids a download button for a negative lane; record raster kept at `docs/downloads/gems67-axial-field-ranked-37654-20261012T020908Z-zeros.tif` | **0.01368** pooled (instrument A, 11 318 withheld px) / **0.00792** [0.00181, 0.01519] (instrument B, `gems57-pooled-hide-v2`, 11 321 withheld px) |
+| **ORIENT/TIP 3 (H67 relay)** — out-of-fold propensity + axial orientation and tip heads, orientation-aware NMS + hysteresis | `arena/c7b2cfa6-gemsdoe67` (PR #8) | **DOWNLOAD READY** — one cleared artifact offered at [`docs/c7b2cfa6/index.html`](docs/c7b2cfa6/index.html) | **0.28170** pooled shipped arm A1 vs **0.28095** isotropic control (2 folds, 29,083 withheld px, Δ +0.00075, 2/2 folds) — this lane's own hide-and-recover instrument, **not** comparable with the rows above without re-running each instrument |
 
-The three statements do not conflict: they are different lanes with different measured numbers. **Two
+The four statements do not conflict: they are different lanes with different measured numbers. **Two
 independent implementations of the same orientation/tip brief (lanes `cfeaa9d4` and `ef0d41a0`) both
 came out negative** — that agreement is the useful part of lane `ef0d41a0`; its status page is
 [`docs/status-ef0d41a0.html`](docs/status-ef0d41a0.html) and its run card
@@ -18,7 +19,12 @@ blocked status belongs to the orientation/tip lane and is preserved verbatim on 
 [`docs/status-cfeaa9d4.html`](docs/status-cfeaa9d4.html) — with its run card still at
 [`docs/run-card.json`](docs/run-card.json). The OVTR lane's card is
 [`docs/run-card-ovtr.json`](docs/run-card-ovtr.json) and its one-click download page is
-[`docs/index.html`](docs/index.html). **No competition slot has been used by either lane**;
+[`docs/index.html`](docs/index.html). Lane `c7b2cfa6`'s page is
+[`docs/c7b2cfa6/index.html`](docs/c7b2cfa6/index.html), its rendered lane README
+[`docs/c7b2cfa6/README.md`](docs/c7b2cfa6/README.md), its run card
+[`evidence/c7b2cfa6/e7_run_card.json`](evidence/c7b2cfa6/e7_run_card.json) and its verdict
+[`evidence/c7b2cfa6/e6_verdict.json`](evidence/c7b2cfa6/e6_verdict.json).
+**No competition slot has been used by any lane**;
 promotion into a slot is a separate selector decision inside the weekly cap shown on the submission
 page.
 
@@ -413,50 +419,136 @@ python3 -m pytest tests/test_lane_ef0d41a0.py -q
 
 ---
 
-## Lane `5dc3ab34` — orientation + tip heads (this session's run)
+## Lane `c7b2cfa6` — H67 relay decoding, out-of-fold propensity (2026-10-12)
 
-**One-click submission:** [`docs/lane-5dc3ab34/`](docs/lane-5dc3ab34/index.html) —
-the executive summary leads with the OK-TO-DOWNLOAD gate, the file, and the exact
-name/note to paste. Primary file (portal-range-safe, all-finite [0,1], zeros outside
-the footprint, no nodata tag — cannot trigger “Predicted values must be in range [0, 1]”):
+Everything in this section is a LOCAL measurement in this checkout. **No organiser score is claimed
+for any byte produced by this lane**, and no weekly slot has been used.
+
+### The artifact that is cleared for download
+
+| | |
+| --- | --- |
+| file | [`docs/downloads/gems67-h67-oritip-relay-41635dots-20261012T022830Z-nan.tif`](docs/downloads/gems67-h67-oritip-relay-41635dots-20261012T022830Z-nan.tif) |
+| sha256 | `d60a1003cb200c3c15ac8e44a48e471f5605ef749b5a72f7a592cbdb4eba486d` |
+| portal name | `GEMSDOE67-H67-oritip-relay-41635` |
+| portal note (125/140) | `GEMSDOE67 H67 orientation+tip geometry-aware decode; 41635 dots; off-catalogue; local checks only; no organiser score claimed` |
+| geometry | 41,635 unit-value dots, **0** on visible-catalogue pixels, **0** within 3 px of them; 1 band float32, EPSG:32611, 3730×3292, 100 m |
+| values | in [0, 1]; NaN **exactly** outside the official footprint (mask identical to `sample_submission.tif` cell for cell) |
+| siblings | `-zeros.tif` (all-finite, 0.0 outside the footprint) and a `.zip` of the primary, in the same folder |
+| verdict | `cleared_for_download_and_submission = true`, hard failures 0 |
+
+Gate detail: validator **grid-only** (the hard gate) 10 PASS / 0 FAIL / 1 SKIPPED; the same validator
+run with `features_path` reports 2 FAILs on cells where `sample_submission.tif` is NaN while
+`numeric_features.tif` is finite — disclosed as `IR-67-GRID-01`, non-gating, because the template NaN
+mask is reproduced exactly. Uniqueness against all 62 pinned registry rasters: bytes not identical to
+any; max |Spearman| 0.0093 (limit 0.90). The literal
+"> 70 % of dots within 3 px of one registry raster" clause reads 0.9957 here and is
+**unsatisfiable for every non-empty candidate** in this corpus (three space-filling comparators cover
+99.9–100 % of any dot field) — `IR-67-UNIQ-01`; both readings are published and the literal one is not
+used to self-block.
+
+### Hypothesis, mechanism, and the gate that decided what shipped
+
+**H67.** Expert-labelled faults missing from the public USGS/INGENIOUS catalogue concentrate where
+mapped traces *stop* — along-strike continuations and relay links beyond tips — because mapping media
+truncate traces at their own resolution limit. **Mechanism.** 55 label-free physical channels →
+out-of-fold `HistGradientBoosting` propensity; ridge **axial orientation** head (cos 2θ, sin 2θ,
+undirected, supervised only within 3 px of visible traces); ridge **tip/junction** head on a Gaussian
+σ = 1.5 px endpoint/junction heatmap; decode with orientation-aware NMS + hysteresis; 5.2 px minimum
+separation; calibrated greedy marginal-DTI acceptance. **Named non-fault mimic.** aligned ephemeral
+washes and fan-head channels (collinear, orientation-coherent, apparent tips at the fan apex).
+
+| arm (HOLDOUT-DTI proxy, 2 spatially-blocked folds, 29,083 withheld positives) | pooled DTI | 95 % CI |
+| --- | --- | --- |
+| A0 isotropic control | 0.28095 | 0.2778–0.2841 |
+| **A1 orientation-aware NMS + hysteresis — SHIPPED** | **0.28170** | 0.2799–0.2835 |
+| A2 + along-strike tip extension — **NEGATIVE RESULT** | 0.27984 | 0.2795–0.2801 |
+
+A1 − A0 = **+0.00075** (2/2 folds; tip-adjacent +0.00079,
+2/2). A2 − A1 = **-0.00185** (0/2 folds) → tip extension is
+shipped **OFF** and logged as a negative result: the hide-and-recover truth *is* a catalogue-shaped
+trace, so walking 8 cells past a tip moves mass off the ridge. The effect that survives is small; the
+holdout's live rank-correlation is weak in the inherited measurement (+0.087 catalogue-hidden to +0.51
+drift-corrected, n = 12), so this is a **screen**, never a prediction.
+
+Leakage canary: 55 channels tested one at a time; max single-channel AUC against withheld positives
+0.5736 — nothing near the 0.90 bar.
+
+A methodological result worth keeping: a single propensity model trained with the **full** catalogue as
+its own context *copies the catalogue* — it predicted > 0 on exactly the 60,988 catalogue cells and on
+nothing off-catalogue (0 candidates). The shipped field is therefore a **K = 4 out-of-fold** propensity:
+the catalogue is split into four groups of whole 8-connected segments, each fold removes its group plus a
+3 px buffer, and every cell takes the prediction of the fold whose visible set is farthest from it.
+
+### Instrument reading for these bytes — a PROJECTION, not a score
+
+Recomputed here from the pinned registry rasters against 20 OWNER-REPORTED scores:
+mean GeoDawn radiogenic heat under the dots ρ = +0.983, dot count ρ = −0.845, footprint coverage
+ρ = −0.840, median distance to the catalogue ρ = +0.827, fraction within 3 px ρ = −0.724. This raster is
+at-or-better than the family best on dti_vs_catalogue (0.0),
+frac_within_3px (0.0), median_dist_px (22.8 vs
+19.65) and mean_K_under_dots (125.723 vs
+100.987); it is worse on dot count (41,635 vs
+37,654). `mean_K_under_dots` and `median_dist_px` lie **outside** the family range, so only the
+rank sign is informative — no quantitative extrapolation is made anywhere in this repository.
+
+### Reproduce
+
+```bash
+pip install -r requirements.txt
+bash scripts/fetch_data_c7b2cfa6.sh                 # restore the hash-pinned mirrors (data/, cache/ are gitignored)
+python scripts/build_features_c7b2cfa6.py           # 55-channel label-free cube -> cache/channels.f16.npy
+python scripts/run_lane67_c7b2cfa6.py --folds 2     # leakage canary + the 3-arm hide-and-recover gate
+python scripts/emit_submission_c7b2cfa6.py --min-sep 5.2 --exclude-catalogue-px 3
+python scripts/verify_and_release_c7b2cfa6.py       # validator + byte audit + uniqueness + verdict + run card
+python scripts/meta_analysis_c7b2cfa6.py            # registry anatomy + this raster on the same instrument
+python scripts/build_readme_c7b2cfa6.py && python scripts/build_site_c7b2cfa6.py
+python -m pytest -q tests/test_lane_c7b2cfa6.py     # 13 data-free tests
+```
+
+Lane files: package `src/lane_c7b2cfa6/`, evidence `evidence/c7b2cfa6/`, registry additions
+`registry/c7b2cfa6/`, site `docs/c7b2cfa6/`, rendered lane README `docs/c7b2cfa6/README.md`, CI
+`.github/workflows/ci-lane-c7b2cfa6.yml`. `src/gems/` is the GEMSDOE66 template copied **verbatim**
+(hashes in `registry/c7b2cfa6/template_provenance.json`) and is a different upstream from this
+repository's `vendor/gems57/`; it is used unmodified, not forked.
+
+### Next session, in priority order
+
+1. Nothing here has an organiser score; submitting is the owner's selector step inside the weekly cap.
+2. The calibrated greedy marginal-DTI rule never bound (last accepted credit 0.238 vs bar 0.056), so the
+   minimum-separation radius is the operative control. Re-derive the stopping rule against the inherited
+   |G_LB| ≈ 12,691 prevalence before touching anything else.
+3. Orientation-head accuracy is low (MAE cos 2θ = 0.491, sin 2θ = 0.514): a structure-tensor-only axis
+   prior or a wider supervision band is the obvious next experiment.
+4. `_sib60/trace_segments_utm11.csv` (5.2 MB of digitised SGMC segments) is still unused; SGMC
+   off-catalogue traces failed the sibling H73 proxy (−0.2909) and are 70 % pre-Quaternary bedrock
+   contacts, so they are a feature candidate at most, never a placement domain.
+5. Cross-lane: this lane's instrument and the OVTR lane's instrument have never been run on the same
+   folds. Doing that once would make the four HOLDOUT-DTI numbers in the table above comparable.
+
+
+---
+
+## Lane `5dc3ab34` — orientation + tip heads (session run)
+
+**One-click submission:** [`docs/lane-5dc3ab34/index.html`](docs/lane-5dc3ab34/index.html) —
+executive summary leads with the OK-TO-DOWNLOAD gate, the file, and the exact name/note.
+Primary file (portal-range-safe: all-finite [0,1], zeros outside the footprint, no nodata tag —
+cannot trigger “Predicted values must be in range [0, 1]”):
 
 * `docs/downloads/gems67-h67a-orientip-lane-29447dots-20261012T021226Z-allfinite.tif`
   · sha256 `9088ee175c6061488855cbe5ffdaabf7e3b21164aa20834cf2717f3f851d80cd`
   · 29,447 dots (38,758 tip-extension px) · float32 · EPSG:32611 · 100 m · 3292×3730
 * name `GEMSDOE67-H67A-ORIENTIP-LANE` · note (114 chars):
   `GEMSDOE67 orientation+tip lane lane: 29447 dots, 38758 tip-extension px; greedy DTI-gated; HOLDOUT-GATED; UNSCORED`
-* sample-faithful NaN twin beside it; receipt JSONs re-derived from the written bytes
+* sample-faithful NaN twin on the lane page; receipts re-derived from the written bytes
 
-**Evidence (HOLDOUT-DTI, evaluator `gems57-pooled-hide-v2`, 22,893 withheld + px,
-2 draws × 4 label-blind quadrants, whole-component withholding):**
-
-| arm | pooled DTI | 95% CI | tip-adjacent coverage |
-|---|---|---|---|
-| `lane` (orientation-gated hysteresis + oriented NMS + tip extension) | **0.03757** | [0.02456, 0.04962] | **0.04257** |
-| `lane_blur` (wider allocation scatter) | 0.03744 | [0.02426, 0.04921] | 0.04219 |
-| `iso` (per-pixel ablation) | 0.02793 | [0.01486, 0.03958] | 0.02725 |
-
-Paired Δ (lane − iso) = **+0.00964 [+0.00394, +0.01543]** (physical-block bootstrap).
-Leakage canary: worst feature-alone AUC = `dist_to_visible` 0.894 / 0.865 (bar 0.90) — pass,
-monitored (IR-67-CANARY-01). Uniqueness vs the accessible registry (incl. `registry/rasters/`):
-byte-unique, pixel-unique, |ρ|≤0.036 (dots) / 0.112 (surface), honest forward overlap ≤0.54
-(<0.70); the one literal firing is the 311,617-dot halo-saturated witness (IR-67-DUP-01; the
-0.2778 incumbent trips the same test at 0.987, chance-expected 0.9696).
-
-**Cross-lane honesty (read before acting).** Two sibling implementations of this brief
-(`cfeaa9d4`: 0.0344/0.0404; `ef0d41a0`: 0.0079 on `gems57-pooled-hide-v2`) were declared
-negative. On the *same evaluator*, this run is materially above `ef0d41a0` (0.03757 vs 0.0079,
-non-overlapping CIs) and its paired lane increment is positive with CI>0 — which is why the
-lane gate passes and the download is offered. The OVTR lane's 0.2691 is a *different
-instrument* (60,594 withheld px); the gap is NOT interpretable cross-instrument until the
-instruments are reconciled on one shared draw (**IR-67-INST-01**). No weekly slot is consumed
-here; spending one requires the selector to first reconcile the instruments and compare like
-with like. Run card: `docs/run-card-5dc3ab34.json`; irregularities: `evidence/irregularities.json`.
-
-**Answer to the brief's question (why 0.2778, can we beat it).** 0.2778 (h33-2-B2) is the top
-of an *allocation-side* ladder on one detector family (surface→dots d2.8→flank prune): the
-metric is a budget, `DTI = T/(0.2(T+S−M)+0.8|G|)`, so removing redundant mass raises credit
-per pixel until the marginal bar `k > 0.2·DTI`. That ladder is nearly exhausted; beating it
-needs *detector-side* credit from off-catalogue segments (mapped tips are systematically
-short — ~500 m/fault in one published seismic array, 100–200 m DEM truncation in a rift),
-which is this lane's target. Full sourced reasoning: `docs/lane-5dc3ab34/index.html`.
+**Evidence (HOLDOUT-DTI, `gems57-pooled-hide-v2`, 22,893 withheld + px):** lane 0.03757
+[0.02456, 0.04962] vs per-pixel ablation 0.02793 [0.01486, 0.03958]; paired Δ **+0.00964**
+[+0.00394, +0.01543]; tip-adjacent coverage 0.04257 vs 0.02725 (7,854 px). Canary worst AUC
+`dist_to_visible` 0.894 (bar 0.90, IR-67-CANARY-01). Uniqueness vs the full registry:
+byte-unique, pixel-unique, worst Jaccard 0.0215 (copy bar 0.5); literal overlap firings
+disclosed as IR-67-DUP-01 (4 halo-saturated lattice witnesses) and IR-67-DUP-02 (OVTR shipped
+raster: forward 0.795 vs chance 0.544, Jaccard 0.009 — distinct raster under the shared gate
+semantics). **IR-67-INST-01:** cross-lane instruments are unreconciled — the selector must run
+one shared draw before spending any weekly slot. Run card: `docs/run-card-5dc3ab34.json`.
