@@ -66,3 +66,10 @@ projections; those numbers are not adopted as this project's results.
 No direct observation of geothermal vents is inferred. Fault geometry can be relevant to
 fluid flow, but neither permeability nor temperature is demonstrated by a line detector.
 All proposed hypotheses and non-fault mimics are in `research/hypotheses.md`.
+
+## Additional interpretation limit
+Training treats sampled unlabelled background as a negative for this diagnostic, although
+unmapped faults can exist there. This is positive–unlabelled label uncertainty, not verified
+fault absence. It can penalize exactly the discoveries sought by the competition. A future
+spatial model should test an explicit treatment of this uncertainty within the same lane,
+without using hidden catalogue locations or retuning on the confirmation split.
