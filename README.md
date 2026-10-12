@@ -552,3 +552,105 @@ disclosed as IR-67-DUP-01 (4 halo-saturated lattice witnesses) and IR-67-DUP-02 
 raster: forward 0.795 vs chance 0.544, Jaccard 0.009 — distinct raster under the shared gate
 semantics). **IR-67-INST-01:** cross-lane instruments are unreconciled — the selector must run
 one shared draw before spending any weekly slot. Run card: `docs/run-card-5dc3ab34.json`.
+
+
+---
+
+## Appendix: verbatim session prompt (kept for auditability)
+
+<details>
+<summary>Click to expand the verbatim prompt this project is built from</summary>
+
+Review the repo.
+
+**THE FOLLOWING IS THE HIGHEST URGENCY AND MUST BE FOLLOWED!**
+
+MUST GENERATE A UNIQUE TIF SUBMISSION FOR THE COMPETITION. DO NOT COPY A PREVIOUS
+SUBMISSION UNLESS IT'S FOR LEARNING AND EDUCATION. BUT WE MUST GENERATE A UNIQUE TIF
+SUBMISSION. IT MUST BE OBVIOUS WHETHER IT IS OK TO DOWNLOAD AND SUBMIT THE GENERATED
+TIF SUBMISSION.
+
+There should be an easy to download submission tif file as described by the prompt. Read
+the entire prompt.
+
+Orientation and tip heads with geometry-aware decoding. Per-pixel classification ignores
+connectivity. Batra et al. (CVPR 2019, doi:10.1109/CVPR.2019.01063) show that learning
+orientation jointly with segmentation in stacked multi-branch heads improves the topology
+of extracted line networks. Add an axial orientation head (cos 2θ, sin 2θ, my adaptation
+for undirected faults, supervised within 3 px of catalogue traces). Add a tip/junction
+heatmap head (Gaussian σ = 1–2 px at polyline endpoints and junctions). Decode with
+orientation-aware non-maximum suppression and hysteresis. Extend traces past mapped tips
+only along predicted orientation where probability support persists. Published
+fault-population studies find mapped lengths come up short because tip zones fall below
+resolution (about 500 m per fault in one seismic array; ≥100–200 m DEM truncation in
+another rift: Southampton eprint 76146 and a UCD Fault Analysis Group TSG-2008 abstract).
+Select nodes by calibrated greedy marginal-DTI selection or 4–5 px spacing. Gate: DTI gain
+and better recovery of masked tip-adjacent segments in hide-and-recover blocks. Finish:
+normalize to [0,1]; write a float32 EPSG:32611 100 m GeoTIFF (NaN only outside the
+footprint); pass validate_submission.py; run a hash/pixel-agreement check against all prior
+rasters; offer the download only if the gate is met, else log the negative result.
+
+PARALLEL-RUN PROTOCOL — read first. This session is one of several running from this same
+prompt.
+
+1. LANE. Your lane is the single method paragraph above. Stay inside it. If your raster's
+rank-correlation with any registry raster exceeds [0.90], or more than [70%] of your dots
+fall within 3 px of one registry raster's dots, you have drifted into another lane: log it
+as a duplicate and stop. Check this on the surface before placement AND on the final dots.
+2. REUSE, DON'T REBUILD. Use the template's cached feature stack, evaluate_holdout.py and
+submission_writer.py. Holdout = hide-and-recover: withhold whole fault segments with a
+buffer, derive every catalogue-based feature only from the visible faults, mask visible
+faults pixel-exactly, score pooled DTI (alpha 0.2, beta 0.8, 300 m triangular kernel). If a
+shared tool is wrong, fix it once in the template and report it; never keep a private fork.
+3. LABEL EVERY NUMBER as HOLDOUT-DTI (evaluator version, number of withheld positives, 95%
+CI) or ORGANIZER-CONFIRMED (copied from a submission-page receipt). A projection is never
+written as a score.
+4. LEAKAGE CANARY. Test each feature alone on the holdout before trusting any result. AUC
+above [0.90] means leakage until proven otherwise.
+5. RUN CARD. End with one JSON card: hypothesis; mechanism; the named non-fault process that
+could mimic it; holdout DTI + CI; correlation/overlap vs registry; raster sha256; validator
+output (no NaN inside the footprint, values in [0,1], CRS/shape/transform match); submission
+name + note of at most 140 characters; verdict promote / negative. Negative results are
+deliverables.
+6. BUDGET. Stop after [3] experiments or [2] hours. Do not pick submissions: promotion to a
+real slot is a separate selector step, within the weekly cap shown on the submission page.
+
+We need to generate a unique TIF submission into the competition. It must be unique —
+unlike any within the GEMSDOE sites. Verify working line by line, no hallucinations.
+
+Answer the question using PhD-level experience, knowledge, and judgement: Why and how did
+`h33-h33-2-b2-20261004T220000Z-e5eb6e7e-zeros` (0.2778) get the highest score among the
+GEMSDOE family sites, and are we able to generate a submission that scores higher?
+
+Before implementing, generate 3–5 candidate geological hypotheses we haven't tried yet,
+each naming: the specific layer(s) involved, the physical signature being targeted, why it
+should catch a fault missing from the USGS/INGENIOUS catalogue rather than one already in
+it, and how it differs from anything already implemented in this repo. Rank them by
+expected DTI improvement and implementation cost. Validate the top candidate on our
+spatially-blocked holdout set before touching a weekly submission slot.
+
+The goal of this project is to place top of the leaderboard in this competition
+(https://www.drivendata.org/competitions/306/competition-doe-gems/). Collect all data and
+organize it into a clean, easily auditable table with official verified links. Create a
+GitHub page with clean UI: executive summary at the very beginning explaining exactly how
+to make a submission, an easy download of the submission TIF, a unique name and a short
+note (≤140 characters) to tell submissions apart.
+
+"Predicted values must be in range [0, 1]" — the downloaded file must not trip this portal
+error. No manual input required; work autonomously; flag irregularities; no hallucinations;
+verify line by line from official verified trusted sources and provide links for manual
+review. Run every task through multiple passes (implement → review → re-check against the
+original request). Create a pull request and merge to main; make suggestions for remaining
+work and limitations.
+
+Core values (Arena): **Maximize P(Win)** — weigh tradeoffs and choose the path that
+maximizes the probability of winning. **Own the Outcome** — own results end to end;
+problems are acted on without waiting for permission; failure and success are signals to
+improve.
+
+The single blocker to training on an unrestricted machine is data placement: run
+`bash scripts/download_competition_data.sh` into `data/`, then `python
+scripts/prepare_data.py` — after that the full train→inference→validate pipeline runs (CPU
+is sufficient for this lane's linear heads).
+
+</details>
