@@ -1,0 +1,68 @@
+[01:44:45] cube (3730, 3292, 55) footprint 5167373 catalogue 60988
+[01:44:48] fold 0: blocks=227 withheld_pos=14320 visible=38144 buffer_dropped=303
+[01:44:48] fold 1: blocks=227 withheld_pos=14763 visible=37204 buffer_dropped=409
+[01:45:14] canary top: [{'channel': 'cos2t_det_elev_s15', 'auc_fold0': 0.5736, 'flag': ''}, {'channel': 'geod_2ndinv', 'auc_fold0': 0.5731, 'flag': ''}, {'channel': 'topo_slope_std', 'auc_fold0': 0.5719, 'flag': ''}]
+[01:45:23] fold 0: train matrix (188144, 62) positives 38144
+[01:45:58] fold 0: fit 35.1s
+[01:46:11] fold 0: catalogue tips 4957 walk seeds 5047
+[01:46:21] fold 0 A0_isotropic: dots=44212 dti=0.2793 tip_dti=0.0045
+[01:46:28] fold 0 A1_orient_nms_hyst: dots=44257 dti=0.2808 tip_dti=0.0051
+[01:46:34] fold 0 A2_full_tip_extension: dots=44257 dti=0.2808 tip_dti=0.0051
+[01:46:43] fold 1: train matrix (187204, 62) positives 37204
+[01:47:15] fold 1: fit 32.9s
+[01:47:29] fold 1: catalogue tips 4854 walk seeds 5011
+[01:47:40] fold 1 A0_isotropic: dots=45197 dti=0.2825 tip_dti=0.0054
+[01:47:47] fold 1 A1_orient_nms_hyst: dots=45230 dti=0.2826 tip_dti=0.0064
+[01:47:53] fold 1 A2_full_tip_extension: dots=45230 dti=0.2826 tip_dti=0.0064
+[01:47:53] {
+ "A0_isotropic": {
+  "dti": 0.2809507392578753,
+  "tip": 0.004937850095130841,
+  "dots": 44704.5
+ },
+ "A1_orient_nms_hyst": {
+  "dti": 0.2816957591083014,
+  "tip": 0.00572374241597071,
+  "dots": 44743.5
+ },
+ "A2_full_tip_extension": {
+  "dti": 0.2816957591083014,
+  "tip": 0.00572374241597071,
+  "dots": 44743.5
+ }
+}
+[01:47:53] {
+ "A2_full_tip_extension_minus_A0_isotropic": {
+  "dti_delta_mean": 0.0007535592771779343,
+  "dti_delta_folds": [
+   0.001444352827440487,
+   6.27657269153814e-05
+  ],
+  "dti_folds_positive": 2,
+  "n_folds": 2,
+  "tip_dti_delta_mean": 0.000785892320839868,
+  "tip_dti_folds_positive": 2
+ },
+ "A2_full_tip_extension_minus_A1_orient_nms_hyst": {
+  "dti_delta_mean": 0.0,
+  "dti_delta_folds": [
+   0.0,
+   0.0
+  ],
+  "dti_folds_positive": 0,
+  "n_folds": 2,
+  "tip_dti_delta_mean": 0.0,
+  "tip_dti_folds_positive": 0
+ },
+ "A1_orient_nms_hyst_minus_A0_isotropic": {
+  "dti_delta_mean": 0.0007535592771779343,
+  "dti_delta_folds": [
+   0.001444352827440487,
+   6.27657269153814e-05
+  ],
+  "dti_folds_positive": 2,
+  "n_folds": 2,
+  "tip_dti_delta_mean": 0.000785892320839868,
+  "tip_dti_folds_positive": 2
+ }
+}

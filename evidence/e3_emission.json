@@ -1,0 +1,84 @@
+{
+  "generated_utc": "20261012T020713Z",
+  "evidence_class": "LOCAL MEASUREMENT (no organiser score)",
+  "slug": "h67-oritip-relay",
+  "stamp": "20261012T020713Z",
+  "name": "GEMSDOE67-H67-oritip-relay-53352",
+  "note": "GEMSDOE67 H67 orientation+tip geometry-aware decode; 53352 dots; off-catalogue; local checks only; no organiser score claimed",
+  "note_chars": 125,
+  "dots": 53352,
+  "on_catalogue_pixels": 0,
+  "within_3px_of_catalogue": 4851,
+  "min_sep_px": 4.5,
+  "max_len_tip_extension_px": 0,
+  "t_hi_pct": 99.5,
+  "t_lo_pct": 99.0,
+  "tip_extension_max_len_px": 0,
+  "tip_extension_disabled_reason": "preregistered gate measured negative on both hide-and-recover folds; see evidence/e2_holdout_arms.json paired A2_minus_A1 and A2_minus_A0",
+  "network_cells": 1237310,
+  "extension_cells": 0,
+  "orientation_head_mae_cos2t": 0.49097079038619995,
+  "orientation_head_mae_sin2t": 0.5136566758155823,
+  "tip_head_auc_in_footprint": 0.6890854280006665,
+  "selection_arms": {
+    "prevalence_low_inherited_12691": {
+      "assumed_hidden_truth_cells": 12691.0,
+      "bar_alpha_dti": 0.05600000000000001,
+      "accepted": 53352,
+      "last_accepted_expected_credit": 0.23787299445194182
+    },
+    "prevalence_catalogue_like_60988": {
+      "assumed_hidden_truth_cells": 60988.0,
+      "bar_alpha_dti": 0.05600000000000001,
+      "accepted": 53352,
+      "last_accepted_expected_credit": 1.143124906282801
+    },
+    "thin_only_4.5px": {
+      "accepted": 53352
+    }
+  },
+  "files": {
+    "nan": {
+      "file": "gems67-h67-oritip-relay-53352dots-20261012T020713Z-nan.tif",
+      "sha256": "076a64f43f31a8a06e760de726325c3468f99916d1c01813609e90f018b21e93",
+      "shape_hw": [
+        3730,
+        3292
+      ],
+      "crs": "EPSG:32611",
+      "footprint_cells": 5167373,
+      "emitted_cells_gt0": 53352,
+      "min_inside": 0.0,
+      "max_inside": 1.0,
+      "nan_inside": 0,
+      "nan_outside_count": 7111787,
+      "name": "GEMSDOE67-H67-oritip-relay-53352",
+      "note": "GEMSDOE67 H67 orientation+tip geometry-aware decode; 53352 dots; off-catalogue; local checks only; no organiser score claimed",
+      "note_chars": 125,
+      "reference": "sample_submission.tif",
+      "receipt_kind": "local receipt written by submission_writer; NOT an organiser receipt"
+    },
+    "zeros": {
+      "file": "gems67-h67-oritip-relay-53352dots-20261012T020713Z-zeros.tif",
+      "sha256": "f4cbef4b64541d94061f8a4961f0c986c8dc8ee8ba60e55edb9569702dcbc39e",
+      "shape_hw": [
+        3730,
+        3292
+      ],
+      "crs": "EPSG:32611",
+      "footprint_cells": 5167373,
+      "emitted_cells_gt0": 53352,
+      "min_inside": 0.0,
+      "max_inside": 1.0,
+      "nan_inside": 0,
+      "nan_outside_count": 7111787,
+      "name": "GEMSDOE67-H67-oritip-relay-53352-zeros",
+      "note": "GEMSDOE67 H67 orientation+tip geometry-aware decode; 53352 dots; off-catalogue; local checks only; no organiser score claimed",
+      "note_chars": 125,
+      "reference": "sample_submission.tif",
+      "receipt_kind": "local receipt written by submission_writer; NOT an organiser receipt"
+    }
+  },
+  "out_of_fold_groups": 4,
+  "prevalence_assumption_disclosure": "qhat calibration uses an ASSUMED hidden-truth cell count; it is not a measurement."
+}

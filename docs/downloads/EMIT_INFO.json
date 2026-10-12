@@ -1,0 +1,11 @@
+{
+  "primary_file": "gems67-h67-oritip-relay-53352dots-20261012T020713Z-nan.tif",
+  "sha256": "076a64f43f31a8a06e760de726325c3468f99916d1c01813609e90f018b21e93",
+  "bytes": 395469,
+  "all_finite_file": "gems67-h67-oritip-relay-53352dots-20261012T020713Z-zeros.tif",
+  "sha256_zeros": "f4cbef4b64541d94061f8a4961f0c986c8dc8ee8ba60e55edb9569702dcbc39e",
+  "name": "GEMSDOE67-H67-oritip-relay-53352",
+  "note": "GEMSDOE67 H67 orientation+tip geometry-aware decode; 53352 dots; off-catalogue; local checks only; no organiser score claimed",
+  "dots": 53352,
+  "generated_utc": "20261012T020713Z"
+}

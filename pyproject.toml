@@ -1,0 +1,9 @@
+[project]
+name = "gemsdoe67"
+version = "0.1.0"
+description = "DOE GEMS Prize (DrivenData #306) — lane 67: orientation + tip heads with geometry-aware decoding"
+requires-python = ">=3.10"
+dependencies = ["numpy", "scipy", "rasterio", "scikit-learn"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

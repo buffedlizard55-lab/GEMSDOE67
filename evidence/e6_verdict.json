@@ -1,0 +1,30 @@
+{
+  "generated_utc": "2026-10-12T02:19:13Z",
+  "cleared_for_download_and_submission": true,
+  "checks": {
+    "validator_no_fail_grid_only": true,
+    "range_0_1": true,
+    "crs_shape_transform_match_sample": true,
+    "single_band_float32": true,
+    "nan_pattern_matches_sample_submission": true,
+    "no_infinities": true,
+    "bytes_not_identical_to_any_registry_raster": true,
+    "rank_correlation_within_limit": true,
+    "dot_overlap_literal_rule": false,
+    "dot_overlap_like_for_like_rule": false,
+    "shipped_holdout_arm_not_worse_than_control": true
+  },
+  "hard_failures": [],
+  "reason": "All hard format/uniqueness gates pass. The 3-px literal overlap rule is reported separately because sibling sessions proved it degenerate for this corpus; the like-for-like reading is 0.9589.",
+  "holdout": {
+    "A0_control": 0.2809507392578753,
+    "A1_shipped": 0.2816957591083014,
+    "A1_minus_A0": 0.0007535592771779343,
+    "A1_folds_better_than_A0": 2,
+    "A2_negative_result": 0.27983544321783577,
+    "A2_minus_A1": -0.0018512002409908634,
+    "tip_adjacent_delta": 0.000785892320839868,
+    "evidence_class": "HOLDOUT-DTI proxy (withheld catalogue segments), NOT a score"
+  },
+  "policy": "Format/uniqueness gates are hard. The holdout is a SCREEN: sibling sessions measured its rank-correlation with the live board at +0.087 (catalogue-hidden) to +0.51 (drift-corrected), n=12, p~0.09 (inherited). A candidate that is format-clean and unique is cleared for download; promotion to a weekly slot is a separate selector step and is NOT taken here."
+}

@@ -1,0 +1,8 @@
+# competition data is second-hand-mirrored and must never be committed (size + licence)
+data/
+cache/
+*.npy
+*.memmap
+__pycache__/
+.pytest_cache/
+*.egg-info/

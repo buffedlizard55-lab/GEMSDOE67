@@ -1,0 +1,284 @@
+{
+  "evidence_class": "HOLDOUT-DTI instrument (AUC), evaluator gems67.holdout67.roc_auc",
+  "fold": 0,
+  "withheld_positives": 14320,
+  "scored_cells": 871896,
+  "threshold_rule": "AUC > 0.90 is leakage until proven otherwise",
+  "channels": [
+    {
+      "channel": "cos2t_det_elev_s15",
+      "auc_fold0": 0.5736,
+      "flag": ""
+    },
+    {
+      "channel": "geod_2ndinv",
+      "auc_fold0": 0.5731,
+      "flag": ""
+    },
+    {
+      "channel": "topo_slope_std",
+      "auc_fold0": 0.5719,
+      "flag": ""
+    },
+    {
+      "channel": "geod_shearrate",
+      "auc_fold0": 0.5716,
+      "flag": ""
+    },
+    {
+      "channel": "coh_det_elev_s30",
+      "auc_fold0": 0.5689,
+      "flag": ""
+    },
+    {
+      "channel": "topo_curv_prof_absmax",
+      "auc_fold0": 0.5656,
+      "flag": ""
+    },
+    {
+      "channel": "cos2t_det_elev_s30",
+      "auc_fold0": 0.5638,
+      "flag": ""
+    },
+    {
+      "channel": "ieq_n100a15",
+      "auc_fold0": 0.5609,
+      "flag": ""
+    },
+    {
+      "channel": "deq_n100a15",
+      "auc_fold0": 0.5524,
+      "flag": ""
+    },
+    {
+      "channel": "coh_det_elev_s15",
+      "auc_fold0": 0.551,
+      "flag": ""
+    },
+    {
+      "channel": "topo_hs_lineament",
+      "auc_fold0": 0.5491,
+      "flag": ""
+    },
+    {
+      "channel": "topo_slope_max",
+      "auc_fold0": 0.5453,
+      "flag": ""
+    },
+    {
+      "channel": "topo_slope_p90",
+      "auc_fold0": 0.5401,
+      "flag": ""
+    },
+    {
+      "channel": "iso_grav_anom_slope",
+      "auc_fold0": 0.5364,
+      "flag": ""
+    },
+    {
+      "channel": "det_elev_slope",
+      "auc_fold0": 0.5335,
+      "flag": ""
+    },
+    {
+      "channel": "topo_relief_local",
+      "auc_fold0": 0.5335,
+      "flag": ""
+    },
+    {
+      "channel": "line_det_elev_s15",
+      "auc_fold0": 0.5204,
+      "flag": ""
+    },
+    {
+      "channel": "topo_steep_frac",
+      "auc_fold0": 0.5202,
+      "flag": ""
+    },
+    {
+      "channel": "line_det_elev_s30",
+      "auc_fold0": 0.5195,
+      "flag": ""
+    },
+    {
+      "channel": "iso_grav_anom_vg",
+      "auc_fold0": 0.5191,
+      "flag": ""
+    },
+    {
+      "channel": "coh_tmi_s30",
+      "auc_fold0": 0.5169,
+      "flag": ""
+    },
+    {
+      "channel": "cos2t_tmi_s30",
+      "auc_fold0": 0.5153,
+      "flag": ""
+    },
+    {
+      "channel": "cos2t_tmi_s15",
+      "auc_fold0": 0.5152,
+      "flag": ""
+    },
+    {
+      "channel": "coh_tmi_s15",
+      "auc_fold0": 0.5138,
+      "flag": ""
+    },
+    {
+      "channel": "sin2t_det_elev_s15",
+      "auc_fold0": 0.5128,
+      "flag": ""
+    },
+    {
+      "channel": "coh_iso_grav_anom_s30",
+      "auc_fold0": 0.5121,
+      "flag": ""
+    },
+    {
+      "channel": "line_iso_grav_anom_s30",
+      "auc_fold0": 0.5118,
+      "flag": ""
+    },
+    {
+      "channel": "tmi_hg",
+      "auc_fold0": 0.5106,
+      "flag": ""
+    },
+    {
+      "channel": "iso_grav_anom_hg",
+      "auc_fold0": 0.508,
+      "flag": ""
+    },
+    {
+      "channel": "cos2t_iso_grav_anom_s15",
+      "auc_fold0": 0.5076,
+      "flag": ""
+    },
+    {
+      "channel": "cos2t_iso_grav_anom_s30",
+      "auc_fold0": 0.5076,
+      "flag": ""
+    },
+    {
+      "channel": "line_iso_grav_anom_s15",
+      "auc_fold0": 0.5066,
+      "flag": ""
+    },
+    {
+      "channel": "coh_iso_grav_anom_s15",
+      "auc_fold0": 0.5065,
+      "flag": ""
+    },
+    {
+      "channel": "topo_aspect_coherence",
+      "auc_fold0": 0.5041,
+      "flag": ""
+    },
+    {
+      "channel": "sin2t_det_elev_s30",
+      "auc_fold0": 0.5038,
+      "flag": ""
+    },
+    {
+      "channel": "line_tmi_s30",
+      "auc_fold0": 0.4999,
+      "flag": ""
+    },
+    {
+      "channel": "topo_dem_mean",
+      "auc_fold0": 0.4995,
+      "flag": ""
+    },
+    {
+      "channel": "line_tmi_s15",
+      "auc_fold0": 0.4981,
+      "flag": ""
+    },
+    {
+      "channel": "mag_anom",
+      "auc_fold0": 0.4977,
+      "flag": ""
+    },
+    {
+      "channel": "sin2t_iso_grav_anom_s15",
+      "auc_fold0": 0.4971,
+      "flag": ""
+    },
+    {
+      "channel": "sin2t_iso_grav_anom_s30",
+      "auc_fold0": 0.4936,
+      "flag": ""
+    },
+    {
+      "channel": "depth_to_base_surf",
+      "auc_fold0": 0.491,
+      "flag": ""
+    },
+    {
+      "channel": "geod_dilaterate",
+      "auc_fold0": 0.4892,
+      "flag": ""
+    },
+    {
+      "channel": "tmi",
+      "auc_fold0": 0.4866,
+      "flag": ""
+    },
+    {
+      "channel": "rtp",
+      "auc_fold0": 0.4841,
+      "flag": ""
+    },
+    {
+      "channel": "tmi_vg",
+      "auc_fold0": 0.48,
+      "flag": ""
+    },
+    {
+      "channel": "sin2t_tmi_s15",
+      "auc_fold0": 0.4794,
+      "flag": ""
+    },
+    {
+      "channel": "sin2t_tmi_s30",
+      "auc_fold0": 0.4785,
+      "flag": ""
+    },
+    {
+      "channel": "tc",
+      "auc_fold0": 0.4717,
+      "flag": ""
+    },
+    {
+      "channel": "rad_th",
+      "auc_fold0": 0.4688,
+      "flag": ""
+    },
+    {
+      "channel": "rad_k_over_th",
+      "auc_fold0": 0.4589,
+      "flag": ""
+    },
+    {
+      "channel": "det_elev",
+      "auc_fold0": 0.4539,
+      "flag": ""
+    },
+    {
+      "channel": "iso_grav_anom",
+      "auc_fold0": 0.4528,
+      "flag": ""
+    },
+    {
+      "channel": "rad_k",
+      "auc_fold0": 0.451,
+      "flag": ""
+    },
+    {
+      "channel": "cond_surf",
+      "auc_fold0": 0.4365,
+      "flag": ""
+    }
+  ]
+}
