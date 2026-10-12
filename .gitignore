@@ -1,0 +1,14 @@
+# Python
+__pycache__/
+*.pyc
+.pytest_cache/
+.venv/
+*.egg-info/
+
+# The 418 MB organizer feature stack is never committed (GitHub's blob limit is 100 MB);
+# scripts/fetch_data.sh re-derives it and verifies the sha256 pin.
+training_features.tif
+data/bridge/part-*
+
+# Lane working directory (descriptor cache)
+work/
