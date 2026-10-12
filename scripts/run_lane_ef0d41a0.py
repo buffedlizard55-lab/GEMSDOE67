@@ -3,10 +3,10 @@ e3 (ship the validated GeoTIFF), unique (registry gate).
 
 Run with ``PYTHONPATH=vendor/template66:src``:
 
-    python scripts/run_lane67.py e1
-    python scripts/run_lane67.py e2
-    python scripts/run_lane67.py e3
-    python scripts/run_lane67.py unique
+    python scripts/run_lane_ef0d41a0.py e1
+    python scripts/run_lane_ef0d41a0.py e2
+    python scripts/run_lane_ef0d41a0.py e3
+    python scripts/run_lane_ef0d41a0.py unique
 
 Every score written to ``evidence/`` carries the shared evaluator's version string
 and the withheld-positive count.  No leaderboard number is ever written by this
@@ -38,10 +38,10 @@ from gems57 import holdout as H                    # noqa: E402
 from gems57 import submission_writer as SW         # noqa: E402
 from gems57 import uniqueness as UQ                # noqa: E402
 from gems57 import validate as V                   # noqa: E402
-from gems67 import arms as A                       # noqa: E402
-from gems67 import decode as D                     # noqa: E402
-from gems67 import fields as F                     # noqa: E402
-from gems67 import heads as HD                     # noqa: E402
+from lane_ef0d41a0 import arms as A                       # noqa: E402
+from lane_ef0d41a0 import decode as D                     # noqa: E402
+from lane_ef0d41a0 import fields as F                     # noqa: E402
+from lane_ef0d41a0 import heads as HD                     # noqa: E402
 
 EV = ROOT / "evidence"
 WORK = Path(os.environ.get("GEMS67_WORK", ROOT / "work"))
@@ -113,7 +113,7 @@ def evidence_stack(progress=print) -> F.EvidenceStack:
         progress(f"[e1] reusing cached descriptors {manifest}")
         return F.EvidenceStack.load(manifest)
     if not FEATURES.exists():
-        raise SystemExit(f"feature stack not found at {FEATURES}; run scripts/fetch_data.sh")
+        raise SystemExit(f"feature stack not found at {FEATURES}; run scripts/fetch_data_ef0d41a0.sh")
     g = G.load_grid()
     guard = _guard(g.footprint)
     t0 = time.time()
@@ -641,7 +641,7 @@ def unique() -> dict:
     cand = subs[-1]
     index = ROOT / "registry" / "prior_index.json"
     if not index.exists():
-        raise SystemExit("run scripts/build_prior_index.py first")
+        raise SystemExit("run scripts/build_prior_index_ef0d41a0.py first")
     UQ.ROOT = ROOT  # vendored module resolves relative cache_file paths against this
     priors = json.loads(index.read_text())["rasters"]
     print(f"[unique] candidate {cand.name}; {len(priors)} mirrored priors "

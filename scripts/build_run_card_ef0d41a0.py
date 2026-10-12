@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Assemble the single JSON run card required by the parallel-run protocol.
 
-Every field is read from an artifact written by ``scripts/run_lane67.py``; nothing is
+Every field is read from an artifact written by ``scripts/run_lane_ef0d41a0.py``; nothing is
 typed in by hand, so the card cannot drift from the measurements.
 """
 from __future__ import annotations

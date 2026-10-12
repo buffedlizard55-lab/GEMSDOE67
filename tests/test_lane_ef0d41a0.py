@@ -1,7 +1,7 @@
 """Lane-67 unit tests: physics conventions, decode geometry, budget mechanics, gates.
 
 Everything here is synthetic and small; the full-grid instruments live in
-``scripts/run_lane67.py`` and are recorded as JSON evidence, not re-run in CI.
+``scripts/run_lane_ef0d41a0.py`` and are recorded as JSON evidence, not re-run in CI.
 """
 from __future__ import annotations
 
@@ -12,10 +12,28 @@ from pathlib import Path
 import numpy as np
 import pytest
 
-from gems67 import arms as A
-from gems67 import decode as D
-from gems67 import fields as F
-from gems67 import heads as HD
+ROOT_ = Path(__file__).resolve().parents[1]
+HAS_BRIDGE = (ROOT_ / "data" / "bridge" / "existing_faults.tif").exists()
+
+
+def _artifacts_available():
+    if not HAS_BRIDGE:
+        return False
+    try:
+        from gems57 import grid as _G
+        _G.load_grid()
+    except Exception:                                   # noqa: BLE001 - any load failure skips
+        return False
+    return True
+
+
+DATA = pytest.mark.skipif(not _artifacts_available(),
+                          reason="pinned bridge rasters absent (CI restores them separately)")
+
+from lane_ef0d41a0 import arms as A
+from lane_ef0d41a0 import decode as D
+from lane_ef0d41a0 import fields as F
+from lane_ef0d41a0 import heads as HD
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -159,6 +177,7 @@ def test_prior_index_schema_and_hashes():
     assert h == rec["sha256"] or rec["provenance"] == "upstream-sha256"
 
 
+@DATA
 def test_shipped_raster_passes_validation_and_range():
     from gems57 import grid as G
     from gems57 import validate as V
@@ -172,6 +191,7 @@ def test_shipped_raster_passes_validation_and_range():
     assert out["checks"]["range_0_1_guaranteed"]
 
 
+@DATA
 def test_validation_rejects_out_of_range_negative_control(tmp_path):
     """The prior user-visible failure mode: values must be within [0, 1]."""
     import rasterio

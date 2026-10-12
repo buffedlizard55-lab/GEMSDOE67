@@ -134,7 +134,7 @@ def load_trace_graph(csv_path: str | Path, transform, shape: tuple[int, int],
 def trace_frame(trace_mask: np.ndarray, smooth_px: float = 2.0):
     """Axial tangent frame of a trace raster (truth for the orientation head).
 
-    Same convention as :func:`gems67.fields.axial_frame`.  The frame is *unit-norm
+    Same convention as :func:`lane_ef0d41a0.fields.axial_frame`.  The frame is *unit-norm
     wherever it is defined* but the tensor is smoothed, so it decays over a few
     pixels rather than stopping at the trace edge; the returned ``support`` is the
     1-px dilation of the mask and marks where supervision is allowed.

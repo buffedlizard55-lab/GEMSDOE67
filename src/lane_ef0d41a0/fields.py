@@ -29,7 +29,7 @@ pipeline ever holds more than a handful of full-grid arrays:
   per (band, scale): ``wcos2``, ``wsin2``, ``wenergy``.
 * :meth:`EvidenceStack.aggregate` sums them into the resident evidence field and
   aggregate frame.
-* :mod:`gems67.heads` accumulates the ridge normal equations feature-by-feature,
+* :mod:`lane_ef0d41a0.heads` accumulates the ridge normal equations feature-by-feature,
   so a head fit is one streaming pass and never materialises the design matrix.
 
 No function here reads the fault catalogue.
