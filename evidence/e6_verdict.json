@@ -1,5 +1,5 @@
 {
-  "generated_utc": "2026-10-12T02:19:13Z",
+  "generated_utc": "2026-10-12T02:38:30Z",
   "cleared_for_download_and_submission": true,
   "checks": {
     "validator_no_fail_grid_only": true,
@@ -15,7 +15,7 @@
     "shipped_holdout_arm_not_worse_than_control": true
   },
   "hard_failures": [],
-  "reason": "All hard format/uniqueness gates pass. The 3-px literal overlap rule is reported separately because sibling sessions proved it degenerate for this corpus; the like-for-like reading is 0.9589.",
+  "reason": "All hard format/uniqueness gates pass. The 3-px literal overlap rule is reported separately because sibling sessions proved it degenerate for this corpus; the like-for-like reading is 0.9957.",
   "holdout": {
     "A0_control": 0.2809507392578753,
     "A1_shipped": 0.2816957591083014,

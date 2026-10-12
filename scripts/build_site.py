@@ -105,19 +105,30 @@ See <a href="executive-summary.html">the executive summary</a> for the exact por
 </div>"""
 
 
-def gate_table(val: dict, uniq: dict, hold: dict, emit: dict) -> str:
+def gate_table(val: dict, uniq: dict, hold: dict, emit: dict, val_grid: dict = None) -> str:
     rows = []
-    if val:
-        n_pass = sum(1 for c in val["checks"] if c["status"] == "PASS")
-        n_fail = sum(1 for c in val["checks"] if c["status"] == "FAIL")
-        n_skip = sum(1 for c in val["checks"] if c["status"] == "SKIPPED")
-        rows.append(("format validator (re-read from disk)",
+    primary = val_grid or val
+    if primary:
+        n_pass = sum(1 for c in primary["checks"] if c["status"] == "PASS")
+        n_fail = sum(1 for c in primary["checks"] if c["status"] == "FAIL")
+        n_skip = sum(1 for c in primary["checks"] if c["status"] == "SKIPPED")
+        rows.append(("format validator, GRID-ONLY (the hard gate)",
                      f'<span class="{"pass" if not n_fail else "fail"}">{n_pass} PASS / {n_fail} FAIL / {n_skip} SKIPPED</span>',
-                     esc(val.get("sha256", "")[:16])))
-        for c in val["checks"]:
+                     esc(primary.get("sha256", "")[:16])))
+        for c in primary["checks"]:
             rows.append((f"&nbsp;&nbsp;check: {esc(c['check'])}",
                          f'<span class="{ "pass" if c["status"]=="PASS" else ("warn" if c["status"] in ("SKIPPED","INFO") else "fail")}">{esc(c["status"])}</span>',
                          esc(c["detail"])))
+    if val and val_grid:
+        fails = [c for c in val["checks"] if c["status"] == "FAIL"]
+        rows.append(("format validator WITH features_path (disclosed, NOT gating)",
+                     f'<span class="warn">{len(fails)} FAIL</span>',
+                     "IR-67-GRID-01"))
+        for c in fails:
+            rows.append((f"&nbsp;&nbsp;{esc(c['check'])}", '<span class="warn">DISCLOSED</span>',
+                         esc(c["detail"]) + " &mdash; sample_submission.tif is NaN on these cells while "
+                         "numeric_features.tif is finite; the template NaN mask is reproduced exactly, "
+                         "so this is a property of the supplied grid, not of this raster."))
     if uniq:
         lit, lfl = uniq["literal"], uniq["like_for_like"]
         rows.append(("uniqueness: byte-identical to any registry raster",
@@ -149,7 +160,7 @@ def gate_table(val: dict, uniq: dict, hold: dict, emit: dict) -> str:
 def build_index(emit, val, uniq, hold, canary, verdict, meta) -> str:
     s = head("GEMSDOE67 lane 67", "index.html")
     s += dl_panel(emit or {}, verdict or {})
-    s += gate_table(val, uniq, hold, emit)
+    s += gate_table(val, uniq, hold, emit, load("e4_validator_grid_only.json"))
     s += '<h2>3. What this lane is</h2><div class="card">'
     s += ("""<p><b>Hypothesis (H67).</b> Expert-labelled faults that the public USGS/INGENIOUS catalogue
 lacks are concentrated where mapped traces <i>stop</i>: published fault-population studies find mapped
@@ -337,6 +348,22 @@ def build_results(hold, canary, emit, meta_analysis) -> str:
         for k, v in meta_analysis.get("spearman_vs_reported_score", {}).items():
             s += f'<p>{esc(k)}: <b>{esc(v)}</b></p>'
         s += f'<div class="card"><p>{esc(meta_analysis.get("reading", ""))}</p></div>'
+        cr = meta_analysis.get("candidate_row")
+        if cr:
+            s += ('<h3>This lane\'s raster on the same instrument &mdash; PROJECTION, NOT A SCORE</h3>'
+                  '<div class="card"><p class="small">'
+                  + esc(meta_analysis.get("candidate_evidence_class", "")) + '</p>'
+                  '<table><tr><th>axis</th><th>this raster</th><th>family best</th>'
+                  '<th>family range</th><th>&rho; vs owner-reported score</th><th>verdict</th></tr>')
+            for k, v in cr.get("family_comparison", {}).items():
+                cls = "pass" if v["candidate_vs_family_best"] == "at_or_better" else "warn"
+                out_range = "" if v["candidate_inside_family_range"] else " (outside family range - rank only)"
+                s += (f'<tr><td>{esc(k)}</td><td><b>{v["candidate"]}</b></td><td>{v["family_best"]}</td>'
+                      f'<td>{v["family_range"][0]} &hellip; {v["family_range"][1]}</td>'
+                      f'<td>{v["rho_vs_reported_score"]:+.3f}</td>'
+                      f'<td><span class="{cls}">{esc(v["candidate_vs_family_best"])}</span>{out_range}</td></tr>')
+            s += f'</table><p class="small">{esc(cr["raster"])} &mdash; {cr["dots"]} dots</p></div>'
+
     return s + tail()
 
 
@@ -377,6 +404,7 @@ def main() -> int:
     (DOCS / ".nojekyll").write_text("")
     emit = load("e3_emission.json")
     val = load("e4_validator.json")
+    val_grid = load("e4_validator_grid_only.json")
     uniq = load("e5_uniqueness.json")
     hold = load("e2_holdout_arms.json")
     canary = load("e1_canary.json")

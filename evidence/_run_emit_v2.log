@@ -1,0 +1,20 @@
+[02:28:30] footprint(official) 5167373 footprint(features) 5167373 catalogue 60988
+[02:28:30] catalogue segments 3199
+[02:29:10] oof fold 0: visible=44033 held=15384 train=(169033, 62)
+[02:30:45] oof fold 1: visible=43734 held=15777 train=(168734, 62)
+[02:32:17] oof fold 2: visible=45209 held=14440 train=(170209, 62)
+[02:33:48] oof fold 3: visible=44201 held=15387 train=(169201, 62)
+[02:34:44] out-of-fold propensity assembled; p99.9 = 2.058623749690014e-06 off-catalogue p99.9 = 2.058623749690014e-06
+[02:35:04] orientation head MAE(cos2t)=0.4910 MAE(sin2t)=0.5137 tip head AUC=0.6891
+[02:35:06] network cells 1237310 extension cells 0 score>0 1237310
+[02:35:07] candidate cells (off-catalogue, score>0, excl>3 px) 1122529
+[02:35:07] after 5.2 px thinning 41635
+[02:35:08] prevalence_low_inherited_12691 accepted 41635
+[02:35:09] prevalence_catalogue_like_60988 accepted 41635
+[02:35:10] SHIPPED dots 41635 on catalogue: 0 within3px of catalogue: 0
+[02:35:10] wrote gems67-h67-oritip-relay-41635dots-20261012T022830Z-nan.tif d60a1003cb20 
+{
+ "nan": "gems67-h67-oritip-relay-41635dots-20261012T022830Z-nan.tif",
+ "sha256": "d60a1003cb200c3c15ac8e44a48e471f5605ef749b5a72f7a592cbdb4eba486d",
+ "dots": 41635
+}

@@ -1,6 +1,6 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Run card</title><link rel="stylesheet" href="assets/site.css"></head><body><header><h1>GEMSDOE67 &mdash; DOE GEMS Prize (DrivenData #306)</h1><div class="sub">Lane 67: axial-orientation + tip/junction heads with geometry-aware decoding. Built 2026-10-12 02:27 UTC. No number on this site is an organiser score unless labelled ORGANIZER-CONFIRMED.</div><nav><a href="index.html">Index</a> <a href="executive-summary.html">Executive Summary</a> <a href="submission-guide.html">Submission Guide</a> <a href="hypotheses.html">Hypotheses</a> <a href="results.html">Results</a> <a href="sources.html">Sources</a> <a href="irregularities.html">Irregularities</a> <a href="run-card.html" style="border-color:#3fb950">Run Card</a></nav></header><main><div class="card"><h2 style="margin-top:0">RUN CARD (one JSON card, as the protocol requires)</h2><pre>{
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Run card</title><link rel="stylesheet" href="assets/site.css"></head><body><header><h1>GEMSDOE67 &mdash; DOE GEMS Prize (DrivenData #306)</h1><div class="sub">Lane 67: axial-orientation + tip/junction heads with geometry-aware decoding. Built 2026-10-12 02:41 UTC. No number on this site is an organiser score unless labelled ORGANIZER-CONFIRMED.</div><nav><a href="index.html">Index</a> <a href="executive-summary.html">Executive Summary</a> <a href="submission-guide.html">Submission Guide</a> <a href="hypotheses.html">Hypotheses</a> <a href="results.html">Results</a> <a href="sources.html">Sources</a> <a href="irregularities.html">Irregularities</a> <a href="run-card.html" style="border-color:#3fb950">Run Card</a></nav></header><main><div class="card"><h2 style="margin-top:0">RUN CARD (one JSON card, as the protocol requires)</h2><pre>{
   &quot;session&quot;: &quot;GEMSDOE67 / lane 67 (arena/c7b2cfa6-gemsdoe67)&quot;,
-  &quot;generated_utc&quot;: &quot;2026-10-12T02:19:13Z&quot;,
+  &quot;generated_utc&quot;: &quot;2026-10-12T02:38:30Z&quot;,
   &quot;hypothesis&quot;: &quot;Expert-labelled faults missing from the public USGS/INGENIOUS catalogue are concentrated where mapped traces stop: along-strike continuations and relay links beyond tips, because mapping media truncate traces at their own resolution limit. A learned axial orientation field (cos 2theta, sin 2theta) plus a tip/junction heatmap, decoded with across-strike NMS, hysteresis and an along-strike walk past mapped tips, places emission in those corridors.&quot;,
   &quot;mechanism&quot;: &quot;55 label-free physical channels -&gt; HistGradientBoosting propensity; ridge orientation head supervised within 3 px of visible traces; ridge tip head on a Gaussian sigma=1.5 px endpoint/junction heatmap; orientation-aware NMS; hysteresis; up to 8-cell along-strike walk from tips on un-thinned support; 4.5 px minimum separation; calibrated greedy marginal-DTI acceptance (accept while expected new kernel credit &gt; alpha*DTI).&quot;,
   &quot;named_non_fault_process_that_could_mimic_it&quot;: &quot;Aligned ephemeral washes and fan-head channels (collinear, orientation-coherent, apparent tips at the fan apex). Secondary: basalt flow margins, deflation/dune ridges, resistant lithologic contacts, roads/canals/field edges.&quot;,
@@ -25,28 +25,28 @@
   },
   &quot;correlation_overlap_vs_registry&quot;: {
     &quot;literal&quot;: {
-      &quot;max_abs_spearman&quot;: 0.0049,
-      &quot;max_abs_spearman_raster&quot;: &quot;gemsdoe32-h33-h33-2b2-plus-h33-1-20261004T220000Z-31588dc7-nan.tif&quot;,
-      &quot;max_dot_overlap_3px&quot;: 0.9589,
+      &quot;max_abs_spearman&quot;: 0.0093,
+      &quot;max_abs_spearman_raster&quot;: &quot;gems61-lane-buried-step-gravinversion-hgm-r3-k400k-b2zeros.tif&quot;,
+      &quot;max_dot_overlap_3px&quot;: 0.9957,
       &quot;max_dot_overlap_3px_raster&quot;: &quot;gems61-lane-buried-step-gravinversion-hgm-r3-k400k-b2zeros.tif&quot;,
       &quot;rule_pass&quot;: false
     },
     &quot;like_for_like&quot;: {
       &quot;n_dot_rasters&quot;: 60,
       &quot;n_continuous_comparators&quot;: 0,
-      &quot;max_abs_spearman&quot;: 0.0049,
-      &quot;max_abs_spearman_raster&quot;: &quot;gemsdoe32-h33-h33-2b2-plus-h33-1-20261004T220000Z-31588dc7-nan.tif&quot;,
-      &quot;max_dot_overlap_3px&quot;: 0.9589,
+      &quot;max_abs_spearman&quot;: 0.0093,
+      &quot;max_abs_spearman_raster&quot;: &quot;gems61-lane-buried-step-gravinversion-hgm-r3-k400k-b2zeros.tif&quot;,
+      &quot;max_dot_overlap_3px&quot;: 0.9957,
       &quot;max_dot_overlap_3px_raster&quot;: &quot;gems61-lane-buried-step-gravinversion-hgm-r3-k400k-b2zeros.tif&quot;,
       &quot;rule_pass&quot;: false
     },
     &quot;registry_rasters_compared&quot;: 60
   },
-  &quot;raster_sha256&quot;: &quot;076a64f43f31a8a06e760de726325c3468f99916d1c01813609e90f018b21e93&quot;,
-  &quot;zip_file&quot;: &quot;gems67-h67-oritip-relay-53352dots-20261012T020713Z-nan.zip&quot;,
-  &quot;zip_sha256&quot;: &quot;dc81a5d09a19c58f20d0cffd01947e3db50d4951f78308f0cef7468bcb17a7fa&quot;,
-  &quot;zip_bytes&quot;: 285684,
-  &quot;raster_sha256_all_finite_sibling&quot;: &quot;f4cbef4b64541d94061f8a4961f0c986c8dc8ee8ba60e55edb9569702dcbc39e&quot;,
+  &quot;raster_sha256&quot;: &quot;d60a1003cb200c3c15ac8e44a48e471f5605ef749b5a72f7a592cbdb4eba486d&quot;,
+  &quot;zip_file&quot;: &quot;gems67-h67-oritip-relay-41635dots-20261012T022830Z-nan.zip&quot;,
+  &quot;zip_sha256&quot;: &quot;8018bcbb5a3111b5fe03fa4a4bf49511577813a3ab92e8a744dda4c7fa39de24&quot;,
+  &quot;zip_bytes&quot;: 259217,
+  &quot;raster_sha256_all_finite_sibling&quot;: &quot;a6124c928bc7fcd74b17821df7684c078cc8e795402a9a5a417966085df38ae5&quot;,
   &quot;validator_output&quot;: {
     &quot;grid_only&quot;: {
       &quot;passed&quot;: false,
@@ -110,7 +110,7 @@
         {
           &quot;check&quot;: &quot;info: emitted cells (value &gt; 0)&quot;,
           &quot;status&quot;: &quot;INFO&quot;,
-          &quot;detail&quot;: &quot;emitted=53352&quot;
+          &quot;detail&quot;: &quot;emitted=41635&quot;
         }
       ]
     },
@@ -133,7 +133,7 @@
       &quot;note&quot;: &quot;the feature-stack footprint (5,165,852 finite cells) is NOT the organiser&#x27;s sample_submission footprint (5,167,373); 1,540 cells are finite in features but NaN in the template. This lane matches the template exactly and reports the discrepancy as IR-67-GRID-01.&quot;
     },
     &quot;independent_audit&quot;: {
-      &quot;file&quot;: &quot;gems67-h67-oritip-relay-53352dots-20261012T020713Z-nan.tif&quot;,
+      &quot;file&quot;: &quot;gems67-h67-oritip-relay-41635dots-20261012T022830Z-nan.tif&quot;,
       &quot;bands&quot;: 1,
       &quot;dtype&quot;: &quot;float32&quot;,
       &quot;crs&quot;: &quot;EPSG:32611&quot;,
@@ -161,12 +161,12 @@
         0.0,
         1.0
       ],
-      &quot;sha256&quot;: &quot;076a64f43f31a8a06e760de726325c3468f99916d1c01813609e90f018b21e93&quot;,
-      &quot;bytes&quot;: 395469
+      &quot;sha256&quot;: &quot;d60a1003cb200c3c15ac8e44a48e471f5605ef749b5a72f7a592cbdb4eba486d&quot;,
+      &quot;bytes&quot;: 370017
     }
   },
-  &quot;submission_name&quot;: &quot;GEMSDOE67-H67-oritip-relay-53352&quot;,
-  &quot;submission_note&quot;: &quot;GEMSDOE67 H67 orientation+tip geometry-aware decode; 53352 dots; off-catalogue; local checks only; no organiser score claimed&quot;,
+  &quot;submission_name&quot;: &quot;GEMSDOE67-H67-oritip-relay-41635&quot;,
+  &quot;submission_note&quot;: &quot;GEMSDOE67 H67 orientation+tip geometry-aware decode; 41635 dots; off-catalogue; local checks only; no organiser score claimed&quot;,
   &quot;submission_note_chars&quot;: 125,
   &quot;verdict&quot;: &quot;promote&quot;,
   &quot;verdict_qualification&quot;: &quot;promote = cleared for DOWNLOAD and for use as a submission candidate by the owner&#x27;s selector. No organiser score is claimed, no slot was spent by this session, and the holdout is a screen whose live rank-correlation is weak (inherited measurement).&quot;,

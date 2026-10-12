@@ -3,20 +3,20 @@
 > ## ✅ CLEARED — a unique, format-valid submission TIF is ready to download
 >
 > **Site:** <https://buffedlizard55-lab.github.io/GEMSDOE67/docs/> &nbsp;·&nbsp;
-> **Download (primary):** [`docs/downloads/gems67-h67-oritip-relay-53352dots-20261012T020713Z-nan.tif`](docs/downloads/gems67-h67-oritip-relay-53352dots-20261012T020713Z-nan.tif)
-> &nbsp;·&nbsp; sha256 `076a64f43f31a8a06e760de726325c3468f99916d1c01813609e90f018b21e93`
+> **Download (primary):** [`docs/downloads/gems67-h67-oritip-relay-41635dots-20261012T022830Z-nan.tif`](docs/downloads/gems67-h67-oritip-relay-41635dots-20261012T022830Z-nan.tif)
+> &nbsp;·&nbsp; sha256 `d60a1003cb200c3c15ac8e44a48e471f5605ef749b5a72f7a592cbdb4eba486d`
 >
 > | | |
 > |---|---|
-> | **Submission name** | `GEMSDOE67-H67-oritip-relay-53352` |
-> | **Note (≤140 chars)** | `GEMSDOE67 H67 orientation+tip geometry-aware decode; 53352 dots; off-catalogue; local checks only; no organiser score claimed` (125/140) |
-> | **Emitted cells** | 53352 unit dots (value 1.0), NaN outside the official footprint |
+> | **Submission name** | `GEMSDOE67-H67-oritip-relay-41635` |
+> | **Note (≤140 chars)** | `GEMSDOE67 H67 orientation+tip geometry-aware decode; 41635 dots; off-catalogue; local checks only; no organiser score claimed` (125/140) |
+> | **Emitted cells** | 41635 unit dots (value 1.0), NaN outside the official footprint |
 > | **Cells on the visible catalogue** | 0 (must be 0) |
 > | **Values / dtype / CRS / grid** | [0,1] · float32 · 1 band · EPSG:32611 · 3730×3292 · 100 m |
 > | **Format validator (re-read from disk)** | FAIL on the grid checks; the only feature-based check that fails is the 1,540-cell footprint disagreement explained in IR-67-GRID-01 |
 > | **Byte-unique vs 60 pinned registry rasters** | YES |
-> | **max abs Spearman vs registry (limit 0.90)** | 0.0049 |
-> | **3-px dot overlap, literal / like-for-like (limit 0.70)** | 0.9589 / 0.9589 |
+> | **max abs Spearman vs registry (limit 0.90)** | 0.0093 |
+> | **3-px dot overlap, literal / like-for-like (limit 0.70)** | 0.9957 / 0.9957 |
 > | **HOLDOUT-DTI (proxy, 2 folds)** | control 0.2809507392578753 → lane 0.2816957591083014 |
 > | **ORGANIZER-CONFIRMED score** | **none. Nothing was submitted and no receipt exists.** |
 >
@@ -124,7 +124,7 @@ improve.
   (`src/gems67/emit67.py`) keeps a dot only while its expected new kernel credit exceeds α·DTI. The
   calibration needs the hidden truth's cell count, which is unknowable here, so both an inherited
   low-prevalence assumption and a catalogue-like one are reported side by side
-  ({"prevalence_low_inherited_12691":{"assumed_hidden_truth_cells":12691.0,"bar_alpha_dti":0.05600000000000001,"accepted":53352,"last_accepted_expected_credit":0.23787299445194182},"prevalence_catalogue_like_60988":{"assumed_hidden_truth_cells":60988.0,"bar_alpha_dti":0.05600000000000001,"accepted":533).
+  ({"prevalence_low_inherited_12691":{"assumed_hidden_truth_cells":12691.0,"bar_alpha_dti":0.05600000000000001,"accepted":41635,"last_accepted_expected_credit":0.30481565990152515},"prevalence_catalogue_like_60988":{"assumed_hidden_truth_cells":60988.0,"bar_alpha_dti":0.05600000000000001,"accepted":416).
 * *TP lever (not verifiable here).* Beating 0.2778 materially requires a better off-catalogue
   propensity field, because placement is the only remaining term. The honest ceiling arithmetic: if
   the hidden truth is ≈12,691 cells (inherited estimate), 37,654 dots at ≈2 km spacing cap out near
@@ -132,6 +132,21 @@ improve.
   fewer wasted dots and a materially better field. This checkout ships a supervised model with a
   learned orientation head — a different information source from the family's label-free physical
   surfaces — and reports what it measured rather than projecting a score.
+
+### 3b. This lane's raster measured on the same instrument — a PROJECTION, never a score
+
+PROJECTION from an inherited OWNER-REPORTED instrument (n=20 registry rasters, no organiser receipt). This is NOT a score and must never be quoted as one. Axes whose candidate value lies outside the family range cannot be extrapolated quantitatively - only the sign of the rank is informative.
+
+| axis | this raster | family best | family range | Spearman rho vs owner-reported score | this raster vs family best |
+|---|---|---|---|---|---|
+| `dots` | **41635** | 37654 | 37654 … 123779 | -0.845 | worse |
+| `dti_vs_catalogue` | **0.0** | 0.0 | 0.0 … 0.17274 | -0.718 | at_or_better |
+| `frac_within_3px` | **0.0** | 0.0 | 0.0 … 0.1995 | -0.724 | at_or_better |
+| `median_dist_px` | **22.8** | 19.65 | 14.14 … 19.65 | +0.827 | at_or_better (OUTSIDE family range — rank only, no extrapolation) |
+| `mean_K_under_dots` | **125.723** | 100.987 | 97.219 … 100.987 | +0.983 | at_or_better (OUTSIDE family range — rank only, no extrapolation) |
+| `coverage_frac_of_footprint` | **0.00806** | 0.00729 | 0.00729 … 0.02395 | -0.840 | worse |
+
+Source raster: `gems67-h67-oritip-relay-41635dots-20261012T022830Z-nan.tif` (41635 dots). Every axis with |rho| >= 0.5 is listed. **No organiser score is claimed for these bytes.**
 
 ## 4. Reproduce it
 
@@ -1019,5 +1034,5 @@ hallucinations.
 
 ---
 
-*Generated by `scripts/build_readme.py` on 2026-10-12 02:25 UTC from
+*Generated by `scripts/build_readme.py` on 2026-10-12 02:41 UTC from
 the evidence files in `evidence/`. Do not edit numbers by hand.*

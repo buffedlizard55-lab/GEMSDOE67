@@ -1,15 +1,16 @@
 {
-  "generated_utc": "20261012T020713Z",
+  "generated_utc": "20261012T022830Z",
   "evidence_class": "LOCAL MEASUREMENT (no organiser score)",
   "slug": "h67-oritip-relay",
-  "stamp": "20261012T020713Z",
-  "name": "GEMSDOE67-H67-oritip-relay-53352",
-  "note": "GEMSDOE67 H67 orientation+tip geometry-aware decode; 53352 dots; off-catalogue; local checks only; no organiser score claimed",
+  "stamp": "20261012T022830Z",
+  "name": "GEMSDOE67-H67-oritip-relay-41635",
+  "note": "GEMSDOE67 H67 orientation+tip geometry-aware decode; 41635 dots; off-catalogue; local checks only; no organiser score claimed",
   "note_chars": 125,
-  "dots": 53352,
+  "dots": 41635,
   "on_catalogue_pixels": 0,
-  "within_3px_of_catalogue": 4851,
-  "min_sep_px": 4.5,
+  "within_3px_of_catalogue": 0,
+  "min_sep_px": 5.2,
+  "exclude_catalogue_px": 3.0,
   "max_len_tip_extension_px": 0,
   "t_hi_pct": 99.5,
   "t_lo_pct": 99.0,
@@ -24,56 +25,57 @@
     "prevalence_low_inherited_12691": {
       "assumed_hidden_truth_cells": 12691.0,
       "bar_alpha_dti": 0.05600000000000001,
-      "accepted": 53352,
-      "last_accepted_expected_credit": 0.23787299445194182
+      "accepted": 41635,
+      "last_accepted_expected_credit": 0.30481565990152515
     },
     "prevalence_catalogue_like_60988": {
       "assumed_hidden_truth_cells": 60988.0,
       "bar_alpha_dti": 0.05600000000000001,
-      "accepted": 53352,
-      "last_accepted_expected_credit": 1.143124906282801
+      "accepted": 41635,
+      "last_accepted_expected_credit": 1.4648252672030744
     },
-    "thin_only_4.5px": {
-      "accepted": 53352
+    "thin_only": {
+      "accepted": 41635,
+      "min_sep_px": 5.2
     }
   },
   "files": {
     "nan": {
-      "file": "gems67-h67-oritip-relay-53352dots-20261012T020713Z-nan.tif",
-      "sha256": "076a64f43f31a8a06e760de726325c3468f99916d1c01813609e90f018b21e93",
+      "file": "gems67-h67-oritip-relay-41635dots-20261012T022830Z-nan.tif",
+      "sha256": "d60a1003cb200c3c15ac8e44a48e471f5605ef749b5a72f7a592cbdb4eba486d",
       "shape_hw": [
         3730,
         3292
       ],
       "crs": "EPSG:32611",
       "footprint_cells": 5167373,
-      "emitted_cells_gt0": 53352,
+      "emitted_cells_gt0": 41635,
       "min_inside": 0.0,
       "max_inside": 1.0,
       "nan_inside": 0,
       "nan_outside_count": 7111787,
-      "name": "GEMSDOE67-H67-oritip-relay-53352",
-      "note": "GEMSDOE67 H67 orientation+tip geometry-aware decode; 53352 dots; off-catalogue; local checks only; no organiser score claimed",
+      "name": "GEMSDOE67-H67-oritip-relay-41635",
+      "note": "GEMSDOE67 H67 orientation+tip geometry-aware decode; 41635 dots; off-catalogue; local checks only; no organiser score claimed",
       "note_chars": 125,
       "reference": "sample_submission.tif",
       "receipt_kind": "local receipt written by submission_writer; NOT an organiser receipt"
     },
     "zeros": {
-      "file": "gems67-h67-oritip-relay-53352dots-20261012T020713Z-zeros.tif",
-      "sha256": "f4cbef4b64541d94061f8a4961f0c986c8dc8ee8ba60e55edb9569702dcbc39e",
+      "file": "gems67-h67-oritip-relay-41635dots-20261012T022830Z-zeros.tif",
+      "sha256": "a6124c928bc7fcd74b17821df7684c078cc8e795402a9a5a417966085df38ae5",
       "shape_hw": [
         3730,
         3292
       ],
       "crs": "EPSG:32611",
       "footprint_cells": 5167373,
-      "emitted_cells_gt0": 53352,
+      "emitted_cells_gt0": 41635,
       "min_inside": 0.0,
       "max_inside": 1.0,
       "nan_inside": 0,
       "nan_outside_count": 7111787,
-      "name": "GEMSDOE67-H67-oritip-relay-53352-zeros",
-      "note": "GEMSDOE67 H67 orientation+tip geometry-aware decode; 53352 dots; off-catalogue; local checks only; no organiser score claimed",
+      "name": "GEMSDOE67-H67-oritip-relay-41635-zeros",
+      "note": "GEMSDOE67 H67 orientation+tip geometry-aware decode; 41635 dots; off-catalogue; local checks only; no organiser score claimed",
       "note_chars": 125,
       "reference": "sample_submission.tif",
       "receipt_kind": "local receipt written by submission_writer; NOT an organiser receipt"

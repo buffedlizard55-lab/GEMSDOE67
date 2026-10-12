@@ -1,6 +1,88 @@
 {
+  "candidate_row": {
+    "raster": "gems67-h67-oritip-relay-41635dots-20261012T022830Z-nan.tif",
+    "dots": 41635,
+    "mass": 41635.0,
+    "mean_intensity": 1.0,
+    "dti_vs_catalogue": 0.0,
+    "frac_within_1px": 0.0,
+    "frac_within_3px": 0.0,
+    "median_dist_px": 22.8,
+    "mean_dist_px": 30.4,
+    "coverage_frac_of_footprint": 0.00806,
+    "mean_K_under_dots": 125.723,
+    "family_comparison": {
+      "dots": {
+        "candidate": 41635,
+        "family_best": 37654,
+        "family_range": [
+          37654,
+          123779
+        ],
+        "rho_vs_reported_score": -0.8453,
+        "candidate_vs_family_best": "worse",
+        "candidate_inside_family_range": true
+      },
+      "dti_vs_catalogue": {
+        "candidate": 0.0,
+        "family_best": 0.0,
+        "family_range": [
+          0.0,
+          0.17274
+        ],
+        "rho_vs_reported_score": -0.7182,
+        "candidate_vs_family_best": "at_or_better",
+        "candidate_inside_family_range": true
+      },
+      "frac_within_3px": {
+        "candidate": 0.0,
+        "family_best": 0.0,
+        "family_range": [
+          0.0,
+          0.1995
+        ],
+        "rho_vs_reported_score": -0.7239,
+        "candidate_vs_family_best": "at_or_better",
+        "candidate_inside_family_range": true
+      },
+      "median_dist_px": {
+        "candidate": 22.8,
+        "family_best": 19.65,
+        "family_range": [
+          14.14,
+          19.65
+        ],
+        "rho_vs_reported_score": 0.8265,
+        "candidate_vs_family_best": "at_or_better",
+        "candidate_inside_family_range": false
+      },
+      "mean_K_under_dots": {
+        "candidate": 125.723,
+        "family_best": 100.987,
+        "family_range": [
+          97.219,
+          100.987
+        ],
+        "rho_vs_reported_score": 0.9832,
+        "candidate_vs_family_best": "at_or_better",
+        "candidate_inside_family_range": false
+      },
+      "coverage_frac_of_footprint": {
+        "candidate": 0.00806,
+        "family_best": 0.00729,
+        "family_range": [
+          0.00729,
+          0.02395
+        ],
+        "rho_vs_reported_score": -0.8404,
+        "candidate_vs_family_best": "worse",
+        "candidate_inside_family_range": true
+      }
+    }
+  },
+  "candidate_evidence_class": "PROJECTION from an inherited OWNER-REPORTED instrument (n=20 registry rasters, no organiser receipt). This is NOT a score and must never be quoted as one. Axes whose candidate value lies outside the family range cannot be extrapolated quantitatively - only the sign of the rank is informative.",
   "evidence_class": "STATISTICS MEASURED IN THIS CHECKOUT from the pinned registry rasters; the score column is OWNER-REPORTED and has no organiser receipt",
-  "generated_utc": "2026-10-12T02:22:48Z",
+  "generated_utc": "2026-10-12T02:41:34Z",
   "n_registry_rasters_analysed": 60,
   "n_with_reported_score": 20,
   "duplicate_geometry_groups": {

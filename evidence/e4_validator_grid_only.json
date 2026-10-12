@@ -1,6 +1,6 @@
 {
-  "file": "/home/user/GEMSDOE67/docs/downloads/gems67-h67-oritip-relay-53352dots-20261012T020713Z-nan.tif",
-  "sha256": "076a64f43f31a8a06e760de726325c3468f99916d1c01813609e90f018b21e93",
+  "file": "/home/user/GEMSDOE67/docs/downloads/gems67-h67-oritip-relay-41635dots-20261012T022830Z-nan.tif",
+  "sha256": "d60a1003cb200c3c15ac8e44a48e471f5605ef749b5a72f7a592cbdb4eba486d",
   "passed": false,
   "has_failures": false,
   "checks": [
@@ -62,7 +62,7 @@
     {
       "check": "info: emitted cells (value > 0)",
       "status": "INFO",
-      "detail": "emitted=53352"
+      "detail": "emitted=41635"
     }
   ],
   "skipped_checks_mean_unverified": true

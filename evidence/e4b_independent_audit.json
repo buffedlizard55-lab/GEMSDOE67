@@ -1,6 +1,6 @@
 {
   "nan": {
-    "file": "gems67-h67-oritip-relay-53352dots-20261012T020713Z-nan.tif",
+    "file": "gems67-h67-oritip-relay-41635dots-20261012T022830Z-nan.tif",
     "bands": 1,
     "dtype": "float32",
     "crs": "EPSG:32611",
@@ -28,11 +28,11 @@
       0.0,
       1.0
     ],
-    "sha256": "076a64f43f31a8a06e760de726325c3468f99916d1c01813609e90f018b21e93",
-    "bytes": 395469
+    "sha256": "d60a1003cb200c3c15ac8e44a48e471f5605ef749b5a72f7a592cbdb4eba486d",
+    "bytes": 370017
   },
   "zeros": {
-    "file": "gems67-h67-oritip-relay-53352dots-20261012T020713Z-zeros.tif",
+    "file": "gems67-h67-oritip-relay-41635dots-20261012T022830Z-zeros.tif",
     "bands": 1,
     "dtype": "float32",
     "crs": "EPSG:32611",
@@ -60,7 +60,7 @@
       0.0,
       1.0
     ],
-    "sha256": "f4cbef4b64541d94061f8a4961f0c986c8dc8ee8ba60e55edb9569702dcbc39e",
-    "bytes": 395475
+    "sha256": "a6124c928bc7fcd74b17821df7684c078cc8e795402a9a5a417966085df38ae5",
+    "bytes": 370023
   }
 }

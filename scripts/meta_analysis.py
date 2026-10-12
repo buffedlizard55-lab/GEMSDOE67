@@ -93,7 +93,60 @@ def main() -> int:
     for r in sc:
         key = (r["dots"], r["dti_vs_catalogue"])
         seen.setdefault(key, []).append(r["raster"])
+    # ---- this lane's emitted candidate, on EXACTLY the same statistics -----------------------
+    cand_row = None
+    e3p = EVID / "e3_emission.json"
+    if e3p.exists():
+        e3d = json.loads(e3p.read_text())
+        cp = ROOT / "docs" / "downloads" / e3d["files"]["nan"]["file"]
+        if cp.exists():
+            with rasterio.open(cp) as ds:
+                a = ds.read(1).astype(np.float32)
+            fin = np.isfinite(a)
+            cdots = fin & (a > 0)
+            cn = int(cdots.sum())
+            cpred = np.where(fin, np.clip(a, 0, 1), 0.0)
+            ctp, cfpw, cfnw = tversky_terms(cpred, cat)
+            cdd = dcat[cdots]
+            cand_row = {"raster": cp.name, "dots": cn, "mass": float(np.nansum(cpred[fin])),
+                        "mean_intensity": float(np.mean(a[cdots])),
+                        "dti_vs_catalogue": round(float(ctp / (ctp + 0.2 * cfpw + 0.8 * cfnw + 1e-9)), 5),
+                        "frac_within_1px": round(float(np.mean(cdd <= 1)), 4),
+                        "frac_within_3px": round(float(np.mean(cdd <= 3)), 4),
+                        "median_dist_px": round(float(np.median(cdd)), 2),
+                        "mean_dist_px": round(float(np.mean(cdd)), 2),
+                        "coverage_frac_of_footprint": round(cn / int(fp.sum()), 5)}
+            if K is not None:
+                cand_row["mean_K_under_dots"] = round(float(np.nanmean(K[cdots])), 3)
+            fam = {}
+            for k in ("dots", "dti_vs_catalogue", "frac_within_3px", "median_dist_px",
+                      "mean_K_under_dots", "coverage_frac_of_footprint"):
+                vals = [r[k] for r in sc if r.get(k) is not None]
+                if not vals or cand_row.get(k) is None:
+                    continue
+                rho = corr.get(k, {}).get("spearman_rho")
+                if rho is None or not np.isfinite(rho) or abs(rho) < 0.5:
+                    continue
+                higher_better = rho > 0
+                best = max(vals) if higher_better else min(vals)
+                mine = cand_row[k]
+                fam[k] = {"candidate": mine, "family_best": best,
+                          "family_range": [min(vals), max(vals)],
+                          "rho_vs_reported_score": rho,
+                          "candidate_vs_family_best": ("at_or_better" if
+                                                       ((mine >= best) if higher_better else (mine <= best))
+                                                       else "worse"),
+                          "candidate_inside_family_range": bool(min(vals) <= mine <= max(vals))}
+            cand_row["family_comparison"] = fam
+            del a, fin, cdots, cpred
+
     out = {
+        "candidate_row": cand_row,
+        "candidate_evidence_class": ("PROJECTION from an inherited OWNER-REPORTED instrument "
+                                     "(n=20 registry rasters, no organiser receipt). This is NOT a "
+                                     "score and must never be quoted as one. Axes whose candidate "
+                                     "value lies outside the family range cannot be extrapolated "
+                                     "quantitatively - only the sign of the rank is informative."),
         "evidence_class": ("STATISTICS MEASURED IN THIS CHECKOUT from the pinned registry rasters; "
                            "the score column is OWNER-REPORTED and has no organiser receipt"),
         "generated_utc": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),

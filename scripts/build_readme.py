@@ -38,6 +38,22 @@ def main() -> int:
     d10 = pr.get("A1_orient_nms_hyst_minus_A0_isotropic", {})
     brief = PROMPT_FILE.read_text() if PROMPT_FILE.exists() else "(brief file missing)"
 
+    cr = (meta or {}).get("candidate_row") or {}
+    fam = cr.get("family_comparison", {})
+    cand_table = ""
+    if fam:
+        cand_table = ("### 3b. This lane's raster measured on the same instrument — a PROJECTION, never a score\n\n"
+                      + (meta or {}).get("candidate_evidence_class", "") + "\n\n"
+                      "| axis | this raster | family best | family range | Spearman rho vs owner-reported score | this raster vs family best |\n"
+                      "|---|---|---|---|---|---|\n"
+                      + "".join(
+                          f"| `{k}` | **{v['candidate']}** | {v['family_best']} | {v['family_range'][0]} … {v['family_range'][1]} "
+                          f"| {v['rho_vs_reported_score']:+.3f} | {v['candidate_vs_family_best']}"
+                          f"{'' if v['candidate_inside_family_range'] else ' (OUTSIDE family range — rank only, no extrapolation)'} |\n"
+                          for k, v in fam.items())
+                      + f"\nSource raster: `{cr.get('raster')}` ({cr.get('dots')} dots). "
+                        "Every axis with |rho| >= 0.5 is listed. **No organiser score is claimed for these bytes.**\n\n")
+
     s = f"""# GEMSDOE67 — DOE GEMS Prize (DrivenData #306), lane 67
 
 > ## {'✅ CLEARED — a unique, format-valid submission TIF is ready to download' if cleared else '⛔ NOT CLEARED — no download is offered; the negative result is logged below'}
@@ -163,7 +179,7 @@ improve.
   learned orientation head — a different information source from the family's label-free physical
   surfaces — and reports what it measured rather than projecting a score.
 
-## 4. Reproduce it
+{cand_table}## 4. Reproduce it
 
 ```bash
 pip install -r requirements.txt          # numpy scipy rasterio scikit-learn scikit-image pytest
