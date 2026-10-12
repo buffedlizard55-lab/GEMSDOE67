@@ -1,0 +1,107 @@
+[
+  {
+    "id": "S01",
+    "title": "DrivenData - DOE GEMS Prize competition overview",
+    "url": "https://www.drivendata.org/competitions/306/competition-doe-gems/",
+    "supports": "Competition entry point, structure and rules navigation.",
+    "status": "NOT FETCHED FROM THIS SANDBOX (host not in the allowed egress list). Recorded from the project brief and the sibling template's reviewed copy."
+  },
+  {
+    "id": "S02",
+    "title": "DrivenData - GEMS Prize problem description (page 967)",
+    "url": "https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/",
+    "supports": "Public catalogue is incomplete and the exam is expert-labelled NEW faults; 19 GeoDAWN feature bands and their descriptions; distance-weighted Tversky metric with alpha=0.2, beta=0.8, triangular kernel R=300 m; single-band float32 GeoTIFF in [0,1], EPSG:32611, 100 m, null/NaN outside the study bounds.",
+    "status": "NOT FETCHED FROM THIS SANDBOX. The 19 band names/descriptions were instead read from the band tags INSIDE the mirrored feature raster (verified in this checkout: scripts/build_features.py log) and they match the list in the reference solution's data contract."
+  },
+  {
+    "id": "S03",
+    "title": "DrivenData - public leaderboard",
+    "url": "https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/",
+    "supports": "Location of the live public board.",
+    "status": "NOT FETCHED FROM THIS SANDBOX. The prompt's board values (0.3195 / 0.3774 / 0.4133) and the sibling snapshot at registry/official_leaderboard_snapshot_inherited.csv are OWNER-SUPPLIED and are treated as unverified."
+  },
+  {
+    "id": "S04",
+    "title": "GEMS Prize official rules PDF (OSTI 96647)",
+    "url": "https://docs.nlr.gov/docs/fy26osti/96647.pdf",
+    "supports": "Submission mechanics: one 100 m GeoTIFF, three feedback submissions per week, one final selection, generative-AI disclosure requirement.",
+    "status": "NOT FETCHED FROM THIS SANDBOX (docs.nlr.gov is not an allowed host). Cited as the brief's own source; flagged as unverified here."
+  },
+  {
+    "id": "S05",
+    "title": "DrivenData - competition data tab",
+    "url": "https://www.drivendata.org/competitions/306/competition-doe-gems/data/",
+    "supports": "Authoritative source of numeric_features.tif, labels.tif, sample_submission.tif and 1m_DEM_links.csv.",
+    "status": "BLOCKED - requires a competition login and the host is not reachable from this sandbox. All competition rasters used here are second-hand mirrors (see IR-67-DATA-01)."
+  },
+  {
+    "id": "S06",
+    "title": "Official reference solution (U-Net + Monte-Carlo cross-validation, Tversky loss)",
+    "url": "https://github.com/drivendataorg/gems-prize-reference-solution",
+    "supports": "Data contract (data/numeric_features.tif, data/labels.tif), label convention (y<1 -> 0), feature nodata sentinel (< -1e38), patch-based training and Tversky loss weighting.",
+    "status": "CLONED AND READ IN THIS CHECKOUT (commit recorded in registry/template_provenance.json). Verified: FEATURE_DATA_PATH = data/numeric_features.tif, FAULT_LABELS_PATH = data/labels.tif, y_orig[y_orig < 1] = 0, X_orig[X_orig < -1e38] = nan."
+  },
+  {
+    "id": "S07",
+    "title": "EPSG:32611 - WGS 84 / UTM zone 11N",
+    "url": "https://epsg.io/32611",
+    "supports": "The required submission CRS.",
+    "status": "NOT FETCHED; CRS verified directly from the mirrored sample_submission.tif with rasterio (EPSG:32611, 100 m, 3730x3292, origin 243350.0 / 4508550.0)."
+  },
+  {
+    "id": "S08",
+    "title": "Tversky index",
+    "url": "https://en.wikipedia.org/wiki/Tversky_index",
+    "supports": "Definition of the asymmetric set-similarity measure the competition weights by distance.",
+    "status": "NOT FETCHED; the published competition formula is transcribed in src/gems/metric.py with a brute-force cross-check in the template's tests."
+  },
+  {
+    "id": "S09",
+    "title": "USGS GeoDAWN airborne magnetic and radiometric surveys, northwestern Great Basin, Nevada",
+    "url": "https://www.usgs.gov/data/geodawn-airborne-magnetic-and-radiometric-surveys-northwestern-great-basin-nevada-and",
+    "supports": "First-hand source for the magnetic/radiometric layers behind the 19 supplied bands and for geodawn_rad_u8.tif (K, Th).",
+    "status": "NOT FETCHED FROM THIS SANDBOX (usgs.gov not allowed). The radiometric raster used here is a mirrored u8 derivative; its band assignment (1=K, 2=Th) was read from the sibling code that produced it (60GEMSDOE scripts/build_features70.py lines 133-140) and is recorded in registry/irregularities.json as IR-67-DATA-02."
+  },
+  {
+    "id": "S10",
+    "title": "INGENIOUS project, Great Basin Center for Geothermal Energy",
+    "url": "https://gbcge.org/current-projects/ingenious/",
+    "supports": "Provenance of the INGENIOUS fault/quaternary-fault compilation underlying the supplied catalogue and of the northwestern Great Basin study area.",
+    "status": "NOT FETCHED FROM THIS SANDBOX (host not allowed)."
+  },
+  {
+    "id": "S11",
+    "title": "DOE Geothermal Data Repository submission 1391",
+    "url": "https://gdr.openei.org/submissions/1391",
+    "supports": "Candidate external layers (QFaults traces, wells/thermal-spring extracts, volcanic vents) for hypotheses H67-B and H67-E.",
+    "status": "NOT FETCHED FROM THIS SANDBOX. Mirrored extracts exist in a sibling repository: gdr_wellspring_in_footprint.csv (2,146,771 bytes), gdr_qfaults_traces.csv (126,177 bytes), gdr_volcanic_vents_in_footprint.csv (672 bytes - effectively empty inside the footprint, which is why H67-E is recorded as NOT viable)."
+  },
+  {
+    "id": "S12",
+    "title": "Batra et al., CVPR 2019 - learning orientation jointly with segmentation for line-network topology",
+    "url": "https://doi.org/10.1109/CVPR.2019.01063",
+    "supports": "The lane's citation for stacked multi-branch heads with an orientation branch improving extracted line-network topology.",
+    "status": "NOT FETCHED (doi.org not allowed). Cited from the brief; the implementation here follows the brief's own adaptation (cos 2theta / sin 2theta for undirected faults, supervised within 3 px of catalogue traces)."
+  },
+  {
+    "id": "S13",
+    "title": "Fault-length under-mapping at trace tips (two published population studies named in the brief)",
+    "url": "https://eprints.soton.ac.uk/76146/",
+    "supports": "Mapped fault lengths come up short because tip zones fall below the resolution of the mapping medium (~500 m per fault in one seismic array; >=100-200 m of DEM truncation in a rift setting). This is the physical justification for extending traces past mapped tips.",
+    "status": "NOT FETCHED FROM THIS SANDBOX (eprints.soton.ac.uk not allowed). The second study is a UCD Fault Analysis Group TSG-2008 abstract named in the brief; no URL was supplied and none is invented here."
+  },
+  {
+    "id": "S14",
+    "title": "Sibling lane repositories (same GitHub account) used for the shared template, the pinned raster registry and the mirrored data",
+    "url": "https://github.com/buffedlizard55-lab/GEMSDOE66",
+    "supports": "src/gems template (metric, holdout, submission_writer, validate_submission); registry of 62 prior rasters; the ledger of owner-reported scores.",
+    "status": "CLONED AND READ IN THIS CHECKOUT. Data mirrors came from buffedlizard55-lab/6GEMSDOE (feature stack, 5 split parts reassembled and re-hashed here), buffedlizard55-lab/GEMSDOE63 (labels / existing_faults / sample_submission) and buffedlizard55-lab/60GEMSDOE (external derived layers). Every file was re-hashed on arrival; see registry/data_manifest.json."
+  },
+  {
+    "id": "S15",
+    "title": "USGS National Map 3DEP 1 m DEM collection",
+    "url": "https://data.usgs.gov/datacatalog/data/USGS:77ae0551-c61e-4979-aedd-d797abdcde0e",
+    "supports": "The 1 m DEM tiles named by the competition's 1m_DEM_links.csv, needed for native-resolution scarp work.",
+    "status": "NOT OBTAINED. Neither the link list nor the tiles are reachable from this sandbox; the topographic channels used here are a quantised 100 m derivative of a 10 m DEM (topo_10m_derived_100m_u8.tif), disclosed as a scale deviation in IR-67-DATA-03."
+  }
+]

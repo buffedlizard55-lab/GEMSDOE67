@@ -1,0 +1,66 @@
+{
+  "nan": {
+    "file": "gems67-h67-oritip-relay-41635dots-20261012T022830Z-nan.tif",
+    "bands": 1,
+    "dtype": "float32",
+    "crs": "EPSG:32611",
+    "crs_is_epsg32611": true,
+    "shape_hw": [
+      3730,
+      3292
+    ],
+    "resolution": [
+      100.0,
+      100.0
+    ],
+    "transform_matches_sample": true,
+    "nodata_tag": null,
+    "finite_cells": 5167373,
+    "nan_cells": 7111787,
+    "nan_pattern_identical_to_sample_submission": true,
+    "nan_inside_sample_footprint": 0,
+    "finite_outside_sample_footprint": 0,
+    "min_finite": 0.0,
+    "max_finite": 1.0,
+    "values_in_0_1": true,
+    "n_infinities": 0,
+    "unique_finite_values": [
+      0.0,
+      1.0
+    ],
+    "sha256": "d60a1003cb200c3c15ac8e44a48e471f5605ef749b5a72f7a592cbdb4eba486d",
+    "bytes": 370017
+  },
+  "zeros": {
+    "file": "gems67-h67-oritip-relay-41635dots-20261012T022830Z-zeros.tif",
+    "bands": 1,
+    "dtype": "float32",
+    "crs": "EPSG:32611",
+    "crs_is_epsg32611": true,
+    "shape_hw": [
+      3730,
+      3292
+    ],
+    "resolution": [
+      100.0,
+      100.0
+    ],
+    "transform_matches_sample": true,
+    "nodata_tag": null,
+    "finite_cells": 5167373,
+    "nan_cells": 7111787,
+    "nan_pattern_identical_to_sample_submission": true,
+    "nan_inside_sample_footprint": 0,
+    "finite_outside_sample_footprint": 0,
+    "min_finite": 0.0,
+    "max_finite": 1.0,
+    "values_in_0_1": true,
+    "n_infinities": 0,
+    "unique_finite_values": [
+      0.0,
+      1.0
+    ],
+    "sha256": "a6124c928bc7fcd74b17821df7684c078cc8e795402a9a5a417966085df38ae5",
+    "bytes": 370023
+  }
+}

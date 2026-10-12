@@ -1,0 +1,269 @@
+{
+  "evidence_class": "HOLDOUT-DTI (hide-and-recover, evaluator gems.metric via holdout67.pooled_dti)",
+  "generated_utc": "2026-10-12T01:47:53Z",
+  "protocol": {
+    "n_folds": 2,
+    "block_px": 64,
+    "holdout_fraction": 0.25,
+    "buffer_px": 3,
+    "segment_ids": "8-connected components (proxy, disclosed)",
+    "visible_masked_pixel_exact": true,
+    "min_sep_px": 4.5,
+    "model": "HistGradientBoostingClassifier",
+    "max_iter": 110
+  },
+  "arms": {
+    "A0_isotropic": {
+      "dti_pooled_all_folds": 0.2809507392578753,
+      "fold_mean_dti": 0.2809311424146839,
+      "ci95": [
+        0.27779226035970034,
+        0.2840700244696675
+      ],
+      "fold_dtis": [
+        0.2793296719784678,
+        0.28253261285090003
+      ],
+      "tip_adjacent_fold_mean": 0.004937850095130841,
+      "tip_adjacent_fold_dtis": [
+        0.004474272101576463,
+        0.0054014280886852195
+      ],
+      "withheld_positives_total": 29083,
+      "mean_dots_per_fold": 44704.5,
+      "on_visible_dots_total": 0,
+      "per_fold": [
+        {
+          "dti_pooled": 0.2793296719784678,
+          "tp_w": 5396.015871288839,
+          "fp_w": 33912.64642636552,
+          "fn_w": 8923.984128711161,
+          "per_fold": [
+            {
+              "fold": 0,
+              "tp": 5396.015871288839,
+              "fp": 33912.64642636552,
+              "fn": 8923.984128711161,
+              "dti": 0.2793296719784678,
+              "withheld_positives": 14320
+            }
+          ],
+          "withheld_positives_total": 14320,
+          "fold_mean": 0.2793296719784678,
+          "ci95": null,
+          "evaluator": "gems.metric.tversky_terms (template) pooled over folds, alpha=0.2 beta=0.8 R=300m",
+          "dti_tip_adjacent": 0.004474272101576463,
+          "tip_adjacent_positives": 95,
+          "radius_px": 5,
+          "dots": 44212,
+          "on_visible": 0
+        },
+        {
+          "dti_pooled": 0.28253261285090003,
+          "tp_w": 5593.118187371555,
+          "fp_w": 34336.697238002176,
+          "fn_w": 9169.881812628446,
+          "per_fold": [
+            {
+              "fold": 1,
+              "tp": 5593.118187371555,
+              "fp": 34336.697238002176,
+              "fn": 9169.881812628446,
+              "dti": 0.28253261285090003,
+              "withheld_positives": 14763
+            }
+          ],
+          "withheld_positives_total": 14763,
+          "fold_mean": 0.28253261285090003,
+          "ci95": null,
+          "evaluator": "gems.metric.tversky_terms (template) pooled over folds, alpha=0.2 beta=0.8 R=300m",
+          "dti_tip_adjacent": 0.0054014280886852195,
+          "tip_adjacent_positives": 124,
+          "radius_px": 5,
+          "dots": 45197,
+          "on_visible": 0
+        }
+      ]
+    },
+    "A1_orient_nms_hyst": {
+      "dti_pooled_all_folds": 0.2816957591083014,
+      "fold_mean_dti": 0.2816847016918619,
+      "ci95": [
+        0.2798997749953929,
+        0.28346962838833084
+      ],
+      "fold_dtis": [
+        0.2807740248059083,
+        0.2825953785778154
+      ],
+      "tip_adjacent_fold_mean": 0.00572374241597071,
+      "tip_adjacent_fold_dtis": [
+        0.005054875867105835,
+        0.006392608964835583
+      ],
+      "withheld_positives_total": 29083,
+      "mean_dots_per_fold": 44743.5,
+      "on_visible_dots_total": 0,
+      "per_fold": [
+        {
+          "dti_pooled": 0.2807740248059083,
+          "tp_w": 5424.812700946627,
+          "fp_w": 33899.79138763274,
+          "fn_w": 8895.187299053374,
+          "per_fold": [
+            {
+              "fold": 0,
+              "tp": 5424.812700946627,
+              "fp": 33899.79138763274,
+              "fn": 8895.187299053374,
+              "dti": 0.2807740248059083,
+              "withheld_positives": 14320
+            }
+          ],
+          "withheld_positives_total": 14320,
+          "fold_mean": 0.2807740248059083,
+          "ci95": null,
+          "evaluator": "gems.metric.tversky_terms (template) pooled over folds, alpha=0.2 beta=0.8 R=300m",
+          "dti_tip_adjacent": 0.005054875867105835,
+          "tip_adjacent_positives": 95,
+          "radius_px": 5,
+          "dots": 44257,
+          "on_visible": 0
+        },
+        {
+          "dti_pooled": 0.2825953785778154,
+          "tp_w": 5594.223074241357,
+          "fp_w": 34333.156956572726,
+          "fn_w": 9168.776925758644,
+          "per_fold": [
+            {
+              "fold": 1,
+              "tp": 5594.223074241357,
+              "fp": 34333.156956572726,
+              "fn": 9168.776925758644,
+              "dti": 0.2825953785778154,
+              "withheld_positives": 14763
+            }
+          ],
+          "withheld_positives_total": 14763,
+          "fold_mean": 0.2825953785778154,
+          "ci95": null,
+          "evaluator": "gems.metric.tversky_terms (template) pooled over folds, alpha=0.2 beta=0.8 R=300m",
+          "dti_tip_adjacent": 0.006392608964835583,
+          "tip_adjacent_positives": 124,
+          "radius_px": 5,
+          "dots": 45230,
+          "on_visible": 0
+        }
+      ]
+    },
+    "A2_full_tip_extension": {
+      "dti_pooled_all_folds": 0.2816957591083014,
+      "fold_mean_dti": 0.2816847016918619,
+      "ci95": [
+        0.2798997749953929,
+        0.28346962838833084
+      ],
+      "fold_dtis": [
+        0.2807740248059083,
+        0.2825953785778154
+      ],
+      "tip_adjacent_fold_mean": 0.00572374241597071,
+      "tip_adjacent_fold_dtis": [
+        0.005054875867105835,
+        0.006392608964835583
+      ],
+      "withheld_positives_total": 29083,
+      "mean_dots_per_fold": 44743.5,
+      "on_visible_dots_total": 0,
+      "per_fold": [
+        {
+          "dti_pooled": 0.2807740248059083,
+          "tp_w": 5424.812700946627,
+          "fp_w": 33899.79138763274,
+          "fn_w": 8895.187299053374,
+          "per_fold": [
+            {
+              "fold": 0,
+              "tp": 5424.812700946627,
+              "fp": 33899.79138763274,
+              "fn": 8895.187299053374,
+              "dti": 0.2807740248059083,
+              "withheld_positives": 14320
+            }
+          ],
+          "withheld_positives_total": 14320,
+          "fold_mean": 0.2807740248059083,
+          "ci95": null,
+          "evaluator": "gems.metric.tversky_terms (template) pooled over folds, alpha=0.2 beta=0.8 R=300m",
+          "dti_tip_adjacent": 0.005054875867105835,
+          "tip_adjacent_positives": 95,
+          "radius_px": 5,
+          "dots": 44257,
+          "on_visible": 0
+        },
+        {
+          "dti_pooled": 0.2825953785778154,
+          "tp_w": 5594.223074241357,
+          "fp_w": 34333.156956572726,
+          "fn_w": 9168.776925758644,
+          "per_fold": [
+            {
+              "fold": 1,
+              "tp": 5594.223074241357,
+              "fp": 34333.156956572726,
+              "fn": 9168.776925758644,
+              "dti": 0.2825953785778154,
+              "withheld_positives": 14763
+            }
+          ],
+          "withheld_positives_total": 14763,
+          "fold_mean": 0.2825953785778154,
+          "ci95": null,
+          "evaluator": "gems.metric.tversky_terms (template) pooled over folds, alpha=0.2 beta=0.8 R=300m",
+          "dti_tip_adjacent": 0.006392608964835583,
+          "tip_adjacent_positives": 124,
+          "radius_px": 5,
+          "dots": 45230,
+          "on_visible": 0
+        }
+      ]
+    }
+  },
+  "paired": {
+    "A2_full_tip_extension_minus_A0_isotropic": {
+      "dti_delta_mean": 0.0007535592771779343,
+      "dti_delta_folds": [
+        0.001444352827440487,
+        6.27657269153814e-05
+      ],
+      "dti_folds_positive": 2,
+      "n_folds": 2,
+      "tip_dti_delta_mean": 0.000785892320839868,
+      "tip_dti_folds_positive": 2
+    },
+    "A2_full_tip_extension_minus_A1_orient_nms_hyst": {
+      "dti_delta_mean": 0.0,
+      "dti_delta_folds": [
+        0.0,
+        0.0
+      ],
+      "dti_folds_positive": 0,
+      "n_folds": 2,
+      "tip_dti_delta_mean": 0.0,
+      "tip_dti_folds_positive": 0
+    },
+    "A1_orient_nms_hyst_minus_A0_isotropic": {
+      "dti_delta_mean": 0.0007535592771779343,
+      "dti_delta_folds": [
+        0.001444352827440487,
+        6.27657269153814e-05
+      ],
+      "dti_folds_positive": 2,
+      "n_folds": 2,
+      "tip_dti_delta_mean": 0.000785892320839868,
+      "tip_dti_folds_positive": 2
+    }
+  },
+  "caveat": "The hidden exam is expert-labelled NEW faults and is not available; these are proxy measurements against withheld catalogue segments."
+}

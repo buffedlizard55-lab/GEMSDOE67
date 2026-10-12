@@ -1,0 +1,182 @@
+{
+  "session": "GEMSDOE67 / lane 67 (arena/c7b2cfa6-gemsdoe67)",
+  "generated_utc": "2026-10-12T02:38:30Z",
+  "hypothesis": "Expert-labelled faults missing from the public USGS/INGENIOUS catalogue are concentrated where mapped traces stop: along-strike continuations and relay links beyond tips, because mapping media truncate traces at their own resolution limit. A learned axial orientation field (cos 2theta, sin 2theta) plus a tip/junction heatmap, decoded with across-strike NMS, hysteresis and an along-strike walk past mapped tips, places emission in those corridors.",
+  "mechanism": "55 label-free physical channels -> HistGradientBoosting propensity; ridge orientation head supervised within 3 px of visible traces; ridge tip head on a Gaussian sigma=1.5 px endpoint/junction heatmap; orientation-aware NMS; hysteresis; up to 8-cell along-strike walk from tips on un-thinned support; 4.5 px minimum separation; calibrated greedy marginal-DTI acceptance (accept while expected new kernel credit > alpha*DTI).",
+  "named_non_fault_process_that_could_mimic_it": "Aligned ephemeral washes and fan-head channels (collinear, orientation-coherent, apparent tips at the fan apex). Secondary: basalt flow margins, deflation/dune ridges, resistant lithologic contacts, roads/canals/field edges.",
+  "holdout_dti": {
+    "evidence_class": "HOLDOUT-DTI (evaluator gems.metric.tversky_terms via gems67.holdout67.pooled_dti; hide-and-recover, whole 8-connected segments withheld with a 3 px buffer, visible faults masked pixel-exactly, alpha 0.2 beta 0.8 R 300 m)",
+    "evaluator_version": "src/gems copied verbatim from buffedlizard55-lab/GEMSDOE66 (sha256 in registry/template_provenance.json)",
+    "n_folds": 2,
+    "withheld_positives": 29083,
+    "A0_isotropic_control": 0.2809507392578753,
+    "A1_shipped_orient_nms_hyst": 0.2816957591083014,
+    "ci95_A1": [
+      0.2798997749953929,
+      0.28346962838833084
+    ],
+    "A1_minus_A0_dti": 0.0007535592771779343,
+    "A1_minus_A0_folds_positive": 2,
+    "tip_adjacent_delta_A1_minus_A0": 0.000785892320839868,
+    "A2_tip_extension_negative_result": 0.27983544321783577,
+    "A2_minus_A1_dti": -0.0018512002409908634,
+    "A2_tip_extension_max_len_px_used_for_ship": 0,
+    "note": "PROXY. The hidden exam is expert-labelled NEW faults and is not available here."
+  },
+  "correlation_overlap_vs_registry": {
+    "literal": {
+      "max_abs_spearman": 0.0093,
+      "max_abs_spearman_raster": "gems61-lane-buried-step-gravinversion-hgm-r3-k400k-b2zeros.tif",
+      "max_dot_overlap_3px": 0.9957,
+      "max_dot_overlap_3px_raster": "gems61-lane-buried-step-gravinversion-hgm-r3-k400k-b2zeros.tif",
+      "rule_pass": false
+    },
+    "like_for_like": {
+      "n_dot_rasters": 60,
+      "n_continuous_comparators": 0,
+      "max_abs_spearman": 0.0093,
+      "max_abs_spearman_raster": "gems61-lane-buried-step-gravinversion-hgm-r3-k400k-b2zeros.tif",
+      "max_dot_overlap_3px": 0.9957,
+      "max_dot_overlap_3px_raster": "gems61-lane-buried-step-gravinversion-hgm-r3-k400k-b2zeros.tif",
+      "rule_pass": false
+    },
+    "registry_rasters_compared": 60
+  },
+  "raster_sha256": "d60a1003cb200c3c15ac8e44a48e471f5605ef749b5a72f7a592cbdb4eba486d",
+  "zip_file": "gems67-h67-oritip-relay-41635dots-20261012T022830Z-nan.zip",
+  "zip_sha256": "8018bcbb5a3111b5fe03fa4a4bf49511577813a3ab92e8a744dda4c7fa39de24",
+  "zip_bytes": 259217,
+  "raster_sha256_all_finite_sibling": "a6124c928bc7fcd74b17821df7684c078cc8e795402a9a5a417966085df38ae5",
+  "validator_output": {
+    "grid_only": {
+      "passed": false,
+      "has_failures": false,
+      "checks": [
+        {
+          "check": "single band",
+          "status": "PASS",
+          "detail": "count=1"
+        },
+        {
+          "check": "dtype float32",
+          "status": "PASS",
+          "detail": "dtype=float32"
+        },
+        {
+          "check": "CRS EPSG:32611",
+          "status": "PASS",
+          "detail": "crs=EPSG:32611"
+        },
+        {
+          "check": "shape matches",
+          "status": "PASS",
+          "detail": "file=(3730, 3292) expected=(3730, 3292)"
+        },
+        {
+          "check": "resolution 100 m",
+          "status": "PASS",
+          "detail": "res=(100.0, 100.0)"
+        },
+        {
+          "check": "transform matches reference",
+          "status": "PASS",
+          "detail": "file=(100.0, 0.0, 243350.0, 0.0, -100.0, 4508550.0) ref=(100.0, 0.0, 243350.0, 0.0, -100.0, 4508550.0)"
+        },
+        {
+          "check": "CRS matches reference",
+          "status": "PASS",
+          "detail": "file=EPSG:32611 ref=EPSG:32611"
+        },
+        {
+          "check": "nodata tag is none or NaN",
+          "status": "PASS",
+          "detail": "nodata=None (finite nodata tags are rejected conservatively)"
+        },
+        {
+          "check": "no infinities",
+          "status": "PASS",
+          "detail": "inf_count=0"
+        },
+        {
+          "check": "values within [0, 1]",
+          "status": "PASS",
+          "detail": "min=0.0 max=1.0 finite_cells=5167373"
+        },
+        {
+          "check": "footprint checks",
+          "status": "SKIPPED",
+          "detail": "SKIPPED: no features raster supplied"
+        },
+        {
+          "check": "info: emitted cells (value > 0)",
+          "status": "INFO",
+          "detail": "emitted=41635"
+        }
+      ]
+    },
+    "with_features_footprint": {
+      "passed": false,
+      "has_failures": true,
+      "n_fail": 2,
+      "failed_checks": [
+        {
+          "check": "no NaN inside footprint",
+          "status": "FAIL",
+          "detail": "nan_inside=1540 footprint_cells=5165852"
+        },
+        {
+          "check": "NaN-only outside footprint",
+          "status": "FAIL",
+          "detail": "finite_outside=3061; only NaN is allowed outside"
+        }
+      ],
+      "note": "the feature-stack footprint (5,165,852 finite cells) is NOT the organiser's sample_submission footprint (5,167,373); 1,540 cells are finite in features but NaN in the template. This lane matches the template exactly and reports the discrepancy as IR-67-GRID-01."
+    },
+    "independent_audit": {
+      "file": "gems67-h67-oritip-relay-41635dots-20261012T022830Z-nan.tif",
+      "bands": 1,
+      "dtype": "float32",
+      "crs": "EPSG:32611",
+      "crs_is_epsg32611": true,
+      "shape_hw": [
+        3730,
+        3292
+      ],
+      "resolution": [
+        100.0,
+        100.0
+      ],
+      "transform_matches_sample": true,
+      "nodata_tag": null,
+      "finite_cells": 5167373,
+      "nan_cells": 7111787,
+      "nan_pattern_identical_to_sample_submission": true,
+      "nan_inside_sample_footprint": 0,
+      "finite_outside_sample_footprint": 0,
+      "min_finite": 0.0,
+      "max_finite": 1.0,
+      "values_in_0_1": true,
+      "n_infinities": 0,
+      "unique_finite_values": [
+        0.0,
+        1.0
+      ],
+      "sha256": "d60a1003cb200c3c15ac8e44a48e471f5605ef749b5a72f7a592cbdb4eba486d",
+      "bytes": 370017
+    }
+  },
+  "submission_name": "GEMSDOE67-H67-oritip-relay-41635",
+  "submission_note": "GEMSDOE67 H67 orientation+tip geometry-aware decode; 41635 dots; off-catalogue; local checks only; no organiser score claimed",
+  "submission_note_chars": 125,
+  "verdict": "promote",
+  "verdict_qualification": "promote = cleared for DOWNLOAD and for use as a submission candidate by the owner's selector. No organiser score is claimed, no slot was spent by this session, and the holdout is a screen whose live rank-correlation is weak (inherited measurement).",
+  "budget": {
+    "experiments_run": 3,
+    "experiments": [
+      "E0 registry anatomy meta-analysis",
+      "E1 leakage canary (55 channels)",
+      "E2 hide-and-recover 3-arm gate"
+    ],
+    "wall_clock_minutes_approx": null
+  }
+}

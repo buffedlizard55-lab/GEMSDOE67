@@ -1,0 +1,442 @@
+{
+  "candidate_row": {
+    "raster": "gems67-h67-oritip-relay-41635dots-20261012T022830Z-nan.tif",
+    "dots": 41635,
+    "mass": 41635.0,
+    "mean_intensity": 1.0,
+    "dti_vs_catalogue": 0.0,
+    "frac_within_1px": 0.0,
+    "frac_within_3px": 0.0,
+    "median_dist_px": 22.8,
+    "mean_dist_px": 30.4,
+    "coverage_frac_of_footprint": 0.00806,
+    "mean_K_under_dots": 125.723,
+    "family_comparison": {
+      "dots": {
+        "candidate": 41635,
+        "family_best": 37654,
+        "family_range": [
+          37654,
+          123779
+        ],
+        "rho_vs_reported_score": -0.8453,
+        "candidate_vs_family_best": "worse",
+        "candidate_inside_family_range": true
+      },
+      "dti_vs_catalogue": {
+        "candidate": 0.0,
+        "family_best": 0.0,
+        "family_range": [
+          0.0,
+          0.17274
+        ],
+        "rho_vs_reported_score": -0.7182,
+        "candidate_vs_family_best": "at_or_better",
+        "candidate_inside_family_range": true
+      },
+      "frac_within_3px": {
+        "candidate": 0.0,
+        "family_best": 0.0,
+        "family_range": [
+          0.0,
+          0.1995
+        ],
+        "rho_vs_reported_score": -0.7239,
+        "candidate_vs_family_best": "at_or_better",
+        "candidate_inside_family_range": true
+      },
+      "median_dist_px": {
+        "candidate": 22.8,
+        "family_best": 19.65,
+        "family_range": [
+          14.14,
+          19.65
+        ],
+        "rho_vs_reported_score": 0.8265,
+        "candidate_vs_family_best": "at_or_better",
+        "candidate_inside_family_range": false
+      },
+      "mean_K_under_dots": {
+        "candidate": 125.723,
+        "family_best": 100.987,
+        "family_range": [
+          97.219,
+          100.987
+        ],
+        "rho_vs_reported_score": 0.9832,
+        "candidate_vs_family_best": "at_or_better",
+        "candidate_inside_family_range": false
+      },
+      "coverage_frac_of_footprint": {
+        "candidate": 0.00806,
+        "family_best": 0.00729,
+        "family_range": [
+          0.00729,
+          0.02395
+        ],
+        "rho_vs_reported_score": -0.8404,
+        "candidate_vs_family_best": "worse",
+        "candidate_inside_family_range": true
+      }
+    }
+  },
+  "candidate_evidence_class": "PROJECTION from an inherited OWNER-REPORTED instrument (n=20 registry rasters, no organiser receipt). This is NOT a score and must never be quoted as one. Axes whose candidate value lies outside the family range cannot be extrapolated quantitatively - only the sign of the rank is informative.",
+  "evidence_class": "STATISTICS MEASURED IN THIS CHECKOUT from the pinned registry rasters; the score column is OWNER-REPORTED and has no organiser receipt",
+  "generated_utc": "2026-10-12T02:41:34Z",
+  "n_registry_rasters_analysed": 60,
+  "n_with_reported_score": 20,
+  "duplicate_geometry_groups": {
+    "(44090, 0.16177)": [
+      "GEMSDOE25__dotted-h19-5-d2-8.tif",
+      "GEMSDOE30__d28-poisson300m-offcat-44090.tif",
+      "gems25-dotted-h19-5-d2-8-20261002-e56ea318af89-nan.tif",
+      "gems25-dotted-h19-5-d2-8-20261002-e56ea318af89-zeros.tif",
+      "gemsdoe32-d28-ref02600-repro-44090-20261004T183200Z-426073b6-zeros.tif"
+    ],
+    "(37654, 0.00671)": [
+      "GEMSDOE32__h33-2-b2-zeros.tif",
+      "gemsdoe32-h33-h33-2-b2-20261004T220000Z-e5eb6e7e-nan.tif",
+      "gemsdoe32-h33-h33-2-b2-20261004T220000Z-e5eb6e7e-zeros.tif"
+    ]
+  },
+  "spearman_vs_reported_score": {
+    "dots": {
+      "spearman_rho": -0.8453,
+      "p": 0.0,
+      "n": 20
+    },
+    "dti_vs_catalogue": {
+      "spearman_rho": -0.7182,
+      "p": 0.0004,
+      "n": 20
+    },
+    "frac_within_3px": {
+      "spearman_rho": -0.7239,
+      "p": 0.0003,
+      "n": 20
+    },
+    "median_dist_px": {
+      "spearman_rho": 0.8265,
+      "p": 0.0,
+      "n": 20
+    },
+    "mean_intensity": {
+      "spearman_rho": NaN,
+      "p": NaN,
+      "n": 20
+    },
+    "coverage_frac_of_footprint": {
+      "spearman_rho": -0.8404,
+      "p": 0.0,
+      "n": 20
+    },
+    "mean_K_under_dots": {
+      "spearman_rho": 0.9832,
+      "p": 0.0,
+      "n": 20
+    }
+  },
+  "rows": [
+    {
+      "raster": "GEMSDOE32__h33-2-b2-zeros.tif",
+      "dots": 37654,
+      "mass": 37654.0,
+      "mean_intensity": 1.0,
+      "dti_vs_catalogue": 0.00671,
+      "frac_within_1px": 0.0,
+      "frac_within_3px": 0.0577,
+      "median_dist_px": 19.65,
+      "mean_dist_px": 29.0,
+      "coverage_frac_of_footprint": 0.00729,
+      "mean_K_under_dots": 100.987,
+      "reported_score": 0.2778,
+      "score_evidence_class": "OWNER-REPORTED (no organiser receipt)"
+    },
+    {
+      "raster": "gemsdoe32-h33-h33-2-b2-20261004T220000Z-e5eb6e7e-nan.tif",
+      "dots": 37654,
+      "mass": 37654.0,
+      "mean_intensity": 1.0,
+      "dti_vs_catalogue": 0.00671,
+      "frac_within_1px": 0.0,
+      "frac_within_3px": 0.0577,
+      "median_dist_px": 19.65,
+      "mean_dist_px": 29.0,
+      "coverage_frac_of_footprint": 0.00729,
+      "mean_K_under_dots": 100.987,
+      "reported_score": 0.2778,
+      "score_evidence_class": "OWNER-REPORTED (no organiser receipt)"
+    },
+    {
+      "raster": "gemsdoe32-h33-h33-2-b2-20261004T220000Z-e5eb6e7e-zeros.tif",
+      "dots": 37654,
+      "mass": 37654.0,
+      "mean_intensity": 1.0,
+      "dti_vs_catalogue": 0.00671,
+      "frac_within_1px": 0.0,
+      "frac_within_3px": 0.0577,
+      "median_dist_px": 19.65,
+      "mean_dist_px": 29.0,
+      "coverage_frac_of_footprint": 0.00729,
+      "mean_K_under_dots": 100.987,
+      "reported_score": 0.2778,
+      "score_evidence_class": "OWNER-REPORTED (no organiser receipt)"
+    },
+    {
+      "raster": "GEMSDOE36__anderson-geothermal-pinn-38854.tif",
+      "dots": 38854,
+      "mass": 38854.0,
+      "mean_intensity": 1.0,
+      "dti_vs_catalogue": 0.00693,
+      "frac_within_1px": 0.0,
+      "frac_within_3px": 0.0587,
+      "median_dist_px": 19.24,
+      "mean_dist_px": 28.67,
+      "coverage_frac_of_footprint": 0.00752,
+      "mean_K_under_dots": 100.924,
+      "reported_score": 0.275,
+      "score_evidence_class": "OWNER-REPORTED (no organiser receipt)"
+    },
+    {
+      "raster": "GEMSDOE28__h36-1-rung30-blind-r1.tif",
+      "dots": 37660,
+      "mass": 37660.0,
+      "mean_intensity": 1.0,
+      "dti_vs_catalogue": 0.04621,
+      "frac_within_1px": 0.0,
+      "frac_within_3px": 0.1162,
+      "median_dist_px": 17.72,
+      "mean_dist_px": 27.32,
+      "coverage_frac_of_footprint": 0.00729,
+      "mean_K_under_dots": 100.332,
+      "reported_score": 0.271,
+      "score_evidence_class": "OWNER-REPORTED (no organiser receipt)"
+    },
+    {
+      "raster": "GEMSDOE28__h27-4-r1-solo-d2-8.tif",
+      "dots": 40199,
+      "mass": 40199.0,
+      "mean_intensity": 1.0,
+      "dti_vs_catalogue": 0.0491,
+      "frac_within_1px": 0.0,
+      "frac_within_3px": 0.1173,
+      "median_dist_px": 17.69,
+      "mean_dist_px": 27.27,
+      "coverage_frac_of_footprint": 0.00778,
+      "mean_K_under_dots": 100.357,
+      "reported_score": 0.2708,
+      "score_evidence_class": "OWNER-REPORTED (no organiser receipt)"
+    },
+    {
+      "raster": "GEMSDOE28__h38-1-hf-euler-r30-r1.tif",
+      "dots": 37860,
+      "mass": 37860.0,
+      "mean_intensity": 1.0,
+      "dti_vs_catalogue": 0.04618,
+      "frac_within_1px": 0.0,
+      "frac_within_3px": 0.1161,
+      "median_dist_px": 17.69,
+      "mean_dist_px": 27.23,
+      "coverage_frac_of_footprint": 0.00733,
+      "mean_K_under_dots": 100.487,
+      "reported_score": 0.2707,
+      "score_evidence_class": "OWNER-REPORTED (no organiser receipt)"
+    },
+    {
+      "raster": "GEMSDOE28__h32-1-prethin-tip-euler-d2-8.tif",
+      "dots": 42294,
+      "mass": 42294.0,
+      "mean_intensity": 1.0,
+      "dti_vs_catalogue": 0.10241,
+      "frac_within_1px": 0.0365,
+      "frac_within_3px": 0.1612,
+      "median_dist_px": 16.12,
+      "mean_dist_px": 25.98,
+      "coverage_frac_of_footprint": 0.00818,
+      "mean_K_under_dots": 99.856,
+      "reported_score": 0.2649,
+      "score_evidence_class": "OWNER-REPORTED (no organiser receipt)"
+    },
+    {
+      "raster": "GEMSDOE33__h33d-analog-tip-stepover-r30.tif",
+      "dots": 41865,
+      "mass": 41865.0,
+      "mean_intensity": 1.0,
+      "dti_vs_catalogue": 0.08646,
+      "frac_within_1px": 0.0329,
+      "frac_within_3px": 0.1439,
+      "median_dist_px": 16.64,
+      "mean_dist_px": 26.44,
+      "coverage_frac_of_footprint": 0.0081,
+      "mean_K_under_dots": 100.152,
+      "reported_score": 0.2632,
+      "score_evidence_class": "OWNER-REPORTED (no organiser receipt)"
+    },
+    {
+      "raster": "GEMSDOE25__dotted-h19-5-d2-8.tif",
+      "dots": 44090,
+      "mass": 44090.0,
+      "mean_intensity": 1.0,
+      "dti_vs_catalogue": 0.16177,
+      "frac_within_1px": 0.0883,
+      "frac_within_3px": 0.1952,
+      "median_dist_px": 15.0,
+      "mean_dist_px": 24.95,
+      "coverage_frac_of_footprint": 0.00853,
+      "mean_K_under_dots": 99.503,
+      "reported_score": 0.26,
+      "score_evidence_class": "OWNER-REPORTED (no organiser receipt)"
+    },
+    {
+      "raster": "GEMSDOE30__d28-poisson300m-offcat-44090.tif",
+      "dots": 44090,
+      "mass": 44090.0,
+      "mean_intensity": 1.0,
+      "dti_vs_catalogue": 0.16177,
+      "frac_within_1px": 0.0883,
+      "frac_within_3px": 0.1952,
+      "median_dist_px": 15.0,
+      "mean_dist_px": 24.95,
+      "coverage_frac_of_footprint": 0.00853,
+      "mean_K_under_dots": 99.503,
+      "reported_score": 0.26,
+      "score_evidence_class": "OWNER-REPORTED (no organiser receipt)"
+    },
+    {
+      "raster": "gems25-dotted-h19-5-d2-8-20261002-e56ea318af89-nan.tif",
+      "dots": 44090,
+      "mass": 44090.0,
+      "mean_intensity": 1.0,
+      "dti_vs_catalogue": 0.16177,
+      "frac_within_1px": 0.0883,
+      "frac_within_3px": 0.1952,
+      "median_dist_px": 15.0,
+      "mean_dist_px": 24.95,
+      "coverage_frac_of_footprint": 0.00853,
+      "mean_K_under_dots": 99.503,
+      "reported_score": 0.26,
+      "score_evidence_class": "OWNER-REPORTED (no organiser receipt)"
+    },
+    {
+      "raster": "gems25-dotted-h19-5-d2-8-20261002-e56ea318af89-zeros.tif",
+      "dots": 44090,
+      "mass": 44090.0,
+      "mean_intensity": 1.0,
+      "dti_vs_catalogue": 0.16177,
+      "frac_within_1px": 0.0883,
+      "frac_within_3px": 0.1952,
+      "median_dist_px": 15.0,
+      "mean_dist_px": 24.95,
+      "coverage_frac_of_footprint": 0.00853,
+      "mean_K_under_dots": 99.503,
+      "reported_score": 0.26,
+      "score_evidence_class": "OWNER-REPORTED (no organiser receipt)"
+    },
+    {
+      "raster": "gemsdoe32-d28-ref02600-repro-44090-20261004T183200Z-426073b6-zeros.tif",
+      "dots": 44090,
+      "mass": 44090.0,
+      "mean_intensity": 1.0,
+      "dti_vs_catalogue": 0.16177,
+      "frac_within_1px": 0.0883,
+      "frac_within_3px": 0.1952,
+      "median_dist_px": 15.0,
+      "mean_dist_px": 24.95,
+      "coverage_frac_of_footprint": 0.00853,
+      "mean_K_under_dots": 99.503,
+      "reported_score": 0.26,
+      "score_evidence_class": "OWNER-REPORTED (no organiser receipt)"
+    },
+    {
+      "raster": "GEMSDOE29__wormrank-d28.tif",
+      "dots": 41338,
+      "mass": 41338.0,
+      "mean_intensity": 1.0,
+      "dti_vs_catalogue": 0.15719,
+      "frac_within_1px": 0.0887,
+      "frac_within_3px": 0.1917,
+      "median_dist_px": 15.13,
+      "mean_dist_px": 25.11,
+      "coverage_frac_of_footprint": 0.008,
+      "mean_K_under_dots": 99.357,
+      "reported_score": 0.256,
+      "score_evidence_class": "OWNER-REPORTED (no organiser receipt)"
+    },
+    {
+      "raster": "GEMSDOE24__h25-1-dotted-h19-5-d1-5.tif",
+      "dots": 60069,
+      "mass": 60069.0,
+      "mean_intensity": 1.0,
+      "dti_vs_catalogue": 0.17193,
+      "frac_within_1px": 0.0891,
+      "frac_within_3px": 0.1987,
+      "median_dist_px": 14.87,
+      "mean_dist_px": 24.86,
+      "coverage_frac_of_footprint": 0.01162,
+      "mean_K_under_dots": 98.808,
+      "reported_score": 0.2477,
+      "score_evidence_class": "OWNER-REPORTED (no organiser receipt)"
+    },
+    {
+      "raster": "GEMSDOE27__topo-gap-closure-t-v2-on-d1-5.tif",
+      "dots": 61328,
+      "mass": 61328.0,
+      "mean_intensity": 1.0,
+      "dti_vs_catalogue": 0.17274,
+      "frac_within_1px": 0.0883,
+      "frac_within_3px": 0.1987,
+      "median_dist_px": 14.14,
+      "mean_dist_px": 24.47,
+      "coverage_frac_of_footprint": 0.01187,
+      "mean_K_under_dots": 99.414,
+      "reported_score": 0.2449,
+      "score_evidence_class": "OWNER-REPORTED (no organiser receipt)"
+    },
+    {
+      "raster": "GEMSDOE49__gate_ortho_w0.25-40k.tif",
+      "dots": 40000,
+      "mass": 40000.0,
+      "mean_intensity": 1.0,
+      "dti_vs_catalogue": 0.0,
+      "frac_within_1px": 0.0,
+      "frac_within_3px": 0.0,
+      "median_dist_px": 19.21,
+      "mean_dist_px": 27.22,
+      "coverage_frac_of_footprint": 0.00774,
+      "mean_K_under_dots": 97.219,
+      "reported_score": 0.2376,
+      "score_evidence_class": "OWNER-REPORTED (no organiser receipt)"
+    },
+    {
+      "raster": "19GEMSDOE__h19-5-powerlaw-budget-multiline.tif",
+      "dots": 121131,
+      "mass": 121131.0,
+      "mean_intensity": 1.0,
+      "dti_vs_catalogue": 0.16635,
+      "frac_within_1px": 0.0797,
+      "frac_within_3px": 0.1995,
+      "median_dist_px": 14.56,
+      "mean_dist_px": 24.82,
+      "coverage_frac_of_footprint": 0.02344,
+      "mean_K_under_dots": 97.494,
+      "reported_score": 0.1922,
+      "score_evidence_class": "OWNER-REPORTED (no organiser receipt)"
+    },
+    {
+      "raster": "19GEMSDOE__h19-4-multiline-corroborated.tif",
+      "dots": 123779,
+      "mass": 123779.0,
+      "mean_intensity": 1.0,
+      "dti_vs_catalogue": 0.16749,
+      "frac_within_1px": 0.0787,
+      "frac_within_3px": 0.1979,
+      "median_dist_px": 14.76,
+      "mean_dist_px": 24.89,
+      "coverage_frac_of_footprint": 0.02395,
+      "mean_K_under_dots": 97.357,
+      "reported_score": 0.1894,
+      "score_evidence_class": "OWNER-REPORTED (no organiser receipt)"
+    }
+  ],
+  "reading": "Across the reported-score family the live score falls as the dot count rises and as the raster moves ONTO the visible catalogue. That is the arithmetic of the published metric: with TP_w = sum_g max_x p k, credit is a MAXIMUM not a sum, so extra dots never add credit for a truth cell that a nearer dot already covers, while every dot costs alpha = 0.2 of false-positive mass unless it sits within 300 m of hidden truth. The exact first-order condition (docs/research/metric-derivation.md, inherited from the shared template) is: a new dot is worth adding iff its kernel credit to a previously uncovered truth cell exceeds alpha * DTI. A uniform 5-px lattice over the whole footprint (206,895 dots) is reported by a sibling session at 0.0904 live, which is the same arithmetic taken to its limit. Consequence for this lane: emit unit-value dots, keep the count in the 30k-45k band the family's best occupy, keep them off the catalogue pixels, and let a calibrated marginal rule - not a hand-picked budget - decide where to stop."
+}

@@ -1,0 +1,10 @@
+{
+ "cleared": true,
+ "hard_failures": [],
+ "literal_overlap": 0.9957,
+ "lfl_overlap": 0.9957,
+ "max_spearman": 0.0093,
+ "A0": 0.2809507392578753,
+ "A1_shipped": 0.2816957591083014,
+ "A2_negative": 0.27983544321783577
+}
