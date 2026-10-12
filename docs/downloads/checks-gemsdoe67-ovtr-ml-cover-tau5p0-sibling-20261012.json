@@ -1,0 +1,148 @@
+{
+  "name": "gemsdoe67-ovtr-ml-cover-tau5p0-sibling-20261012",
+  "generated_utc": "2026-10-12T01:38:56Z",
+  "rule": {
+    "lane": "OVTR \u2014 orientation-voted tip relay, decoded, then greedy kernel-covered",
+    "head": "HistGradientBoostingClassifier (max_iter=200, lr=0.08, leaves=31, l2=1.0)",
+    "channels": [
+      "ev",
+      "ev_mag",
+      "ev_grav",
+      "ev_topo",
+      "ev_subsurf",
+      "ev_strain",
+      "ev_seis",
+      "coh",
+      "order_R",
+      "tpi5",
+      "curv",
+      "rough",
+      "ev_s3",
+      "ev_s8",
+      "ev_mag_s3",
+      "ev_topo_s3",
+      "ev_lidar",
+      "ev_lidar_s3",
+      "ev_rad",
+      "ev_rad_s3",
+      "ev_ext_all",
+      "ev_ext_all_s3",
+      "lidar_valid"
+    ],
+    "training_pixels": 60000,
+    "negatives_per_positive": 2.0,
+    "exposure_tau": 0.5,
+    "cover_radius_px": 3.0,
+    "n_dots": 68463,
+    "binary_values": true,
+    "catalogue_pixels_in_emission_domain": true,
+    "assumption": "known USGS/INGENIOUS fault pixels are masked out of every metric term, so mass placed on them is free \u2014 DrivenData staff answer, forum thread 11516"
+  },
+  "files": {
+    "nan": {
+      "file": "gemsdoe67-ovtr-ml-cover-tau5p0-sibling-20261012-nan.tif",
+      "bytes": 1620479,
+      "shape": [
+        3730,
+        3292
+      ],
+      "dtype": "float32",
+      "nodata_tag": "nan",
+      "pixel_scale": [
+        100.0,
+        100.0,
+        0.0
+      ],
+      "tiepoint": [
+        0.0,
+        0.0,
+        0.0,
+        243350.0,
+        4508550.0,
+        0.0
+      ],
+      "geokeys_present": true,
+      "compression": "5",
+      "finite_cells": 5167373,
+      "nan_cells": 7111787,
+      "min": 0.0,
+      "max": 1.0,
+      "any_out_of_range": false,
+      "positive_cells": 68463,
+      "gdal": {
+        "crs": "EPSG:32611",
+        "shape": [
+          3730,
+          3292
+        ],
+        "transform": [
+          100.0,
+          0.0,
+          243350.0,
+          0.0,
+          -100.0,
+          4508550.0
+        ],
+        "dtype": "float32",
+        "nodata": NaN,
+        "count": 1
+      },
+      "sha256": "f514ed677937c3efd3227427d5680a674a9e3ebe62dfe7ebf14270b829cf5258"
+    },
+    "zero": {
+      "file": "gemsdoe67-ovtr-ml-cover-tau5p0-sibling-20261012-zero.tif",
+      "bytes": 852427,
+      "shape": [
+        3730,
+        3292
+      ],
+      "dtype": "float32",
+      "nodata_tag": "None",
+      "pixel_scale": [
+        100.0,
+        100.0,
+        0.0
+      ],
+      "tiepoint": [
+        0.0,
+        0.0,
+        0.0,
+        243350.0,
+        4508550.0,
+        0.0
+      ],
+      "geokeys_present": true,
+      "compression": "5",
+      "finite_cells": 12279160,
+      "nan_cells": 0,
+      "min": 0.0,
+      "max": 1.0,
+      "any_out_of_range": false,
+      "positive_cells": 68463,
+      "gdal": {
+        "crs": "EPSG:32611",
+        "shape": [
+          3730,
+          3292
+        ],
+        "transform": [
+          100.0,
+          0.0,
+          243350.0,
+          0.0,
+          -100.0,
+          4508550.0
+        ],
+        "dtype": "float32",
+        "nodata": null,
+        "count": 1
+      },
+      "sha256": "78a916d09ba6af7f6d88fa9e8ff2e9f79696297cab2e11786a472dbed21c24e9"
+    }
+  },
+  "zip": {
+    "path": "gemsdoe67-ovtr-ml-cover-tau5p0-sibling-20261012.zip",
+    "sha256": "f4b8a36615f5c82f1a56e380c40947cdc87be5fd3b9e24d472608ea5832a533f",
+    "bytes": 411717
+  }
+}

@@ -1,6 +1,75 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Research and audit · GEMSDOE67</title><link rel="stylesheet" href="style.css"></head><body><header><a class="brand" href="index.html">GEMS<span> / </span>67</a><nav aria-label="Main"><a href="index.html">Overview</a><a href="executive-summary.html">Submission guide</a><a href="research.html">Research & sources</a><a href="run-card.json">Run card ↗</a></nav></header><main>
-<p class="eyebrow">RESEARCH / PROVENANCE / LIMITATIONS</p><h1>Make the uncertainty<br>easy to inspect.</h1><p class="lead">Four ranked hypotheses, one controlled experiment, and no unearned claim of leaderboard progress.</p>
-<section><h2>The hypothesis</h2><p>Jointly learning undirected orientation and tip/junction likelihood may preserve weak fault continuations that isolated pixel classification loses. Lithologic contacts, drainage alignments and fan margins can mimic the signal.</p><p>The prototype uses a small shared-trunk model, not Batra’s full spatial CNN. Original catalogue polylines were unavailable; skeleton/PCA labels are proxies. It is not evidence that a particular vent or permeable fault has been discovered.</p><a href="https://github.com/buffedlizard55-lab/GEMSDOE67/blob/main/research/hypotheses.md">Ranked hypotheses & preregistration →</a></section>
-<section><h2>Why the historical best is not our baseline</h2><p>The retrieved H33-2-B2 audit documents catalogue-near dot deletion from a prior raster. Its projections and inconsistent holdout summaries cannot substitute for a matched current holdout control. User-supplied leaderboard figures conflict; no organizer receipt was retrieved.</p><a href="https://github.com/buffedlizard55-lab/GEMSDOE67/blob/main/research/review.md">Full scientific review & irregularities →</a></section>
-<section><h2>Auditable source trail</h2><ul><li><a href="https://github.com/drivendataorg/gems-prize-reference-solution">Official DrivenData reference repository</a> — README and notebook inspected.</li><li><a href="https://github.com/buffedlizard55-lab/GEMSDOE67/blob/main/evidence/data_restore.json">Data restoration hashes</a> — owner mirrors, not independently authenticated organizer bytes.</li><li><a href="https://github.com/buffedlizard55-lab/GEMSDOE67/blob/main/evidence/template_pin.json">Shared-tool commit and per-file hashes</a> — reused unchanged.</li><li><a href="https://github.com/buffedlizard55-lab/GEMSDOE67/blob/main/evidence/repository_inventory.json">Related-repository inventory</a> — a dated tree audit, not complete score or uniqueness verification.</li><li><a href="https://github.com/buffedlizard55-lab/GEMSDOE67/blob/main/evidence/feature_canaries.json">Feature-alone AUC diagnostics</a> — not DTI scores and not proof that all leakage is absent.</li><li><a href="https://github.com/buffedlizard55-lab/GEMSDOE67/blob/main/research/sources.csv">Source-by-source verification table</a> — inaccessible references explicitly marked.</li><li><a href="https://github.com/buffedlizard55-lab/GEMSDOE67/blob/main/research/verification.md">Three-pass verification and next steps</a></li></ul></section>
-<section><h2>Network and evidence boundaries</h2><p>This environment permits GitHub and package registries, not the DrivenData, USGS, DOI, Dropbox or prize-PDF hosts. Their links are retained for review, but access, current rules, literature claims and leaderboard state are not claimed verified. A source link is not evidence that its contents were read.</p></section></main><footer>Orientation & tip-decoding lane · Evidence snapshot: 12 October 2026 · No live leaderboard connection.<br>Maximize P(Win) through evidence. Own the outcome, including negative results.</footer></body></html>
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Research — GEMSDOE67</title><link rel="stylesheet" href="assets/site.css"></head><body>
+<header><div class="wrap"><b>GEMSDOE67</b>
+<nav><a href="index.html">Overview</a><a href="how-to-submit.html">How to submit</a>
+<a href="ceiling.html">Why 0.28</a><a href="research.html">Research</a>
+<a href="run-card.html">Run card</a><a href="sources.html">Sources</a>
+<a href="status-cfeaa9d4.html">Other lane</a></nav></div></header><main>
+
+<h1>Research register</h1>
+<p>The five candidate geological hypotheses this session produced, ranked, and what happened to
+each, live in <code>docs/research/hypotheses.md</code> (rendered below verbatim in structure).
+The lane definition, the negative results and the format forensics are in the same folder.</p>
+<div class="card">
+<h3>H67-A — multi-physics evidence + context head + greedy cover <span class="pill ok">shipped</span></h3>
+<p>19 provided bands → per-family structure-tensor lineament evidence, axial orientation
+(cos 2θ, sin 2θ), multi-physics axial order parameter, multi-scale context. Supervised head;
+emission by greedy kernel-cover. Worth ≈ +0.05 AUC for context alone. Pooled holdout DTI 0.269.</p>
+<h3>H67-B — public USGS-derived LiDAR scarp and radiometric families <span class="pill warn">no measurable gain</span></h3>
+<p>13 band-level evidence sources from <code>lidar_scarp_features_u8.tif</code> (USGS 3DEP 1 m
+lidar), <code>geodawn_rad_u8.tif</code> and <code>geodawn_extensions_u8.tif</code> (GeoDAWN,
+DOI 10.5066/P93LGLVQ). Pooled DTI 0.2691 versus 0.2689 without them — i.e. indistinguishable;
+kept for the tip-zone argument the instrument cannot test, reported as a negative result for
+the score claim.</p>
+<h3>H67-C — full-resolution 1 m DEM scarplet chains <span class="pill bad">blocked here</span></h3>
+<p>Needs the competition's <code>1m_DEM_links.csv</code> tiles from USGS 3DEP (free, official);
+the tiles are not reachable from this sandbox and exceed its free disk. Source named on the
+sources page.</p>
+<h3>H67-D — raw ComCat seismicity lineaments <span class="pill bad">blocked here</span></h3>
+<p>The provided seismic bands use a 100 km radius and cannot resolve sub-kilometre lineaments.
+The raw ANSS ComCat catalogue is free and official but not reachable from this sandbox.</p>
+<h3>H67-E — thermal-spring corroboration (GDR 1391) <span class="pill">deferred</span></h3>
+<p>Well/spring temperature and chemistry points (DOI 10.15121/1881483, CC BY 4.0) already
+mirrored in this family of repositories. Deferred: it needs its own masked-holdout test, and
+the session budget is three experiments. Leakage warning: drop the
+<code>dist_known_fault_px</code> column, it is label-derived.</p>
+</div>
+<h2>The other lane in this repository (orientation/tip decoding, run <code>cfeaa9d4</code>)</h2>
+<p>Merged into <code>main</code> in PR #1 and preserved here unedited. Its own status page says
+<b>NEGATIVE · DOWNLOAD BLOCKED</b> and its measured arms are <b>0.0344</b> (joint) and
+<b>0.0404</b> (segmentation control) pooled HOLDOUT-DTI with evaluator
+<code>gems57-pooled-hide-v2</code> and paired block bootstrap intervals — a different lane, a
+different instrument version, and a real negative result rather than a projection.</p>
+<ul>
+<li><a href="status-cfeaa9d4.html">Its status page</a> and <a href="run-card.json">its run card</a></li>
+<li><a href="../research/hypotheses.md">Its hypothesis register</a> ·
+<a href="../research/review.md">review</a> · <a href="../research/verification.md">verification</a> ·
+<a href="../research/sources.csv">sources.csv</a></li>
+<li><a href="../evidence/experiment.json">Its experiment evidence</a> ·
+<a href="../evidence/feature_canaries.json">feature canaries</a> ·
+<a href="../evidence/data_audit.json">data audit</a> ·
+<a href="../evidence/upstream/h33_holdout.json">upstream h33 holdout</a></li>
+<li><a href="../evidence/README.md">Its evidence index</a> and the vendored evaluator it used,
+<code>vendor/gems57/</code></li>
+</ul>
+
+<h2>Negative results are deliverables</h2>
+<ul>
+<li>The lane's geometry gate (sparse, topologically clean traces) scores 0.1149 versus 0.2689 for
+the same head emitting a greedy cover — a measured argument that <i>geometry-aware decoding,
+left to act as a mass filter, loses more coverage than it gains in precision</i> under α = 0.2,
+β = 0.8.</li>
+<li>Carrying calibrated probabilities as the raster values scores 0.0034 where the same sites
+with binary 1.0 score 0.1149: the metric is linear in single-pixel mass, so a binary field
+dominates.</li>
+<li>The incumbent family (dots on the dilated mapped faults) scores 0.0014 on a blocked
+holdout: hidden faults are not simply the neighbourhood of mapped ones.</li>
+<li>The public LiDAR/radiometric families add ≈ nothing to the pooled holdout DTI (+0.0002).</li>
+</ul>
+</main><footer>
+Generated by <code>scripts/build_site.py</code> from the JSON evidence in this repository.
+No number on this site is an organizer score; the only scores that exist are on the
+organizer's leaderboard. Core values: <b>Maximize P(Win)</b> · <b>Own the Outcome</b>.
+</footer></body></html>
