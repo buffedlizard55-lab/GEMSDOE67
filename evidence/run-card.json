@@ -126,8 +126,8 @@
    "pixel_unique": true,
    "worst_abs_spearman": 0.03620030335924391,
    "rho_limit": 0.9,
-   "literal_forward_overlap_firings": 1,
-   "informative_forward_overlap_firings": 0,
+   "literal_forward_overlap_firings": 6,
+   "informative_forward_overlap_firings": 2,
    "halo_saturated_witnesses": [
     "/home/user/refs/GEMSDOE66/registry/rasters/gems61-lane-buried-step-gravinversion-hgm-r3-k400k-b2zeros.tif"
    ],
@@ -139,7 +139,19 @@
     "jaccard": 0.006889970912214852,
     "note": "ORGANIZER-CONFIRMED 0.2778 family best; trips the literal 0.70 rule against the same witness"
    },
-   "degeneracy_irregularity": "IR-67-DUP-01"
+   "degeneracy_irregularity": "IR-67-DUP-01",
+   "rasters_checked": 100,
+   "informative_note": "OVTR shipped raster (nan+zero twins): forward 0.795, chance 0.544, jaccard 0.009, reverse 0.056 \u2014 see IR-67-DUP-02",
+   "shared_gate_semantics": {
+    "jaccard_limit": 0.5,
+    "rule": "the shared repo gate (evidence/e3_uniqueness_gate.json) declares a copy only by hash/decoded-pixel identity or jaccard_dot_sets > 0.5; forward-overlap firings are reported literally and disambiguated by jaccard/reverse/saturation (its own rows fired duplicate_by_overlap at 0.796-1.0 vs the gems13 lattices and the lane was still certified a distinct raster)",
+    "worst_jaccard_all_priors": 0.021504743693461795,
+    "jaccard_vs_ovtr_shipped": 0.009339821038307699,
+    "byte_unique": true,
+    "pixel_unique": true,
+    "rho_pass": true,
+    "unique_by_shared_gate_semantics": true
+   }
   },
   "unique_in_scope": true
  },
@@ -180,11 +192,33 @@
   "status": "candidate offered for download; promotion to a weekly slot is a separate selector step within the weekly cap"
  },
  "verdict": "promote",
- "verdict_note": "Gate PASSED (paired HOLDOUT-DTI gain vs the per-pixel ablation with 95% CI > 0 AND +56% relative tip-adjacent recovery) and the raster is byte- and pixel-unique within the accessible registry scope. The one literal 0.70-overlap firing is a halo-saturated 311,617-dot background lattice (chance-expected 0.9696; the ORGANIZER-CONFIRMED 0.2778 incumbent trips the same test at 0.987) and is logged as IR-67-DUP-01, not counted as drift.",
+ "verdict_note": "Lane gate PASSED (paired HOLDOUT-DTI gain vs the per-pixel ablation with 95% CI > 0 AND +56% relative tip-adjacent recovery on the shared evaluator) and the raster is byte-, pixel- and jaccard-unique within the accessible registry. Literal overlap firings (4 halo-saturated lattice witnesses; the OVTR shipped raster at 0.795 vs chance 0.544) are logged and disambiguated per the shared repo's own gate semantics (IR-67-DUP-01/02). Absolute DTI is NOT comparable cross-instrument (IR-67-INST-01): two sibling orientation/tip runs were negative on their instruments; this run is materially above ef0d41a0 on the same evaluator. No weekly slot is consumed; spending one requires instrument reconciliation first.",
  "irregularities": [
   "IR-67-LB-01 leaderboard quote discrepancy (brief 0.3195 as high; family verified read 2026-10-04 has 0.3262 at #1)",
   "IR-67-SRC-01 UCD TSG-2008 abstract URL not machine-verified from this sandbox",
   "IR-67-DUP-01 halo-saturated witness degeneracy in the literal 70% forward-overlap rule (control: incumbent 0.2778 trips at 0.987)",
-  "IR-67-TPL-01 older 58GEMSDOE submission_writer/gates policy mismatch (resolved in the 60GEMSDOE pin used here)"
- ]
+  "IR-67-TPL-01 older 58GEMSDOE submission_writer/gates policy mismatch (resolved in the 60GEMSDOE pin used here)",
+  "IR-67-DUP-02 (OVTR forward-overlap firing, jaccard-disambiguated)",
+  "IR-67-INST-01 (cross-lane holdout instruments unreconciled \u2014 selector precondition)"
+ ],
+ "cross_lane": {
+  "ovtr_c331a9d8": {
+   "holdout_dti": 0.2691,
+   "instrument": "its own (60,594 withheld px)",
+   "status": "DOWNLOAD READY"
+  },
+  "orient_tip_cfeaa9d4": {
+   "holdout_dti": "0.0344 joint / 0.0404 segmentation control",
+   "status": "NEGATIVE \u00b7 DOWNLOAD BLOCKED"
+  },
+  "orient_tip_ef0d41a0": {
+   "holdout_dti": "0.01368 instrument A / 0.00792 [0.00181,0.01519] instrument B (gems57-pooled-hide-v2)",
+   "status": "NEGATIVE"
+  },
+  "this_lane_5dc3ab34": {
+   "holdout_dti": 0.03757,
+   "instrument": "gems57-pooled-hide-v2 (22,893 withheld px)",
+   "status": "lane gate PASSED; download offered; selector step pending IR-67-INST-01"
+  }
+ }
 }

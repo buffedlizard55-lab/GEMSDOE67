@@ -1,0 +1,157 @@
+{
+  "file": "gems67-h67a-orientip-lane-29447dots-20261012T021226Z-allfinite.tif",
+  "sha256": "9088ee175c6061488855cbe5ffdaabf7e3b21164aa20834cf2717f3f851d80cd",
+  "bytes": 103165,
+  "submission_name": "GEMSDOE67-H67A-ORIENTIP-LANE",
+  "note": "GEMSDOE67 orientation+tip lane lane: 29447 dots, 38758 tip-extension px; greedy DTI-gated; HOLDOUT-GATED; UNSCORED",
+  "note_chars": 114,
+  "validator": {
+    "file": "artifacts/h67a-orientip/gems67-h67a-orientip-lane-29447dots-20261012T021226Z-allfinite.tif",
+    "bytes": 103165,
+    "sha256": "9088ee175c6061488855cbe5ffdaabf7e3b21164aa20834cf2717f3f851d80cd",
+    "meta": {
+      "crs": "EPSG:32611",
+      "shape": [
+        3730,
+        3292
+      ],
+      "dtype": "float32",
+      "count": 1,
+      "nodata": null,
+      "transform": [
+        100.0,
+        0.0,
+        243350.0,
+        0.0,
+        -100.0,
+        4508550.0
+      ],
+      "profile_compress": "deflate"
+    },
+    "band_description": [
+      null
+    ],
+    "n_finite": 12279160,
+    "n_nan": 0,
+    "n_infinite": 0,
+    "min": 0.0,
+    "max": 1.0,
+    "mean": 0.002398128155618906,
+    "emitted_positive_pixels": 29447,
+    "checks": {
+      "single_band": true,
+      "dtype_float32": true,
+      "dimensions_3730x3292": true,
+      "crs_epsg_32611": true,
+      "transform_matches_sample_submission": true,
+      "no_nan_anywhere": true,
+      "no_inf_anywhere": true,
+      "no_sentinel_values": true,
+      "range_0_1_guaranteed": true,
+      "min_ge_0": true,
+      "max_le_1": true,
+      "in_footprint_all_finite": true,
+      "in_footprint_range_0_1": true,
+      "outside_footprint_zero": true,
+      "zero_dots_on_mapped_catalogue": true
+    },
+    "all_checks_passed": true,
+    "validation_class": "local format/range preflight; not organizer acceptance or uniqueness clearance",
+    "on_catalogue_positive_pixels": 0,
+    "in_footprint_positive_pixels": 29447,
+    "footprint_fraction": 0.005698640295562174
+  },
+  "template_report": {
+    "path": "artifacts/h67a-orientip/gems67-h67a-orientip-lane-29447dots-20261012T021226Z-allfinite.tif",
+    "bytes": 103165,
+    "sha256": "9088ee175c6061488855cbe5ffdaabf7e3b21164aa20834cf2717f3f851d80cd",
+    "bands": 1,
+    "dtype": "float32",
+    "crs": "EPSG:32611",
+    "width": 3292,
+    "height": 3730,
+    "bounds": [
+      243350.0,
+      4135550.0,
+      572550.0,
+      4508550.0
+    ],
+    "ref_bounds": [
+      243350.0,
+      4135550.0,
+      572550.0,
+      4508550.0
+    ],
+    "transform": [
+      100.0,
+      0.0,
+      243350.0,
+      0.0,
+      -100.0,
+      4508550.0
+    ],
+    "nodata": null,
+    "blocksize": [
+      256,
+      256
+    ],
+    "fixture_grid": false,
+    "has_validity_mask": false,
+    "nan_pixels": 0,
+    "infinity_pixels": 0,
+    "n_nan": 0,
+    "min": 0.0,
+    "max": 1.0,
+    "mean": 0.002398128155618906,
+    "n_nonzero": 29447,
+    "mass": 29447.0,
+    "mass_outside_footprint": 0,
+    "problems": [],
+    "ok": true,
+    "validation_class": "local on-disk template/range check; not organizer upload acceptance"
+  },
+  "zip_file": "gems67-h67a-orientip-lane-29447dots-20261012T021226Z-allfinite.zip",
+  "zip_sha256": "f4a12735ee314293218033142ba21f4498cd755ff8ca0ecccd784f96e3d52ca7",
+  "approved_for_weekly_slot": false,
+  "promoted": false,
+  "submission_slots_used": 0,
+  "status": "locally validated within separately recorded inventory scope; not organizer acceptance or slot approval",
+  "metadata": {
+    "lane": "orientation+tip heads (Batra et al. 2019 adaptation)",
+    "arm": "lane",
+    "emission": "greedy",
+    "params": {
+      "tau_hi": 0.55,
+      "tau_lo": 0.35,
+      "tau_ext": 0.3,
+      "tau_tip": 0.55,
+      "tip_max_len": 6,
+      "nms_halfwidth": 2,
+      "max_turn_deg": 45.0,
+      "tip_turn_deg": 60.0,
+      "flank_px": 2.0,
+      "alloc_sigma": 1.5,
+      "alloc_sigma_blur": 2.2,
+      "k_truth": 45000.0,
+      "spacing": 3.0,
+      "floor": 0.02
+    },
+    "support_px": 166372,
+    "extension_px": 38758,
+    "fit_receipt": {
+      "n_pos_pixels": 444794,
+      "n_neg_pixels": 1334382,
+      "seg_samples": 240000,
+      "orient_samples": 200000,
+      "tip_samples": 689759,
+      "tip_target_pixels": 98537,
+      "tip_sigma": 1.5,
+      "axial_window_px": 3,
+      "pos_band_px": 3,
+      "neg_far_px": 10,
+      "seed": 67001
+    },
+    "built_utc": "20261012T021226Z",
+    "elapsed_s": 23.8
+  }
+}

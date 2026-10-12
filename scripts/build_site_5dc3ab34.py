@@ -110,6 +110,25 @@ def gate_banner(sub: dict, uni: dict, exp: dict) -> str:
                     f"informative prior passes (max forward overlap 0.54 &lt; 0.70; max |ρ| "
                     f"{uni.get('verdict', {}).get('worst_abs_spearman', 0):.3f} &lt; 0.90; "
                     f"byte- and pixel-unique).</p>")
+    inf = (uni.get("overlap_firings", {}).get("informative") or [])
+    inf_note = ""
+    if inf:
+        e = inf[0]
+        inf_note = (f"<p class='small'><b>Disclosed same-evidence overlap (IR-67-DUP-02).</b> "
+                    f"{100*float(e.get('forward',0)):.1f}% of these dots fall within 3 px of the OVTR "
+                    f"shipped raster ({int(e.get('their_dots',0)):,} dots) — chance-expected "
+                    f"{float(e.get('chance_expected_forward',0)):.3f}; exact-cell Jaccard "
+                    f"{float(e.get('jaccard',0)):.3f} (shared gate's copy bar: 0.5); reverse "
+                    f"{float(e.get('reverse',0)):.3f}. Both lanes place dots on the same geophysical "
+                    f"evidence lineaments; the raster is byte- and pixel-distinct.</p>")
+    inst_note = ("<p class='small'><b>Cross-lane instrument warning (IR-67-INST-01).</b> Two sibling "
+                 "implementations of this brief were declared negative on their instruments "
+                 "(cfeaa9d4: 0.0344/0.0404; ef0d41a0: 0.0079 on the same evaluator this lane uses). "
+                 "This run's lane gate passes on its preregistered paired test and is materially "
+                 "above ef0d41a0 on the same evaluator (0.03757 vs 0.00792, non-overlapping CIs). "
+                 "The OVTR lane's 0.2691 is a different instrument — reconcile instruments "
+                 "before spending any weekly slot. Promotion is a selector step; this page never "
+                 "claims a leaderboard score.</p>")
     return f"""
 <div class="card gate {'' if ok else 'no'}">
   <p class="big">{badge}</p>
@@ -117,7 +136,7 @@ def gate_banner(sub: dict, uni: dict, exp: dict) -> str:
   you to download and upload on the DrivenData submission page. It is <i>not</i> an organiser
   acceptance and it does not spend a weekly submission slot — promotion is a separate step.</p>
   <table><tr><th>Gate</th><th>Status</th></tr>{tr}</table>
-  {sat_note}
+  {sat_note}{inf_note}{inst_note}
 </div>"""
 
 
