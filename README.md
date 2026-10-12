@@ -388,10 +388,13 @@ whole components (`gems57-pooled-hide-v2`, 11 321 withheld positives, paired 20 
    too and nobody checked. Nothing was overwritten: this lane's package, scripts and pages are
    namespaced, and its own duplicate vendoring (`vendor/template66`) was deleted in favour of the
    shared `vendor/gems57`.
-6. **IR-67-CI-01** — `python -m pytest -q` fails 3 tests (`tests/test_artifact.py` ×2,
-   `tests/test_grid_and_data.py` ×1) on a clean `main` checkout because the organizer rasters are
-   gitignored; verified on an untouched worktree of `origin/main`, not caused by this lane. This
-   lane's tests skip when the rasters are absent, so the merge adds 12 passing tests and no failures.
+6. **IR-67-CI-01 (local environment only, corrected after seeing CI)** — in *this sandbox*
+   `python -m pytest -q` reports 3 failures (`tests/test_artifact.py` ×2,
+   `tests/test_grid_and_data.py` ×1), reproduced identically on an untouched worktree of
+   `origin/main`, i.e. not caused by this lane. **GitHub Actions is green** on the merge commit
+   (`Audit and tests: success`), so the difference is the local data layout (this lane keeps its
+   pinned rasters in `data/bridge/`), not a repository defect. Recorded because a locally red suite
+   otherwise invites a false bug report; the claim is deliberately narrowed to the sandbox.
 
 ### Reproduce
 
