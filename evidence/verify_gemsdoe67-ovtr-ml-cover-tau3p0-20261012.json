@@ -1,0 +1,213 @@
+{
+ "artifact": "gemsdoe67-ovtr-ml-cover-tau3p0-20261012",
+ "reader": "rasterio 1.4.4 / GDAL 3.10.3 (independent of the writer)",
+ "checks": [
+  {
+   "check": "primary driver is GTiff",
+   "ok": true,
+   "detail": "GTiff"
+  },
+  {
+   "check": "primary is single band",
+   "ok": true,
+   "detail": 1
+  },
+  {
+   "check": "primary dtype float32",
+   "ok": true,
+   "detail": "float32"
+  },
+  {
+   "check": "primary shape",
+   "ok": true,
+   "detail": [
+    3730,
+    3292
+   ]
+  },
+  {
+   "check": "primary CRS",
+   "ok": true,
+   "detail": "EPSG:32611"
+  },
+  {
+   "check": "primary transform",
+   "ok": true,
+   "detail": [
+    100.0,
+    0.0,
+    243350.0,
+    0.0,
+    -100.0,
+    4508550.0
+   ]
+  },
+  {
+   "check": "no NaN/Inf inside the footprint",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "check": "all inside values in [0, 1]",
+   "ok": true,
+   "detail": [
+    0.0,
+    1.0
+   ]
+  },
+  {
+   "check": "NaN only outside the footprint",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "check": "binary emission {0, 1}",
+   "ok": true,
+   "detail": [
+    0.0,
+    1.0
+   ]
+  },
+  {
+   "check": "emission is inside the footprint only",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "check": "twin is finite everywhere",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "check": "twin values in [0, 1]",
+   "ok": true,
+   "detail": [
+    0.0,
+    1.0
+   ]
+  },
+  {
+   "check": "twin carries no nodata tag",
+   "ok": true,
+   "detail": null
+  },
+  {
+   "check": "twin agrees with primary inside the footprint",
+   "ok": true,
+   "detail": null
+  },
+  {
+   "check": "twin CRS/transform match primary",
+   "ok": true,
+   "detail": [
+    "EPSG:32611",
+    [
+     100.0,
+     0.0,
+     243350.0,
+     0.0,
+     -100.0,
+     4508550.0
+    ]
+   ]
+  },
+  {
+   "check": "zip holds exactly one file",
+   "ok": true,
+   "detail": [
+    "gemsdoe67-ovtr-ml-cover-tau3p0-20261012-nan.tif"
+   ]
+  },
+  {
+   "check": "zip member is the primary raster",
+   "ok": true,
+   "detail": "8624c5a58c681f57"
+  },
+  {
+   "check": "zip member reads as the same array",
+   "ok": true,
+   "detail": {
+    "crs": "EPSG:32611",
+    "shape": [
+     3730,
+     3292
+    ]
+   }
+  },
+  {
+   "check": "catalogue pixel count matches the pinned measurement",
+   "ok": true,
+   "detail": 60988
+  },
+  {
+   "check": "footprint pixel count matches the pinned measurement",
+   "ok": true,
+   "detail": 5167373
+  },
+  {
+   "check": "the sample submission's 1-cells are exactly the catalogue",
+   "ok": true,
+   "detail": null
+  }
+ ],
+ "files": {
+  "nan": {
+   "file": "gemsdoe67-ovtr-ml-cover-tau3p0-20261012-nan.tif",
+   "sha256": "8624c5a58c681f57a6d26cab0652cfe654bcd46dc8ba68a7d5a4c0feaa29bc89",
+   "bytes": 1789755,
+   "profile": {
+    "driver": "GTiff",
+    "count": 1,
+    "dtype": "float32",
+    "shape": [
+     3730,
+     3292
+    ],
+    "crs": "EPSG:32611",
+    "transform": [
+     100.0,
+     0.0,
+     243350.0,
+     0.0,
+     -100.0,
+     4508550.0
+    ],
+    "nodata": NaN,
+    "compress": "LZW"
+   },
+   "positive_cells": 167597,
+   "nan_cells": 7111787,
+   "fraction_of_dots_within_3px_of_mapped_fault": 0.15907802645632083
+  },
+  "zero": {
+   "file": "gemsdoe67-ovtr-ml-cover-tau3p0-20261012-zero.tif",
+   "sha256": "28adc53bcaca11329c807baa5659079c25f225c5908f7874762a034cf70cab05",
+   "bytes": 1018030,
+   "profile": {
+    "count": 1,
+    "dtype": "float32",
+    "shape": [
+     3730,
+     3292
+    ],
+    "crs": "EPSG:32611",
+    "transform": [
+     100.0,
+     0.0,
+     243350.0,
+     0.0,
+     -100.0,
+     4508550.0
+    ],
+    "nodata": null
+   }
+  },
+  "zip": {
+   "file": "gemsdoe67-ovtr-ml-cover-tau3p0-20261012.zip",
+   "sha256": "7bb2b6d7c02974f98382388310b8739d5229f914e2a33a974bf4994d2bd39eea",
+   "bytes": 699997,
+   "member": "gemsdoe67-ovtr-ml-cover-tau3p0-20261012-nan.tif"
+  }
+ },
+ "all_checks_pass": true
+}

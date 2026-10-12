@@ -1,7 +1,7 @@
 """Lane-67 orchestration: e1 (verify + canary + heads), e2 (holdout arms),
 e3 (ship the validated GeoTIFF), unique (registry gate).
 
-Run with ``PYTHONPATH=vendor/template66:src``:
+Run with ``PYTHONPATH=vendor:src``:
 
     python scripts/run_lane_ef0d41a0.py e1
     python scripts/run_lane_ef0d41a0.py e2
@@ -28,7 +28,7 @@ import numpy as np
 from scipy import ndimage as ndi
 
 ROOT = Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(ROOT / "vendor" / "template66"))
+sys.path.insert(0, str(ROOT / "vendor"))
 sys.path.insert(0, str(ROOT / "src"))
 
 from gems57 import emit as emit_arm                # noqa: E402

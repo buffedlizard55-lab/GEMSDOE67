@@ -1,0 +1,25 @@
+{
+  "evidence_class": "PROVENANCE-PIN",
+  "purpose": "sha256 pins for the official 19-band competition feature stack, which this sandbox cannot download from the DrivenData data tab (login required) but which the owner publishes, pinned, as a five-part git bridge in GEMSDOE:data/bridge.",
+  "canonical_name": "training_features.tif",
+  "official_data_tab": "https://www.drivendata.org/competitions/306/competition-doe-gems/data/",
+  "manifest_source": "https://github.com/buffedlizard55-lab/GEMSDOE/blob/main/data/bridge/manifest.json",
+  "reassembly_contract": "https://github.com/buffedlizard55-lab/GEMSDOE/blob/main/scripts/assemble_data_bridge.py",
+  "reproduce": "bash scripts/fetch_feature_stack.sh   (writes ~/.cache/gems/training_features.tif, outside git)",
+  "whole_file": {"bytes": 418912844, "sha256": "4371c82e3b8339b807bdffcf4ef59a225520fe2988d521be208ae33743123bc5"},
+  "parts": [
+    {"name": "gems-geodawn-numerical-features.tif.part-000", "bytes": 94371840, "sha256": "0a330f8951af6c921029e25c84a579319d2db554d62d30d894d6ddc97f98cff7"},
+    {"name": "gems-geodawn-numerical-features.tif.part-001", "bytes": 94371840, "sha256": "3c98037b2c997e3bbfcdfc2d9a982e8b820a77410dd7404b05cdb80594922c50"},
+    {"name": "gems-geodawn-numerical-features.tif.part-002", "bytes": 94371840, "sha256": "c375c4dbc40c59bbaece572b5e348700b75935f9a30c879c82b6417e0836f31c"},
+    {"name": "gems-geodawn-numerical-features.tif.part-003", "bytes": 94371840, "sha256": "b164159e6d0cb2595bc9f63a948af2646b124114a9c5921880c7516092137320"},
+    {"name": "gems-geodawn-numerical-features.tif.part-004", "bytes": 41425484, "sha256": "fa0a6f9c936fac1d6f20ca37f5929b2d60bf7a80f3d477dcab886f941aee2696"}
+  ],
+  "bands": 19,
+  "grid": {"crs": "EPSG:32611", "shape": [3730, 3292], "transform": [100.0, 0.0, 243350.0, 0.0, -100.0, 4508550.0]},
+  "local_verification": {
+    "verified_utc": "2026-10-11T01:41Z",
+    "all_five_part_pins_match": true,
+    "whole_file_pin_match": true,
+    "rasterio_open": {"count": 19, "dtype": "float32", "crs": "EPSG:32611", "height": 3730, "width": 3292, "transform_matches_sample_submission": true}
+  }
+}

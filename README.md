@@ -1,344 +1,407 @@
-# GEMSDOE67 — Lane 67: supervised orientation head + tip/junction head
+# GEMSDOE67 · three lanes: orientation/tip decoding (`main`), orientation-voted evidence (OVTR) and an independent orientation/tip re-implementation (lane `ef0d41a0`)
 
-**Verdict: NEGATIVE RESULT. The ship gate is not met — this lane's artifact is for
-inspection only and is not recommended for submission.** Every number below is labelled
-with the instrument that produced it. Nothing here is an organizer receipt.
+## Submission status — read this table first
 
-| | |
-| --- | --- |
-| Lane | 67 — axial orientation head + tip/junction head + orientation-aware decode |
-| Artifact | `docs/downloads/gems67-*-zeros.tif` (float32, EPSG:32611, 3730×3292, values {0,1}) |
-| Format check | PASSES `gems57.validate` (13/13 checks, range [0,1] guaranteed) |
-| Lane gate (DTI gain + masked-tip recovery) | **NOT MET** |
-| Registry gate | **NOT CERTIFIABLE** from this sandbox (and the literal overlap threshold fires on a
-dense prior — see Irregularities IR-67-OVERLAP-01) |
-| Recommended action | do not spend a weekly submission slot on this artifact |
+| lane | branch / merge | status | measured HOLDOUT-DTI |
+| --- | --- | --- | --- |
+| **OVTR** — orientation-voted evidence, calibrated greedy kernel-cover | `arena/c331a9d8` (PR #2) | **DOWNLOAD READY** — verified artifact offered below | **0.2691** pooled (4 folds, 60 594 withheld px); 22/22 format checks pass with a second GDAL build; registry check *distinct lane* |
+| **ORIENT/TIP** — axial + tip heads, geometry-aware decoding | `arena/cfeaa9d4` (PR #1, already on `main`) | **NEGATIVE · DOWNLOAD BLOCKED** — do not submit a file from that run | 0.0344 (joint) / 0.0404 (segmentation control) |
+| **ORIENT/TIP 2** — the same brief re-implemented independently | `arena/ef0d41a0` (PR #5) | **NEGATIVE · NO DOWNLOAD OFFERED** — repository policy forbids a download button for a negative lane; record raster kept at `docs/downloads/gems67-axial-field-ranked-37654-20261012T020908Z-zeros.tif` | **0.01368** pooled (instrument A, 11 318 withheld px) / **0.00792** [0.00181, 0.01519] (instrument B, `gems57-pooled-hide-v2`, 11 321 withheld px) |
+
+The three statements do not conflict: they are different lanes with different measured numbers. **Two
+independent implementations of the same orientation/tip brief (lanes `cfeaa9d4` and `ef0d41a0`) both
+came out negative** — that agreement is the useful part of lane `ef0d41a0`; its status page is
+[`docs/status-ef0d41a0.html`](docs/status-ef0d41a0.html) and its run card
+[`docs/run-card-ef0d41a0.json`](docs/run-card-ef0d41a0.json). The
+blocked status belongs to the orientation/tip lane and is preserved verbatim on its own page —
+[`docs/status-cfeaa9d4.html`](docs/status-cfeaa9d4.html) — with its run card still at
+[`docs/run-card.json`](docs/run-card.json). The OVTR lane's card is
+[`docs/run-card-ovtr.json`](docs/run-card-ovtr.json) and its one-click download page is
+[`docs/index.html`](docs/index.html). **No competition slot has been used by either lane**;
+promotion into a slot is a separate selector decision inside the weekly cap shown on the submission
+page.
 
 ---
 
-## 1. Download / submit — read this first
 
-* `docs/downloads/` holds the ready-to-upload file, its `.zip`, and a JSON receipt.
-* **Do not submit it.** The evidence in §5 says the mechanism did not beat the shared
-  template's own decimated-lattice control on either of the lane's two instruments, so
-  there is no measured reason to expect it to beat a plain submission.
-* How a submission is actually made (official wording, fetched 2026-10-12 from the
-  [competition home page](https://www.drivendata.org/competitions/306/competition-doe-gems/)):
-  1. Click **"Compete!"** in the sidebar on the competition home page to enrol.
-  2. Download the data from the **data** tab (login required — see §7, this sandbox cannot).
-  3. Click **"Submit"** in the sidebar, then **"Make new submission"**, upload the `.tif`,
-     give it a name and a short description.
-* Format rules (verbatim from the
-  [problem description, page 967](https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/)):
-  same projected CRS as training (**UTM 11N, EPSG 32611**), same 100 m resolution, same
-  bounds with data outside the footprint null/NaN, single layer, **float32**, values
-  **0–1** with higher = more likely. The prior failure mode "Predicted values must be in
-  range [0, 1]" is explicitly checked here: `range_0_1_guaranteed: true`.
-* Competition end date: **Dec 3, 2026, 11:59 p.m. UTC**. Prize pool $300,000
-  (Initial round: top 5 × $10,000; Final round: $100k/$70k/$40k/$25k/$15k).
-* **Outside-footprint values are written as 0, not NaN.** The organizer wording permits either
-  ("data outside null/NaN"), the metric only evaluates inside the footprint, `0` is unambiguously
-  inside [0, 1] and cannot be re-read as a sentinel. `validate_submission.py` confirms
-  `outside_footprint_zero: true` and `range_0_1_guaranteed: true`.
+## Submission status of the orientation/tip lane: **NOT READY — do not submit a file from *that* run**
 
-## 2. Official links for manual review
+[Project website](https://buffedlizard55-lab.github.io/GEMSDOE67/) ·
+[Executive submission guide](https://buffedlizard55-lab.github.io/GEMSDOE67/docs/executive-summary.html) ·
+[Research and irregularities](research/review.md) · [Run card](docs/run-card.json)
 
-| Source | Link |
-| --- | --- |
-| Competition home (rules, prizes, "How to compete") | https://www.drivendata.org/competitions/306/competition-doe-gems/ |
-| Problem description (metric, submission format, label expansion) | https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/ |
-| About / resources | https://www.drivendata.org/competitions/306/competition-doe-gems/page/968/ |
-| Data download (login) | https://www.drivendata.org/competitions/306/competition-doe-gems/data/ |
-| Public leaderboard | https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/ |
-| Official rules | https://www.drivendata.org/competitions/306/competition-doe-gems/rules/ |
-| Organizer reference solution | https://github.com/drivendataorg/gems-prize-reference-solution |
-| Forum (question on metric/format) | https://community.drivendata.org/c/gems-prize-challenge/111 |
+A unique, gate-passing submission TIFF is the goal, **not a deliverable we can claim before
+evidence exists**. No previous submission is copied into a new submission. No dummy TIFF,
+renamed historical raster, projected leaderboard score, or unconditional download button.
+Negative results are deliverables. No competition slot is consumed by this repository.
 
-## 3. THE WORKING BRIEF (session prompt — read this first, every time work starts)
+## Starting point — read at every session
 
-> **Goal.** Win/place high in the DrivenData **DOE GEMS** challenge
-> (https://www.drivendata.org/competitions/306/competition-doe-gems/). Beat the current
-> published high score **0.3195**; the live leaderboard's #1 was **0.4275** when this lane
-> started. Be contrarian but smart; keep everything grounded in proper scientific
-> research; prefer free, official, publicly available data. Follow the Arena AI core
-> values — *Maximize P(Win)*, *Own the Outcome*.
->
-> **Deliverables.**
-> 1. A **UNIQUE** TIF submission (never copy a prior submission except to learn from it),
->    and it must be **obvious whether the file is OK to download and submit**.
-> 2. An easily downloadable submission TIF matching the prompt, exposed from a GitHub
->    Pages site whose **executive summary states at the very start exactly how to submit**
->    (download file → upload to competition sidebar → "Make new submission"), plus an
->    executive-summary subpage. Clean, user-friendly UI.
-> 3. This README must contain the prompt as the working base.
-> 4. Official verified links for manual review. **No hallucinations** — verify line by
->    line; flag irregularities for human review.
-> 5. A unique submission name and a short identifying note (≤140 characters).
-> 6. No manual input required from the user; the system must do its own checking and
->    publish an up-to-date feed.
->
-> **Method paragraph to implement.**
-> * An **orientation head** supervised with `cos2θ`/`sin2θ` targets computed within 3 px of
->   the catalogue traces (axial frame, so a fault and its reverse are the same orientation).
-> * A **tip/junction heatmap head** with a Gaussian (σ = 1–2 px) target at polyline
->   endpoints and junctions.
-> * **Orientation-aware non-maximum suppression** across strike, followed by a
->   **hysteresis** walk that can bridge gaps and **extend past a tip along the predicted
->   orientation while support persists**.
-> * **Calibrated greedy marginal-DTI selection** of nodes, *or* nodes on a 4–5 px spacing
->   lattice when the marginal rule is not identifiable.
-> * **Gate:** a DTI gain **and** better recovery of masked tip-adjacent segments in
->   hide-and-recover blocks. Only offer the download if the gate is met; otherwise log the
->   negative result (negative results are deliverables).
-> * **Finish:** normalise to [0, 1], float32, EPSG:32611, 100 m GeoTIFF, NaN only outside
->   the footprint, pass `validate_submission.py`, and run a hash/pixel-agreement check
->   against **all** prior rasters.
->
-> **PARALLEL-RUN PROTOCOL (binding).** Stay in lane: ≤ 0.90 rank correlation with any
-> registry raster; ≤ 70 % of dots within 3 px of one registry raster's dots; otherwise log
-> the duplicate and stop. Reuse the cached feature stack, `evaluate_holdout.py` and
-> `submission_writer.py`. Holdout = **hide-and-recover with pixel-exact masking**, pooled
-> **DTI α = 0.2, β = 0.8**, 300 m triangular kernel. Label every number **HOLDOUT-DTI
-> (evaluator version, withheld positives, 95 % CI)** or **ORGANIZER-CONFIRMED**. Leakage
-> canary: single-feature AUC > 0.90 is leakage until proven otherwise. Finish with one JSON
-> run card: hypothesis, mechanism, mimic process, holdout DTI + CI, correlation/overlap vs
-> registry, raster sha256, validator output, submission name + ≤140-char note, verdict.
-> **Budget: stop after 3 experiments or 2 hours.** Promote/negative, no third option.
->
-> **Also asked for.** (a) An analysis of why
-> `h33-h33-2-b2-20261004T220000Z-e5eb6e7e-zeros: 0.2778` (repo GEMSDOE32) scored highest on
-> the sibling site and whether it can be beaten; (b) 3–5 new candidate geological
-> hypotheses (layering, physical signature, why each catches a fault missing from the
-> USGS/INGENIOUS catalogue, how it differs from prior work) ranked by expected DTI gain and
-> implementation cost, with the top candidate validated on the spatially-blocked holdout
-> **before** spending a weekly submission slot; (c) multi-pass execution (Pass 1 implement
-> and verify; Pass 2 review for bugs, missing requirements, wrong assumptions, edge cases
-> and fix; Pass 3 re-check against the original request and improve); (d) create a pull
-> request, merge it to `main`, and list remaining work and limitations.
->
-> **Data constraint.** DrivenData auth is unavailable here: `training_features.tif`,
-> `labels.tif`, `sample_submission.tif` and `1m_DEM_links.csv` cannot be fetched from the
-> data tab (the request redirects to login). Byte-identical mirrors were used instead and
-> are sha256-pinned in `data/bridge/manifest.json`.
+This is the maintained project brief from the user's request. Repeated wording is consolidated
+below; it is not represented as a verbatim transcript. Preserve this intent in future work.
 
-## 4. What was built
+> MUST GENERATE A UNIQUE TIF SUBMISSION FOR THE COMPETITION. DO NOT COPY A PREVIOUS
+> SUBMISSION UNLESS IT'S FOR LEARNING AND EDUCATION. IT MUST BE OBVIOUS WHETHER IT IS
+> OK TO DOWNLOAD AND SUBMIT THE GENERATED TIF SUBMISSION.
 
-```
-src/gems67/fields.py   30 per-(band, scale) descriptor channels, disk-backed (float16 on disk)
-src/gems67/heads.py    streaming ridge fits: axial orientation head, tip/junction head,
-                       trace graph from the polyline catalogue, circular error, block AUC
-src/gems67/decode.py   across-strike NMS, hysteresis march with tip extension, spacing
-                       decimation, 200 m catalogue exclusion
-src/gems67/arms.py     arm bank (orient_ext / orient_noext / lattice_d3 / random /
-                       orient_marginal), tile ranking, masked-tip recovery
-scripts/run_lane67.py  e1 verify+canary+heads, e2 arm comparison, e3 ship+validate+unique
-scripts/build_prior_index.py  honest registry index (51 mirrored priors of 751 inventory blobs)
-scripts/fetch_data.sh  re-derive the pinned inputs from GitHub mirrors
-tests/                 12 tests over the physics conventions, decode geometry, budget
-                       mechanics and both gates
-```
+### Mandatory lane and parallel-run protocol
 
-The evidence stack is **15 of the 19 official bands** (magnetic 1/2/3/6/9/14; strain 4/7/8;
-gravity 5/11/13/18; seismic 10/16; topography 12/19; subsurface 15/17 — six of these are
-used) at **two scales (σ = 1.5 px and 3.0 px)**, each contributing an axial frame
-(`w·cos2θ`, `w·sin2θ`) plus an energy channel = 30 channels, built once in 129 s and cached.
+1. **Orientation/tip heads only.** Joint segmentation, axial `(cos 2θ, sin 2θ)` supervision
+   within 3 px of catalogue traces; Gaussian endpoint/junction supervision σ = 1–2 px.
+   Orientation-aware non-maximum suppression and hysteresis; continuation beyond mapped
+   tips only with predicted-direction and persistent probability support. Greedy calibrated
+   marginal-DTI allocation or 4–5 px node spacing. Do not assume a universal truncation length.
+2. **Reuse, don't rebuild.** Use cached feature inputs and shared `evaluate_holdout.py` /
+   `submission_writer.py`. Whole segments hidden with a buffer; catalogue-derived features
+   use visible faults only; mask visible faults pixel-exactly. Pool DTI terms with α = 0.2,
+   β = 0.8 and a 300 m triangular kernel. Fix shared defects in the template, not privately.
+3. **Distinctness.** Before production placement and again on final dots compare to the
+   registry. Rank correlation exceeding 0.90 or over 70% of candidate dots within 3 px of
+   one prior raster is a duplicate: log and stop. Hash and pixel agreement checks cover all
+   prior rasters; missing registry coverage is not success.
+4. **Leakage canary.** Test each feature alone on the holdout. AUC above 0.90 is leakage
+   until explained. Low AUC alone does not prove safety.
+5. **Evidence.** Scores are HOLDOUT-DTI (evaluator version, withheld positives, 95% CI) or
+   ORGANIZER-CONFIRMED (submission-page receipt). A projection is never a score. Unverified
+   user-reported history remains unverified. Conflicting leaderboard reports must be flagged.
+6. **Promotion gate.** Beat the comparable current holdout best and improve recovery of
+   masked tip-adjacent segments. Then normalize to [0,1], write single-band float32
+   EPSG:32611, 100 m GeoTIFF on the sample's exact shape/transform; NaNs, if any, only outside
+   the footprint. Run `validate_submission.py`, uniqueness and hash/pixel checks. Offer a
+   download only after all gates pass; otherwise log the negative result.
+7. **Run card.** One JSON card records hypothesis, mechanism, named non-fault mimic,
+   holdout DTI/CI, registry comparisons, raster SHA-256, validator output, submission name,
+   note ≤140 characters, and verdict promote/negative. Null means unmeasured, not zero.
+8. **Budget.** Stop after 3 experiments or 2 hours. Real submission-slot promotion is a
+   separate selector step within the weekly cap shown on the submission page. Never assume
+   that cap, auto-submit, or spend a slot during research.
 
-## 5. Results
+### Research, product and ownership requirements
 
-### 5.1 Leakage canary — clean
-Max single-feature AUC against the withhold mask **0.6122** (bar 0.90), so no descriptor
-alone leaks the holdout. `evidence/e1_verify_canary_heads.json`.
+- Review the repository and previous-session work before implementation. Generate 3–5
+  geological hypotheses, name specific layers, physical transforms/signatures, missing-fault
+  rationale, non-fault confounder and differences from implemented methods. Rank expected
+  holdout utility and cost without presenting speculative scores. Check any new official
+  free data source is obtainable before calling a dependent hypothesis viable.
+- Study the related GEMSDOE work, especially GEMSDOE32 H33-2-B2, but never relabel its raster
+  as new science. Explain how sparsity and the metric interact and why that is not proof of
+  future leaderboard performance. The discovery target is missing faults relevant to
+  geothermal exploration, not unverified claims of vent discovery.
+- Use official, trusted sources where obtainable; preserve source URLs, verification state,
+  hashes, irregularities and limitations for manual review. Do not claim line-by-line
+  official verification where authentication or network policy prevents it.
+- Work autonomously without requesting credentials. Restore obtainable data, test on CPU
+  where possible, and document actual blockers instead of repeating stale setup claims.
+- Build a clean GitHub Pages site. Executive summary and submission readiness belong at
+  the beginning. A future approved artifact has one-click download, unique name and a short
+  note; unapproved candidates have no TIFF link. Provide exact contest upload instructions.
+  A static page cannot itself train a model. Clearly date feed/snapshot evidence, never fake
+  a live leaderboard or current verification.
+- Perform three passes: implement/test; review bugs/assumptions/edge cases and fix; recheck
+  against this brief and document unmet requirements. Open a PR and merge it only after
+  checks. Record next steps and limitations for the next session.
+- **Maximize P(Win):** evidence-based tradeoffs over impressive-looking unvalidated results.
+  **Own the Outcome:** investigate and fix end-to-end failures; a truthful negative is more
+  valuable than an unsafe submission. These values do not authorize invented evidence.
 
-### 5.2 The two heads work, but the tip head is weak
-| Head | Measurement | Instrument |
-| --- | --- | --- |
-| Orientation | circular MAE **20.77 / 23.78 / 20.27 / 25.98**° across 4 blocked folds vs **24.18 / 26.55 / 28.48 / 29.97**° for the unweighted aggregate and **61.6 / 56.3 / 60.9 / 51.8**° for the constant-frame baseline | spatial blocks, supervision within 3 px of visible traces |
-| Tip/junction | AUC **0.5817** (6 × 200 px blocks, 8,000 positives / 24,000 negatives) vs **0.4500** for the aggregate-evidence control | on-trace negatives ≥ 2 px from any tip |
+### Competition and source starting points from the request
 
-The orientation head beats both controls, so `cos2θ`/`sin2θ` is learnable from these bands.
-The tip head is only 0.13 AUC above a control that has essentially no skill — it is a real
-but weak signal, and §5.4 shows it did not translate into recovered tips.
+- [Overview](https://www.drivendata.org/competitions/306/competition-doe-gems/)
+- [Problem / metric](https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/)
+- [About](https://www.drivendata.org/competitions/306/competition-doe-gems/page/968/)
+- [Data](https://www.drivendata.org/competitions/306/competition-doe-gems/data/)
+- [Leaderboard](https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/)
+- [Official reference](https://github.com/drivendataorg/gems-prize-reference-solution)
+- [Prize PDF](https://docs.nlr.gov/docs/fy26osti/96647.pdf)
+- [USGS GeoDAWN](https://www.usgs.gov/data/geodawn-airborne-magnetic-and-radiometric-surveys-northwestern-great-basin-nevada-and)
+- [INGENIOUS](https://gbcge.org/current-projects/ingenious/) · [GDR 1391](https://gdr.openei.org/submissions/1391)
+- [Batra DOI](https://doi.org/10.1109/CVPR.2019.01063) · [Southampton 76146](https://eprints.soton.ac.uk/76146/)
+- [EPSG](https://epsg.io/32611) · [Tversky overview](https://en.wikipedia.org/wiki/Tversky_index)
+- [GEMSDOE32 site](https://buffedlizard55-lab.github.io/GEMSDOE32/docs/index.html)
+- Full related-repository tree inventory: [JSON](evidence/repository_inventory.json).
+  This preserves discovered raster/tool paths, not verification of all published results.
+- Source-by-source verification table: [CSV](research/sources.csv).
 
-### 5.3 Arm comparison — the mechanism does not beat the control
-HOLDOUT-DTI, protocol α = 0.2, β = 0.8, 300 m triangular kernel. Two instruments were run:
-**A = withheld segments** (`gems57.holdout`, pixel-exact masking, 4 quadrants, 11,318
-withheld positive px) and **B = withheld whole components** (evaluator version
-`gems57-pooled-hide-v2`, 11,321 withheld positive px, paired 20 km-block bootstrap, 1,000
-draws, seed 520810). Full JSON: `evidence/e2_arms_holdout.json`.
+## What is actually implemented
 
-| Arm | dots | HOLDOUT-DTI (A) | HOLDOUT-DTI (B) [95 % CI] |
-| --- | --- | --- | --- |
-| `orient_ext` (NMS + hysteresis + tip extension) | 3,604 | 0.01368 | 0.00792 [0.00181, 0.01519] |
-| `orient_noext` (same, extension off) | 3,180 | 0.01365 | 0.00725 [0.00159, 0.01437] |
-| `lattice_d3` (shared decimation, 3 px) | 5,270 | 0.02218 | 0.01263 [0.00520, 0.02141] |
-| `random` (matched count) | 5,944 | 0.01088 | **0.01295** [0.01018, 0.01572] |
-| `orient_marginal` (marginal-DTI rule) | 207 | 0.00025 | 0.00149 [0.00000, 0.00461] |
+- Hash-checked owner-mirror restoration and grid audit; source arrays excluded from Git.
+- Unmodified commit-pinned shared GEMSDOE60 `gems57` evaluator, spatial folds and writer.
+- Feature-alone canaries on buffered spatial folds.
+- Small CPU shared-trunk neural research prototype with axial and heatmap heads feeding a
+  second segmentation stage; raster/PCA proxy labels, orientation NMS, supported directional
+  hysteresis and 5 px node spacing. **Not Batra's spatial CNN, not original polyline labels,
+  not a complete production mapped-tip extension implementation.**
+- One matched segmentation-control experiment, pooled spatial-bootstrap DTI and tip recall.
+- Strict format-validation wrapper, scoped uniqueness comparisons and fail-closed release
+  decision utility. No global-registry or production-artifact approval is implied.
+- Tests, reproducible receipts and a static status/guide site.
 
-Readings:
-* **Tip extension is a null effect**: `orient_ext − orient_noext = +0.00067`
-  (95 % CI [−0.00009, +0.00200]) on instrument B — the interval touches zero.
-* The orientation decode **loses to the plain lattice control in 3 of 4 worlds** and to the
-  matched-count random arm on instrument B (`−0.00503`, 95 % CI [−0.01174, +0.00256]); on
-  instrument A it does beat random (0.0137 vs 0.0109) but loses to the lattice.
-* The calibrated marginal rule (`orient_marginal`) emits almost nothing (185–1,017 dots)
-  and scores ≤ 0.0009: on this field the marginal test is **not identifiable**, because the
-  surrogate rewards the posterior that placed the dots (§6).
-* The 88.5 % of tip-fold truth that lies within 5 px of a visible trace is **not** something
-  this lane can exploit: instrument A is built so that withheld truth is reachable, and the
-  arms still do not close the gap.
-
-### 5.4 Shipped artifact
-HOLDOUT-DTI of the shipped 37,654-dot raster: **0.00989 (A)** / **0.00669 (B)**, CI
-[0.00439, 0.00926] — written by the `e3` step of `scripts/run_lane67.py` and recorded in
-`evidence/e3_submission_receipt.json` together with the validator output and the sha256.
-The same code path measured on the *live analogue* of the fold mask (exclusion applied only
-around the catalogue the world knows about, so withheld truth stays reachable, as it would
-be for a genuinely new fault) rises monotonically with the budget to **0.0593** at 37,654
-dots — i.e. 4.6 × the `random` arm at 1/6 the budget. That is the honest "what this would
-score if it were submitted live" estimate, and it is produced by *budget*, not by any of
-this lane's mechanisms.
-
-## 5.5 Why 0.2778 scored highest, and what 0.3195 needs
-
-Source: the sibling lane's byte-verified post-mortem of
-`h33-h33-2-b2-20261004T220000Z-e5eb6e7e-zeros`, sha256
-`c55bafc470054e8271dcb89347a17e07fefe50de6af6e6ba6c4b169ef7ab6fa9`, mirrored here as
-`registry/rasters/gemsdoe32_h33_2_b2_02778_zeros.tif`. Every figure is
-**sibling-measured / owner-reported**, not an organizer receipt.
-
-| Property | Value |
-| --- | --- |
-| Dots | 37,654, median nearest-neighbour spacing 3.0 px |
-| Distance to the mapped catalogue | minimum 223.6 m; **0 px** within 200 m |
-| Lineage | = `gems24-d2-8` (0.2600) minus its 6,436-px ring inside 200 m of the catalogue |
-| Credit density T/\|G\| | 5,223 / 14,088.7 px = **13.87 %** |
-| Bar for 0.3195 | 15.95 % credit density — ~2 points, ≈2,250 more credited pixels at the same \|G\| |
-| Marginal rule | a dot helps iff its expected credit exceeds α·DTI (0.0556 at 0.2778 → 283 m) |
-| Identical-mass scatter control | 0.0778 — **placement dominates recall** |
-
-Three falsifiable requirements follow: (1) a detector that ranks *off-catalogue* faults above
-catalogue-free ground; (2) an instrument tied to the scored population; (3) mass discipline at fixed
-credit. This lane spent its budget on (2) and lost. Already **measured-dead** in the sibling register:
-catalogue fitting, external catalogues as positive priors, topography-only selection, 1 m LiDAR.
-
-## 5.6 Four candidate hypotheses for the next lane, ranked by expected DTI gain per unit cost
-
-| # | Hypothesis | Layer / physical signature | Why it finds what the catalogues miss | Cost |
-| --- | --- | --- | --- | --- |
-| 1 | **Relay-ramp connectors** between mapped strands | the lane's own axial frame: where two traces step over, the connector runs along the predicted strike of both | mappers end strands where exposure ends; the connector is buried. Nothing external needed — this lane's failure was the instrument, not the geometry | very low |
-| 2 | **Cover-step faults** | depth-to-basement (15) / conductivity (17) step co-aligned with a magnetic (2/14) or gravity (13/18) lineament | Quaternary surface mapping cannot see faults under basin fill; a basement step coinciding with an independent potential-field lineament is a fault candidate | low |
-| 3 | **Geothermal-manifestation collinearity** | GDR springs and volcanic vents + INGENIOUS 2 m temperature (DOI 10.15121/1881483) | blind faults leak heat along strike; the test set is *newly identified* faults in a geothermal province. Not a fault map prior, so it avoids the measured-dead route | medium |
-| 4 | **Demagnetised damage zone** | magnetic lows (2/14) elongated along strike with tilt-derivative (6) edges | hydrothermal alteration destroys magnetite in the damage zone and survives burial — the signal sits exactly where no trace exists | medium-high |
-
-All four inherit the brief's rule: validate on the spatially-blocked holdout **before** touching a
-weekly submission slot — and, given IR-67-INSTRUMENT-01, build the instrument first.
-
-## 6. Irregularities flagged for human review
-
-* **IR-67-OVERLAP-01 — the registry overlap gate cannot be satisfied.**
-  `gems13_r13_lattice_s5_00904` (206,895 dots) has a 3 px halo covering **99.87 %** of the
-  footprint; a *uniformly random* 37,654-dot set scores **0.9988** forward overlap against
-  it. Any dense candidate therefore trips the inherited "> 70 % within 3 px" stop gate. The
-  same gate also fires on the 0.2778 champion (`worst_overlap = 1.0000`,
-  `duplicate_count = 40`), so it is not discriminating between good and bad entries. The
-  vendored module documents this failure mode on purpose ("the audit reports the problem,
-  rather than quietly changing the owner's protocol"); this lane reports it and does not
-  exempt itself.
-* **IR-67-MARGINAL-01 — the calibrated marginal rule is degenerate here.** The shared
-  surrogate's covered credit `T` grows with every added dot because dots are scored against
-  the posterior that placed them: `surrogate_dti` is monotone in the budget
-  (0.247 → 3.533 across 500 → 37,654 dots). A "calibrated greedy marginal-DTI selection"
-  therefore cannot select; the lane used the 3 px decimation geometry instead and says so
-  on the run card.
-* **IR-67-CATALOGUE-01 — two catalogues disagree.** Only **36.4 %** of the vector trace
-  pixels lie within 1 px of the raster label pixels (the raster is 100 % within 1 px of the
-  vector), with 126,344 vector pixels outside the footprint. The external vector compilation
-  is a superset of the revealed labels; the score is defined against the raster labels only.
-* **IR-67-INSTRUMENT-01 — the two instruments disagree in direction** (§5.3: instrument A
-  prefers the lattice over random, instrument B prefers random over the lattice at equal
-  budget). A sibling lane already measured holdout-DTI vs the public leaderboard as
-  uncorrelated (Spearman −0.10). Consequences: a "gate" expressed as a DTI gain is not
-  adjudicable with these instruments, and the honest verdict is negative on the evidence
-  available rather than "promote".
-
-## 7. Data and provenance
-
-`data/bridge/manifest.json` pins every raster by sha256. Verified in this sandbox:
-
-| File | sha256 (prefix) | Bytes |
-| --- | --- | --- |
-| `training_features.tif` | `4371c82e3b8339b8…` | 418,912,844 |
-| `labels.tif` (== `existing_faults.tif`) | `7ba308cc…` | int8, nodata −1 |
-| `sample_submission.tif` | `2176d08e…` | NaN outside footprint |
-| `trace_segments_utm11.csv` | `c5edf9df…` | 5,283,577 (84,331 segments) |
-
-The 418.9 MB feature stack is **not committed** (GitHub's 100 MB blob limit); use
-`scripts/fetch_data.sh`, which re-derives it from the GitHub mirror tarball
-`https://codeload.github.com/buffedlizard55-lab/GEMSDOE/tar.gz/c0c06ac82178f26b94fce3397036ef8f12a2f3a0`
-(`data/bridge/part-000 … part-004` concatenated) and re-checks the digest. Dropbox mirrors
-exist for a browser but are blocked from this sandbox (`curl` → HTTP 000), as is
-`raw.githubusercontent.com`.
-
-## 8. Reproduce
+## Reproduce locally
 
 ```bash
-pip install numpy scipy rasterio pytest
-bash scripts/fetch_data.sh                 # or place the pinned rasters in data/bridge/
-python3 scripts/build_prior_index.py
-export GEMS67_FEATURES=/path/to/training_features.tif GEMS67_WORK=/tmp/gems67
-export PYTHONPATH=vendor/template66:src
-python3 -u scripts/run_lane67.py e1        # descriptors (129 s) + canary + both heads
-python3 -u scripts/run_lane67.py e2        # arm comparison, both instruments
-python3 -u scripts/run_lane67.py e3        # ship + validate + publish to docs/downloads/
-python3 -u scripts/run_lane67.py unique    # registry gate
-python3 -m pytest tests/ -q                # 12 tests, ~2 s
+python -m venv .venv
+.venv/bin/pip install -r requirements.txt
+bash scripts/download_competition_data.sh   # gh auth already configured in Arena
+.venv/bin/python scripts/prepare_data.py
+OPENBLAS_NUM_THREADS=1 .venv/bin/python scripts/run_canaries.py
+OPENBLAS_NUM_THREADS=1 .venv/bin/python scripts/run_experiment.py
+.venv/bin/python -m pytest -q
+.venv/bin/python scripts/build_site.py
+.venv/bin/python scripts/check_site.py
 ```
 
-## 9. Remaining work and limitations
+Data restoration uses allowed GitHub hosts. The initial TIFFs occupy roughly half a gigabyte;
+the memory-mapped transcode uses additional disk. A run is not a weekly submission. The fixed
+experiment has no automatic retry/tuning loop. Check the budget before manually rerunning it.
+To validate a future candidate: `.venv/bin/python scripts/validate_submission.py PATH.tif`.
+Format validation alone is never promotion or organizer acceptance.
 
-1. **The gate is not met, and the instruments cannot settle it.** Next step is to build an
-   instrument tied to the scored population (an off-catalogue, revealed-preference
-   measurement) rather than another arm.
-2. **Registry certification is impossible from the sandbox** — 51 of 751 inventory blobs are
-   mirrored. Fetch the rest (`gh api`) or run the gate in an environment with the full
-   mirror before any real submission.
-3. **The marginal-DTI rule needs the metric's own algebra, not a posterior surrogate**; the
-   surrogate is degenerate by construction whenever the score is evaluated against the same
-   posterior.
-4. **Not attempted in this lane (deliberately outside budget):** external geologic layers
-   (SGMC/QFaults/χ/2-m temperature), a learned per-band weighting, multi-fold ensembling,
-   and the 0.2778 post-mortem's "credit density" strategy as an explicit objective.
-5. **The shipped raster is a dense lattice**, so it inherits IR-67-OVERLAP-01 and any
-   organizer check on trace-adjacency (it stays ≥ 200 m from every mapped trace by
-   construction, which is the one rule the champion's lineage established).
+## Next session
 
-## 9.5 Multi-pass log (the brief requires three passes)
+Read this README, `research/review.md`, `research/hypotheses.md`, `research/verification.md`
+and the run card first. Resolve documented gates before spending a slot. The website remains
+blocked until **all** required evidence exists. No credentials belong in this repository.
 
-* **Pass 1 — implement and verify.** Built the descriptor stack, both supervised heads, the
-  orientation-aware decode, the five arms, both holdout instruments, the budget calibration, the
-  shipping path, the registry audit and the site; ran everything end to end.
-* **Pass 2 — review and fix.** Writing `tests/` exposed two real defects and one wrong measurement:
-  * `decode._shift` padded out-of-bounds neighbours with `−inf`, so `nms_across_strike` kept **every**
-    untouched border cell of an empty grid. The footprint touches the array border on all four sides
-    here, so the defect was live; fixed to clamp at the edge and the whole chain was re-run.
-  * `heads.trace_frame`'s docstring claimed the frame exists only on the mask; the tensor is smoothed,
-    so it is defined in a neighbourhood. Docstring corrected and the test now asserts the real
-    contract (unit norm wherever defined, decay away from the trace).
-  * The `e2` truth crop had to be rebuilt from `cell.truth_yx` (the holdout `Cell` has no `.truth`),
-    the tip-head negative population was circular in the first attempt (negatives now on-trace cells
-    ≥ 2 px from a tip, control = raw evidence), and the `e3` budget sweep initially measured the
-    shipped raster's own exclusion mask instead of the live analogue — all three fixed before any
-    number reached this README.
-* **Pass 3 — re-check against the brief.** Unique raster (byte- and pixel-distinct from all mirrored
-  priors); download obvious from the first screen of the site; submission procedure quoted from the
-  competition page; `validate_submission.py` provided and passing; hash/pixel agreement run against
-  every mirrored prior; run card written; 0.2778 post-mortem and four ranked candidate hypotheses
-  documented; irregularities published; no number in this file or on the site is hand-entered.
+---
 
-## 10. Lane-67 experiment ledger (budget: 3 experiments)
+# Lane OVTR (`arena/c331a9d8`) — the lane that produced the offered artifact
 
-| # | Experiment | Outcome |
-| --- | --- | --- |
-| E1 | Descriptor build + leakage canary + orientation/tip heads | canary clean; orientation head beats both controls; tip head weak (0.5817 vs 0.4500) |
-| E2 | Five-arm holdout comparison on two instruments | orientation mechanism loses to the lattice control; tip extension null |
-| E3 | Budget calibration + ship + validate + registry gate | shipped, format-valid, gate NOT MET; overlap gate shown unsatisfiable |
+> Everything from here on belongs to the OVTR lane. The lane brief and the parallel-run protocol in
+> the first half of this README govern both lanes; the numbers, artifacts and scripts below are
+> OVTR's, and its run card is `docs/run-card-ovtr.json`.
+
+## What is in this repository
+
+| path | what it is |
+| --- | --- |
+| `src/gems67/metric.py` | the competition metric, transcribed from the problem description and unit-tested against the published worked example (0.60) and a brute-force oracle |
+| `src/gems67/features.py` | geometry-aware evidence: per-band gradient structure tensor → axial orientation `(cos 2θ, sin 2θ)`, per-family lineament evidence, multi-physics axial order parameter |
+| `src/gems67/decode.py` | axial non-maximum suppression, hysteresis, tip/junction head, tip relay along the predicted orientation |
+| `src/gems67/emit.py` | calibrated greedy marginal-DTI selection and greedy kernel-cover — the two emission rules the holdout compares |
+| `src/gems67/holdout.py` | hide-and-recover folds: whole catalogue components withheld with a buffer, visible faults masked pixel-exactly when scoring |
+| `scripts/` | data preparation, feature builds, the holdout funnel, the submission builder, the registry agreement check, the ceiling analysis, the artifact verifier, the site builder, the preview renderer |
+| `docs/` | the GitHub Pages site: executive summary, how to submit, research register, sources, run card |
+| `data/registry.json` | every sha256, shape, CRS and measured count used anywhere in this repository |
+| `tests/` | metric, grid, IO, provenance and shipped-artifact tests (`pytest -q`) |
+| `evidence/ceiling.json` | the metric's algebra applied to every measured arm: coverage `c`, waste `w`, the reachable ceiling, and the coverage each target score would need — computed by `scripts/ceiling_analysis.py` |
+| `evidence/verify_*.json` | 22 format checks re-run on the published bytes by a *different* GDAL build than the writer used (`scripts/verify_artifact.py`) |
+| `docs/assets/preview-*.png` | rendered previews of the shipped emission over a shaded relief of the provided residual-elevation band (a human-eye receipt only) |
+
+---
+
+## The finding that matters most (and it is counter-intuitive)
+
+The lane's geometry-aware decoder — axial NMS, hysteresis, tip relay — produces **thin, correct
+topology and a lower score** on the holdout than emitting mass across the model's whole
+predicted region. Measured on the same four folds, same masking, same kernel:
+
+| arm (HOLDOUT-DTI, pooled over 4 folds; withheld positives = 60 594 px) | pooled DTI | emitted px / fold |
+| --- | ---: | ---: |
+| `A0` incumbent family: dots on the dilated visible catalogue | 0.0014 | 459 |
+| lane, geometry-gated (`A1_ovtr`, preregistered) | 0.1149 | 10 404 |
+| lane, same sites carrying calibrated probabilities (`A1_soft`) | 0.0034 | 10 404 |
+| random control, matched mass | 0.0760 | 10 404 |
+| supervised head, geometry gate applied as a mass filter (`ML_cover_geom_tau0.3`) | 0.1469 | 5 122 |
+| **shipped rule: greedy 3 px kernel-cover of the head's field, τ = 0.3** | **0.2691** | 40 106 |
+| same rule, τ = 0.5 (the published sibling) | 0.2207 | 16 742 |
+| same rule, τ = 0.2 / 0.1 / 0.05 (exposure sweep) | 0.2671 / 0.2579 / 0.2536 | 56 495 / 77 747 / 87 246 |
+
+Head AUC per fold 0.647 / 0.726 / 0.647 / 0.687 against 0.596 / 0.649 / 0.609 / 0.607 for the raw
+evidence alone; the single-feature leakage canary is 0.50–0.65, far below the 0.90 bar. No
+bootstrap CI was computed before the session budget stop — that gap is `IR-67-04` in the run card.
+Registry check on the shipped raster: max |rank correlation| **0.0478** (limit 0.90), max 3 px
+overlap **0.3593** (limit 0.70) — verdict *distinct lane*.
+
+Mechanism. With `α = 0.2` and `β = 0.8` the metric's denominator is dominated by
+`0.8 × |G_hidden|`, so the marginal cost of a unit of emitted mass (0.2, and only 0.2) is five
+times cheaper than leaving a truth pixel uncovered (0.8). A thin trace is *correct* geology and
+*expensive* scoring: it covers few truth pixels. The optimum is to spend mass wherever the
+model's probability of a hidden fault is non-trivial, which is what the greedy kernel-cover
+does. This is the arithmetic behind the leaderboard's mid-0.3s, and it is why the group's own
+"dotted thin" family stalls near 0.26.
+
+*(Also measured: the tip-relay step in the lane, once its acceptance test was fixed to use the
+raw evidence field rather than the thinned field, extends traces past mapped tips — but it does
+not change the pooled ranking, because the geometry gate it feeds is the binding constraint.
+Both facts are in the run card; the tip-relay bug is irregularity IR-67-02.)*
+
+---
+
+## Honest limitations
+
+* **No organizer score exists for anything here.** All numbers are holdout numbers from this
+  repository's own instrument. `docs/run-card-ovtr.json` labels each one.
+* **The instrument's truth is the old catalogue**, so it structurally cannot reward a genuinely
+  new fault; a holdout pass licenses *packaging*, never a score claim.
+* **The detector is trained on the catalogue**, so its strongest predictions are catalogue-like
+  faults. Hidden expert-mapped faults come from a source the organizers declined to describe
+  (forum thread 11527), so no local instrument can measure that generalization.
+* **Compute budget.** Everything here ran on 2 CPU cores / 3 GB RAM; the 1 m DEM and any deep
+  model were out of scope in this session (the competition ships a `1m_DEM_links.csv`, and the
+  reference solution trains a U-Net on 64-pixel tiles).
+* **Phase 2.** The Final Prize Round rescoring uses labels expanded by expert review of Phase 1
+  submissions (official forum answer, thread 11527), so a file that flags *geologically
+  defensible* new traces is worth more than a file that only maximises Phase 1 density. Both
+  properties are arguments for the shipped rule, and neither is measurable here.
+
+## Why 0.28 and not 0.43 — the root cause, with the algebra
+
+The published metric reduces exactly (`FN_w = |G| − TP_w`) to
+
+```
+DTI = c / (0.8 + 0.2·c + 0.2·w)        c = TP_w/|G|  (coverage),  w = FP_w/|G|  (waste)
+```
+
+`scripts/ceiling_analysis.py` recovers `c` and `w` for every arm from the holdout evidence alone
+(`evidence/ceiling.json`). The shipped arm sits at `c = 0.3684`, `w = 2.477`, and its **own
+zero-waste ceiling is 0.4217** — i.e. the live bar (0.4275 on 2026-10-12) is unreachable for this
+coverage *no matter how the dots are packed*, while 0.15 of headroom is still sitting in the waste
+term. Efficiency (`T/S`) ranks the families in the exact reverse of the score, which is the
+signature of a coverage-limited regime: the 0.26–0.28 band is a Pareto ridge, not a bug. Loosening
+exposure to buy coverage makes it worse (τ = 0.05: `c = 0.508`, score 0.2536). Full write-up:
+[`docs/research/why-the-ceiling.md`](docs/research/why-the-ceiling.md), rendered at
+[`docs/ceiling.html`](docs/ceiling.html). The cheapest next gain is the emission, not the data:
+**H67-A2**, credit-weighted greedy with the marginal-bar stopping rule.
+
+## Reproduce
+
+```bash
+python scripts/prepare_data_ovtr.py     # verify sha256 pins, decode the stack to /tmp/gems_data
+python scripts/build_features.py        # 19-band evidence + axial orientation + context
+python scripts/add_external_channels.py # public USGS-derived lidar/radiometric evidence
+python scripts/run_holdout.py           # arms A0..A3   -> evidence/holdout.json
+python scripts/run_holdout_ml.py        # supervised head + cover sweep -> evidence/holdout_ml.json
+python scripts/run_holdout_ml.py        # 23-channel extension   -> evidence/holdout_ml_ext.json
+python scripts/build_submission.py --name gemsdoe67-ovtr-ml-cover-tau3p0-20261012 \
+    --tau 0.30 --radius 3.0              # -> docs/downloads/*.tif, *.zip, checks-*.json
+python scripts/registry_check.py --ours docs/downloads/gemsdoe67-ovtr-ml-cover-tau3p0-20261012-nan.tif
+python scripts/verify_artifact.py        # 22 format checks with a second GDAL build
+python scripts/ceiling_analysis.py       # coverage/waste/ceiling per arm -> evidence/ceiling.json
+python scripts/make_preview.py           # site previews
+python scripts/build_site.py             # regenerate the Pages site from the JSON evidence
+pytest -q
+```
+
+## Sources (all verified in this checkout; see `docs/sources.html`)
+
+* Problem description, metric and submission format —
+  <https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/>
+* Leaderboard — <https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/>
+* Known-fault masking (DrivenData staff answer) —
+  <https://community.drivendata.org/t/11516>
+* Test-fault provenance (organizer: not disclosed) — <https://community.drivendata.org/t/11527>
+* Reference solution (U-Net, John Lipor, Portland State) —
+  <https://github.com/drivendataorg/gems-prize-reference-solution>
+* GeoDAWN airborne magnetic and radiometric surveys —
+  <https://www.usgs.gov/data/geodawn-airborne-magnetic-and-radiometric-surveys-northwestern-great-basin-nevada-and>
+* INGENIOUS project (Great Basin Center for Geothermal Energy) —
+  <https://gbcge.org/current-projects/ingenious/>
+* EPSG:32611 — <https://epsg.io/32611>
+* Tversky index — <https://en.wikipedia.org/wiki/Tversky_index>
+* GDR submission 1391 (Nevada geothermal data) — <https://gdr.openei.org/submissions/1391>
+
+---
+
+## Handover — end of the 2026-10-12 session (OVTR lane)
+
+**Done and merged.** PR #2 is merged into `main` (`6c080c0`); CI is green; the Pages site builds
+from `main:/`. Deliverables: the verified submission GeoTIFF + `.zip` + all-finite twin + receipts
+under `docs/downloads/`, the one-click site, the why-0.28 root-cause analysis, the hypothesis
+register with H67-A2 ranked first, and the run card at `docs/run-card-ovtr.json`.
+
+**Measured, for the record.** Shipped rule pooled **HOLDOUT-DTI 0.2691** (4 folds, 60 594 withheld
+positives) versus 0.0014 for the incumbent family and 0.1149 for the lane's preregistered
+geometry-gated arm. Registry check: max |rank correlation| 0.0478, max 3 px overlap 0.3593 →
+distinct lane. No organizer score exists for this file; the live bar read on 2026-10-12 is 0.4275.
+
+**Open items, in priority order.**
+1. `IR-67-04` — no bootstrap CI on the pooled DTI; add one (per-truth-pixel resample) and publish it.
+2. **H67-A2** — credit-weighted greedy emission with the marginal-bar stopping rule. Gate: beat
+   0.2691 pooled *at equal or lower emitted mass*, else log the negative. Projection ≈0.34 is a MODEL
+   number and must never be quoted as a score.
+3. H67-E thermal-spring corroboration, with its own masked holdout and without the label-derived
+   `dist_known_fault_px` column.
+4. H67-C/H67-D are blocked in this sandbox (no egress to USGS hosts); a session with egress should
+   fetch the 1 m DEM tiles named in `1m_DEM_links.csv` and the raw ComCat catalogue.
+5. The two-lane site: both lanes' pages coexist and are cross-linked; if the orientation/tip lane
+   re-runs `scripts/build_site_cfeaa9d4.py` it will overwrite the merged pages — regenerate with
+   `scripts/build_site.py` afterwards and re-run `scripts/check_site.py`.
+
+**Standing rules unchanged.** No competition slot is spent here; promotion is a separate selector
+step inside the weekly cap. Every number stays labelled HOLDOUT-DTI / ORGANIZER-CONFIRMED / MODEL.
+
+---
+
+## Lane `ef0d41a0` — an independent re-implementation of the orientation/tip brief (2026-10-12)
+
+**Verdict: negative, with four irregularities flagged.** This lane was built from the same brief as
+`cfeaa9d4` without reading that lane's code first, so the two results are an independent replication
+rather than a re-run.
+
+| what | where |
+| --- | --- |
+| package | `src/lane_ef0d41a0/{fields,heads,decode,arms}.py` |
+| runner | `scripts/run_lane_ef0d41a0.py e1\|e2\|e3\|unique` |
+| supporting | `scripts/{build_prior_index,build_run_card,build_site}_ef0d41a0.py`, `scripts/fetch_data_ef0d41a0.sh`, `scripts/validate_submission.py` (shared) |
+| evidence | `evidence/{e1_verify_canary_heads,e2_arms_holdout,e3_submission_receipt,e3_uniqueness,e3_uniqueness_gate,run_card}.json` |
+| tests | `tests/test_lane_ef0d41a0.py` (12) |
+| pages | `docs/status-ef0d41a0.html`, `docs/lane-ef0d41a0-submit.html`, run card `docs/run-card-ef0d41a0.json` |
+| irregularities | `registry/irregularities.md` |
+
+### Measured (HOLDOUT-DTI, α = 0.2, β = 0.8, 300 m kernel)
+
+Instrument A = withheld segments (pixel-exact, 11 318 withheld positives); instrument B = withheld
+whole components (`gems57-pooled-hide-v2`, 11 321 withheld positives, paired 20 km-block bootstrap).
+
+| arm | dots | A | B [95 % CI] |
+| --- | --- | --- | --- |
+| `orient_ext` (NMS + hysteresis + tip extension) | 3 604 | 0.01368 | 0.00792 [0.00181, 0.01519] |
+| `orient_noext` | 3 180 | 0.01365 | 0.00725 [0.00159, 0.01437] |
+| `lattice_d3` (shared decimation control) | 5 270 | 0.02218 | 0.01263 [0.00520, 0.02141] |
+| `random` (matched count) | 5 944 | 0.01088 | 0.01295 [0.01018, 0.01572] |
+| `orient_marginal` (calibrated marginal rule) | 207 | 0.00025 | 0.00149 [0.00000, 0.00461] |
+
+* Tip extension is a **null effect**: `orient_ext − orient_noext = +0.00067` [−0.00009, +0.00200].
+* The orientation decode **loses to the plain lattice control in 3 of 4 worlds**.
+* The learned orientation head is real (20.8–26.0° circular MAE vs 51.8–61.6° for a constant frame)
+  and the tip head is weak (AUC 0.5817 vs 0.4500 for the aggregate-evidence control) — the mechanism
+  is not broken, it is simply not informative enough about *hidden* faults.
+* Leakage canary clean: max single-feature AUC 0.6122 (bar 0.90).
+
+### Irregularities this lane adds
+
+1. **IR-67-OVERLAP-01** — the literal registry overlap gate cannot be satisfied: the prior
+   `gems13_r13_lattice_s5_00904` (206 895 dots) has a 3 px halo covering **99.87 %** of the footprint,
+   so a *uniformly random* 37 654-dot set scores 0.9988 overlap and the "> 70 %" stop fires for any
+   dense candidate — including the 0.2778 champion (`duplicate_count = 40`).
+2. **IR-67-MARGINAL-01** — the calibrated marginal-DTI rule is degenerate on this field: the shared
+   surrogate is monotone in the budget (0.247 → 3.533 over 500 → 37 654 dots), because dots are
+   scored against the posterior that placed them.
+3. **IR-67-CATALOGUE-01** — only 36.4 % of the external vector trace pixels are within 1 px of the
+   raster labels (the raster is 100 % within 1 px of the vector): the vector compilation is a superset
+   of the revealed labels.
+4. **IR-67-INSTRUMENT-01** — the two holdout instruments disagree in direction (A prefers the lattice,
+   B prefers matched random), consistent with the repository's own finding that holdout-DTI is
+   uncorrelated with the public leaderboard.
+5. **IR-67-DUPLICATE-LANE-01** — this session's brief duplicated lane `cfeaa9d4`'s brief, which was
+   already merged into `main`. The "stay in lane" rule was written for rasters; it applied to lanes
+   too and nobody checked. Nothing was overwritten: this lane's package, scripts and pages are
+   namespaced, and its own duplicate vendoring (`vendor/template66`) was deleted in favour of the
+   shared `vendor/gems57`.
+6. **IR-67-CI-01** — `python -m pytest -q` fails 3 tests (`tests/test_artifact.py` ×2,
+   `tests/test_grid_and_data.py` ×1) on a clean `main` checkout because the organizer rasters are
+   gitignored; verified on an untouched worktree of `origin/main`, not caused by this lane. This
+   lane's tests skip when the rasters are absent, so the merge adds 12 passing tests and no failures.
+
+### Reproduce
+
+```bash
+bash scripts/fetch_data_ef0d41a0.sh
+python3 scripts/build_prior_index_ef0d41a0.py
+export GEMS67_FEATURES=/path/to/training_features.tif GEMS67_WORK=/tmp/gems67
+export PYTHONPATH=vendor:src
+python3 -u scripts/run_lane_ef0d41a0.py e1 && python3 -u scripts/run_lane_ef0d41a0.py e2 \
+  && python3 -u scripts/run_lane_ef0d41a0.py e3 && python3 -u scripts/run_lane_ef0d41a0.py unique
+python3 scripts/build_run_card_ef0d41a0.py && python3 scripts/build_site_ef0d41a0.py
+python3 -m pytest tests/test_lane_ef0d41a0.py -q
+```

@@ -1,0 +1,252 @@
+{
+  "generated_utc": "2026-10-04T13:40:08Z",
+  "instrument": "gems32.holdout: 4 quadrants x draws 20/21, 20% of catalogue components hidden, 30 px collar, 20 px domain erosion; catalogue-hidden truth, SGMC off-catalogue truth with prevalence calibration",
+  "controls": {
+    "D2.8-Poisson300m-Ref": {
+      "catalogue_hidden_mean": 0.09832378835263812,
+      "sgmc_prevalence_calibrated_dti": 0.06059248997356903,
+      "drift_corrected_holdout_mean": 0.14800749967104304,
+      "drift_corrected_holdout_std": 0.018688710456139488,
+      "on_catalogue_pixels": 0,
+      "emitted_pixels": 44090,
+      "debiased_catalogue_hidden_mean": 0.19358521328570324,
+      "per_draw": {
+        "draw20": 0.105692,
+        "draw21": 0.090955
+      },
+      "per_quadrant_cat": {
+        "NW": 0.098282,
+        "NE": 0.106996,
+        "SW": 0.06745,
+        "SE": 0.120567
+      }
+    },
+    "H32-D-Submodular": {
+      "catalogue_hidden_mean": 0.10122068397615705,
+      "sgmc_prevalence_calibrated_dti": 0.061294720121546874,
+      "drift_corrected_holdout_mean": 0.15188374789388925,
+      "drift_corrected_holdout_std": 0.018377267829649487,
+      "on_catalogue_pixels": 0,
+      "emitted_pixels": 46090,
+      "debiased_catalogue_hidden_mean": 0.19887505808495196,
+      "per_draw": {
+        "draw20": 0.108078,
+        "draw21": 0.094363
+      },
+      "per_quadrant_cat": {
+        "NW": 0.098744,
+        "NE": 0.107031,
+        "SW": 0.072923,
+        "SE": 0.126184
+      }
+    }
+  },
+  "hypotheses": {
+    "H33-A": {
+      "budgets": {
+        "44090": {
+          "catalogue_hidden_mean": 0.018739863130549435,
+          "sgmc_prevalence_calibrated_dti": 0.028320919257474625,
+          "drift_corrected_holdout_mean": 0.018607400933497418,
+          "drift_corrected_holdout_std": 0.006348883924222581,
+          "on_catalogue_pixels": 528,
+          "emitted_pixels": 44090,
+          "debiased_catalogue_hidden_mean": 0.018739863130549435,
+          "per_draw": {
+            "draw20": 0.020614,
+            "draw21": 0.016865
+          },
+          "per_quadrant_cat": {
+            "NW": 0.015301,
+            "NE": 0.009637,
+            "SW": 0.017021,
+            "SE": 0.033001
+          }
+        }
+      }
+    },
+    "H33-B": {
+      "budgets": {
+        "44090": {
+          "catalogue_hidden_mean": 0.021773673138741834,
+          "sgmc_prevalence_calibrated_dti": 0.09072013499081606,
+          "drift_corrected_holdout_mean": 0.033779183350414556,
+          "drift_corrected_holdout_std": 0.0025153184706505818,
+          "on_catalogue_pixels": 346,
+          "emitted_pixels": 44090,
+          "debiased_catalogue_hidden_mean": 0.021773673138741834,
+          "per_draw": {
+            "draw20": 0.019777,
+            "draw21": 0.023771
+          },
+          "per_quadrant_cat": {
+            "NW": 0.027149,
+            "NE": 0.013686,
+            "SW": 0.021637,
+            "SE": 0.024622
+          }
+        }
+      }
+    },
+    "H33-C": {
+      "budgets": {
+        "44090": {
+          "catalogue_hidden_mean": 0.024069495661684173,
+          "sgmc_prevalence_calibrated_dti": 0.029903433060044074,
+          "drift_corrected_holdout_mean": 0.022598931533379902,
+          "drift_corrected_holdout_std": 0.004584741987852398,
+          "on_catalogue_pixels": 763,
+          "emitted_pixels": 44090,
+          "debiased_catalogue_hidden_mean": 0.024069495661684173,
+          "per_draw": {
+            "draw20": 0.024579,
+            "draw21": 0.02356
+          },
+          "per_quadrant_cat": {
+            "NW": 0.028816,
+            "NE": 0.016114,
+            "SW": 0.030572,
+            "SE": 0.020775
+          }
+        }
+      }
+    },
+    "H33-D": {
+      "budgets": {
+        "44090": {
+          "catalogue_hidden_mean": 0.003937200056531436,
+          "sgmc_prevalence_calibrated_dti": 0.004182713549823929,
+          "drift_corrected_holdout_mean": 0.0034575845307859687,
+          "drift_corrected_holdout_std": 0.0032454697140924115,
+          "on_catalogue_pixels": 717,
+          "emitted_pixels": 44090,
+          "debiased_catalogue_hidden_mean": 0.003937200056531436,
+          "per_draw": {
+            "draw20": 0.003661,
+            "draw21": 0.004213
+          },
+          "per_quadrant_cat": {
+            "NW": 0.003368,
+            "NE": 0.001043,
+            "SW": 0.0,
+            "SE": 0.011337
+          }
+        }
+      }
+    },
+    "H33-U": {
+      "budgets": {
+        "44090": {
+          "catalogue_hidden_mean": 0.020057907702526134,
+          "sgmc_prevalence_calibrated_dti": 0.029055704604094464,
+          "drift_corrected_holdout_mean": 0.018259312967151307,
+          "drift_corrected_holdout_std": 0.01066453174998221,
+          "on_catalogue_pixels": 907,
+          "emitted_pixels": 44090,
+          "debiased_catalogue_hidden_mean": 0.020057907702526134,
+          "per_draw": {
+            "draw20": 0.021,
+            "draw21": 0.019115
+          },
+          "per_quadrant_cat": {
+            "NW": 0.009454,
+            "NE": 0.007072,
+            "SW": 0.024774,
+            "SE": 0.03893
+          }
+        }
+      }
+    }
+  },
+  "budgets": [
+    44090
+  ],
+  "surface_specs": {
+    "H33-A": {
+      "name": "Multi-physics oriented-lineament consensus",
+      "layers": [
+        "rtp(2)",
+        "tmi(14)",
+        "mag_anom(1)",
+        "iso_grav_anom(13)",
+        "det_elev(12)",
+        "cond_surf(17)",
+        "depth_to_base_surf(15)",
+        "geodawn_rad K/Th/TC",
+        "lidar_scarp_features (ex_max/step_max/downface_max)"
+      ],
+      "signature": "scale-normalised Hessian line response per physics x 2nd-order orientation order parameter (do independent physics agree on the strike?)",
+      "why_off_catalogue": "the catalogue is dominated by faults that were mappable in one dataset (usually topography or the existing maps); requiring multi-physics strike agreement selects the class of curvilinear structure an expert can only accept when several fields agree",
+      "novelty": "no channel or H32 surface requires *independent* physics to agree on an orientation; features.py has per-band ridges and H32-A/C have pixel products",
+      "cost": "~40 s CPU"
+    },
+    "H33-B": {
+      "name": "Aligned drainage-valley chains",
+      "layers": [
+        "det_elev(12)",
+        "det_elev_slope(19)"
+      ],
+      "signature": "valley skeleton (NMS ridge of -det_elev) x 9-px 16-direction collinearity vote, de-emphasised where det_elev_slope is high",
+      "why_off_catalogue": "faults that lack a preserved scarp still deflect and align drainage; a collinear chain of valley segments across several drainages is structural, which a single scarp-height map cannot see",
+      "novelty": "the repo's DEM channels are all local; nothing aggregates evidence *along* a line",
+      "cost": "~25 s CPU"
+    },
+    "H33-C": {
+      "name": "En-echelon scarplet chain vote (1 m LiDAR)",
+      "layers": [
+        "lidar_scarp_features_u8 (ex_max, step_max, downface_max)"
+      ],
+      "signature": "scarplet skeleton x 11-px collinearity vote requiring contrast vs the local minimum (a scarp, not a slope break)",
+      "why_off_catalogue": "a single 1 m scarplet is noise; en-echelon collinear scarplets are what expert mappers accept as a fault, and they are below the 100 m grid",
+      "novelty": "the repo uses the LiDAR product only as a per-pixel corroboration weight",
+      "cost": "~20 s CPU"
+    },
+    "H33-D": {
+      "name": "Long-straight conductive / basement structural boundary",
+      "layers": [
+        "cond_surf(17)",
+        "depth_to_base_surf(15)"
+      ],
+      "signature": "gradient magnitude x directional coherence of the gradient direction over a 3x3 window (a straight boundary, not a blobby anomaly)",
+      "why_off_catalogue": "MT conductivity and basement depth image the *subsurface*; a straight conductivity step locates a fault under cover, where a surface catalogue has nothing",
+      "novelty": "cond_surf/depth are used as scalars or plain gradient magnitudes in features.py",
+      "cost": "~15 s CPU"
+    }
+  },
+  "surfaces": {
+    "H33-A": {
+      "mean": 0.015474921092391014,
+      "p99": 0.13155582547187805
+    },
+    "H33-B": {
+      "mean": 0.009183804504573345,
+      "p99": 0.1289394348859787
+    },
+    "H33-C": {
+      "mean": 0.003708836156874895,
+      "p99": 0.12963749468326569
+    },
+    "H33-D": {
+      "mean": 0.015717264264822006,
+      "p99": 0.13956694304943085
+    },
+    "H33-U": {
+      "mean": 1.8762869834899902,
+      "p99": 2.2223410606384277,
+      "spec": {
+        "name": "equal-weight rank union of H33-A..D (no tuned weight)"
+      }
+    }
+  },
+  "uniform_random_catalogue_hidden_control": {
+    "44090": {
+      "mean_catalogue_hidden": 0.03437807693072103,
+      "samples": [
+        0.03374830477766186,
+        0.03390874127697811,
+        0.03547718473752312
+      ]
+    }
+  },
+  "elapsed_s": 80.2
+}

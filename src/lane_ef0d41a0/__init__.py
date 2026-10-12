@@ -12,7 +12,7 @@ Lane paragraph (from the session brief, reproduced in ``PROMPT.md``):
 
 Nothing in this package writes a score.  Every measured number is produced by
 ``gems57.evaluate_holdout`` / ``gems57.metric`` (the shared template pinned in
-``vendor/template66``) and is labelled HOLDOUT-DTI with its evaluator version and
+``vendor/gems57``) and is labelled HOLDOUT-DTI with its evaluator version and
 withheld-positive count.
 """
 from __future__ import annotations

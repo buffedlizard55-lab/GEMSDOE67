@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>How to submit — GEMS lane 67</title><style>
+:root{--ink:#12161c;--muted:#5b6673;--line:#e3e8ef;--bg:#f7f9fc;--card:#fff;
+--red:#b3261e;--redbg:#fdeceb;--green:#0f7a3d;--greenbg:#e9f7ef;--amber:#8a5a00;--amberbg:#fff6e0;
+--blue:#1b4f9c;--code:#f2f5f9}
+*{box-sizing:border-box}
+body{margin:0;font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+color:var(--ink);background:var(--bg)}
+header{background:#0e1621;color:#fff;padding:28px 22px 22px}
+header .wrap{max-width:1000px;margin:0 auto}
+header h1{margin:0 0 6px;font-size:26px;letter-spacing:.2px}
+header p{margin:0;color:#b9c4d2;font-size:14px}
+main{max-width:1000px;margin:0 auto;padding:22px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:20px 22px;margin:0 0 18px;
+box-shadow:0 1px 2px rgba(16,24,40,.04)}
+h2{font-size:19px;margin:0 0 12px;padding-bottom:8px;border-bottom:1px solid var(--line)}
+h3{font-size:15px;margin:18px 0 6px;text-transform:uppercase;letter-spacing:.6px;color:var(--muted)}
+p{margin:8px 0}
+.banner{border-radius:12px;padding:16px 18px;margin:0 0 18px;border:1px solid}
+.banner.red{background:var(--redbg);border-color:#f3c2bf;color:#5c1512}
+.banner.green{background:var(--greenbg);border-color:#bfe6cf;color:#0b4d28}
+.banner.amber{background:var(--amberbg);border-color:#f0dca6;color:#5a3c00}
+.banner h2{border:0;margin:0 0 8px;padding:0;font-size:20px}
+.banner strong{font-weight:700}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0 0}
+.chip{font-size:12.5px;font-weight:600;padding:4px 10px;border-radius:999px;border:1px solid}
+.chip.ok{background:#fff;border-color:#bfe6cf;color:var(--green)}
+.chip.bad{background:#fff;border-color:#f3c2bf;color:var(--red)}
+.chip.warn{background:#fff;border-color:#f0dca6;color:var(--amber)}
+.btn{display:inline-block;background:var(--blue);color:#fff;text-decoration:none;font-weight:650;
+padding:11px 18px;border-radius:9px;margin:6px 10px 0 0}
+.btn.ghost{background:#fff;color:var(--blue);border:1px solid #c9d6e8}
+table{width:100%;border-collapse:collapse;margin:10px 0;font-size:14.5px}
+th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+th{background:#f0f4f9;font-weight:650;font-size:13px;text-transform:uppercase;letter-spacing:.4px;color:var(--muted)}
+td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
+code{background:var(--code);padding:1px 5px;border-radius:5px;font-size:13.5px}
+ol,ul{padding-left:22px}
+ol li,ul li{margin:5px 0}
+.muted{color:var(--muted);font-size:13.5px}
+.steps{counter-reset:s;list-style:none;padding-left:0}
+.steps li{counter-increment:s;position:relative;padding-left:44px;margin:12px 0}
+.steps li:before{content:counter(s);position:absolute;left:0;top:-1px;width:30px;height:30px;border-radius:50%;
+background:var(--blue);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px}
+footer{max-width:1000px;margin:0 auto;padding:10px 22px 40px;color:var(--muted);font-size:13px}
+a{color:var(--blue)}
+.kv{display:grid;grid-template-columns:220px 1fr;gap:4px 16px;font-size:14.5px}
+.kv dt{color:var(--muted)}
+.kv dd{margin:0;font-variant-numeric:tabular-nums}
+</style></head>
+<body>
+<header><div class="wrap"><h1>How to make a submission, step by step</h1>
+<p>Written for a reader who has never opened the competition before.</p></div></header>
+<main>
+<div class="banner red"><h2>Do not submit this lane's file</h2>
+<p>Lane&nbsp;67's gate was <strong>not met</strong>: the mechanism did not beat the shared template's
+control on either holdout instrument. The raster is published because the brief requires a
+downloadable, format-valid, unique GeoTIFF — it is <strong>for inspection, not for a submission
+slot</strong>. The steps below are the general procedure; use them with a file you trust.</p></div>
+
+<div class="card">
+<h2>The two-minute version</h2>
+<ol class="steps">
+<li><strong>Enrol.</strong> Open the competition page, click <em>“Compete!”</em> in the sidebar and
+accept the rules.</li>
+<li><strong>Download your raster.</strong> A valid entry is a single-layer <strong>float32</strong>
+GeoTIFF, <strong>EPSG:32611</strong> (UTM&nbsp;11N), <strong>100&nbsp;m</strong> pixels, exactly the
+same grid as <code>sample_submission.tif</code>, values in <strong>[0, 1]</strong> with higher meaning
+“more likely to be a fault”. Pixels outside the footprint must be null/NaN.</li>
+<li><strong>Check it locally before you spend a slot.</strong> Compare CRS, transform, shape
+(3730&nbsp;×&nbsp;3292), dtype and value range against <code>sample_submission.tif</code>. The single
+most common rejection is <em>“Predicted values must be in range [0, 1]”</em> — a raster written in
+0…255, or with a −9999 nodata sentinel, fails immediately.</li>
+<li><strong>Upload.</strong> On the competition page click <em>Submit</em> in the sidebar, then
+<em>“Make new submission”</em>, choose the <code>.tif</code>, add a name and a short description, and
+confirm. Uploading the <code>.zip</code> is only correct if the platform asks for an archive; when in
+doubt, upload the <code>.tif</code>.</li>
+<li><strong>Read the score, not the rank.</strong> The public score is computed against the private
+expert-labelled test set; the same submission is scored again for the Final Prize Round against an
+expanded label set built from expert review of all submissions. A week-to-week rank movement of a few
+places is usually noise.</li>
+<li><strong>Keep a record.</strong> Store the exact file, its sha256, the score and the date. This lane
+does that in <code>evidence/</code>; copying the habit saves a lot of confusion later.</li>
+</ol>
+</div>
+
+<div class="card">
+<h2>Rules that matter for this challenge</h2>
+<ul>
+<li><strong>External data is encouraged</strong> but must be licensed for the challenge and shareable
+with the organizers for independent verification.</li>
+<li><strong>Training on the provided labels is allowed</strong> even though the training and test sets
+overlap spatially: the organizers state that newly identified faults inside the GeoDAWN region are the
+test target.</li>
+<li><strong>One file per submission</strong>, single band, float32, values confined to [0, 1].</li>
+<li>Deadline: <strong>Dec 3, 2026, 11:59 p.m. UTC</strong>.</li>
+</ul>
+</div>
+
+<div class="card">
+<h2>This lane's file</h2>
+<dl class="kv">
+<dt>File</dt><dd><a >gems67-axial-field-ranked-37654-20261012T020908Z-zeros.tif</code> (record copy, not offered for upload)</dd>
+<dt>Size</dt><dd>104,326 bytes</dd>
+<dt>sha256</dt><dd><code>2ce23e71be15abe7c315516c3512ecb04f542e32537f87aa426aa6bfa191d507</code></dd>
+<dt>Name to use</dt><dd><code>gems67-axial-field-ranked-37654-20261012T020908Z</code></dd>
+<dt>Note to paste</dt><dd><code>GEMSDOE67 axial-orientation lane: 28-channel band/scale edge field, across-strike NMS + hysteresis decode, &gt;=200 m from mapped traces</code></dd>
+<dt>Should you download it?</dt><dd>Yes — it is a valid GeoTIFF and it is yours to inspect.</dd>
+<dt>Should you submit it?</dt><dd><strong>No.</strong> The gate was not met, so there is no measured
+reason to expect it to beat a plain submission (see <a href="index.html">the executive
+summary</a>). It becomes worth a slot only after a better instrument shows the mechanism gaining.</dd>
+</dl>
+</div>
+
+<p><a class="btn ghost" href="status-ef0d41a0.html">← Back to the lane status page</a></p>
+</main>
+<footer>Generated by <code>scripts/build_site_ef0d41a0.py</code>.</footer>
+</body></html>
