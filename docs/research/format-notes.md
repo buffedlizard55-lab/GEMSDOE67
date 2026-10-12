@@ -49,3 +49,17 @@ number of cells outside `[0, 1]`, and — when GDAL is available — the CRS and
 as read by **GDAL**, not by the writer. Two independent readers (`tifffile 2026.3.3` and
 `rasterio 1.4.4` / GDAL 3.10.3) are used so the georeferencing check is not self-referential.
 The receipts are published next to each download (`checks-<name>.json`).
+
+## Compression: LZW is what the template itself uses (measured)
+
+Read from the organizers' own bytes in this checkout: `labels.tif` and `sample_submission.tif`
+are both **LZW (`COMPRESSION.LZW = 5`)**, and the shipped OVTR rasters are written with the same
+codec (`docs/downloads/checks-*.json → compression: "5"`). So LZW is not a risk on the portal —
+it is the template's own choice, and every GDAL build reads it.
+
+The one practical consequence is on the *reader* side: a bare `tifffile` install cannot decode
+LZW without `imagecodecs`. That is why `imagecodecs>=2024.1` and `tifffile>=2024.1` are pinned in
+`requirements.txt` — without them the repository's own round-trip tests fail in a fresh virtual
+environment (reproduced in `/tmp/ci_venv`: three tests raise
+`KeyError: "<COMPRESSION.LZW: 5> requires the 'imagecodecs' package"`), while GDAL/rasterio reads
+the same file with no extra dependency (`scripts/verify_artifact.py` passes 22/22 either way).
